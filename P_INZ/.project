@@ -31,4 +31,16 @@
 		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>Core/Pin</name>
+			<type>2</type>
+			<locationURI>WORKSPACE_LOC/Common%20Source/Pin</locationURI>
+		</link>
+		<link>
+			<name>Core/psrc</name>
+			<type>2</type>
+			<locationURI>WORKSPACE_LOC/Common%20Source/psrc</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
