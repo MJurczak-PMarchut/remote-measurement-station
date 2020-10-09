@@ -275,6 +275,7 @@ void ExecuteCommands(void)
 				{
 					case SCAN:
 						if(BLE_START_SCAN(DiscoveryCplt) == HAL_OK){
+							SET_DECODER_STATE(BLE_SCAN);
 							PutDataToBuffer("SCAN_START\n", 11);
 						}
 						else
@@ -294,6 +295,7 @@ void ExecuteCommands(void)
 					case GET_DATA:
 						BLE_GET_DATA(&internalData[1]);
 						break;
+
 					default:
 						break;
 				}
@@ -366,21 +368,29 @@ void SYNCHRONIZE(void)
 void BLE_GET_DATA(DataDecode *Data)
 {
 	BLE_DEV_DATA *BLEDevData;
-	GetDAta = 1;
-
-	if(Data->eDataTypes == INT){
-		if(Data->vData.iData < NoOfDevices){
-			BLE_GET_DEV_DATA(Data->vData.iData, &BLEDevData);
-			if(((BLEDevData->CharPresent) & ((1<<BLE_ACC_CHAR) | (1<<BLE_GYRO_CHAR))) == ((1<<BLE_ACC_CHAR) | (1<<BLE_GYRO_CHAR)))
-			{
-//				CharHandle[0] = BLEDevData->sCharIDData[BLE_ACC_CHAR].CharHandle;
-//				CharHandle[1] = BLEDevData->sCharIDData[BLE_GYRO_CHAR].CharHandle;
-				BLE_READ_CHAR(BLEDevData->ConnectionHandle, BLE_DATA_PTR, 4*3,  &BLEDevData->sCharIDData[BLE_ACC_CHAR], Data_Recv_Single);
+//	GetDAta = 1;
+	switch(Data->eDataTypes){
+		case INT:
+			if(Data->vData.iData < NoOfDevices){
+				BLE_GET_DEV_DATA(Data->vData.iData, &BLEDevData);
+				if(((BLEDevData->CharPresent) & ((1<<BLE_ACC_CHAR) | (1<<BLE_GYRO_CHAR))) == ((1<<BLE_ACC_CHAR) | (1<<BLE_GYRO_CHAR)))
+				{
+	//				CharHandle[0] = BLEDevData->sCharIDData[BLE_ACC_CHAR].CharHandle;
+	//				CharHandle[1] = BLEDevData->sCharIDData[BLE_GYRO_CHAR].CharHandle;
+ 					if (BLE_READ_CHAR(BLEDevData->ConnectionHandle, BLE_DATA_PTR, 4*3,  &BLEDevData->sCharIDData[BLE_ACC_CHAR], Data_Recv_Single) == HAL_OK){
+ 						GetDAta = 1;
+ 					}
+				}
 			}
-		}
+			break;
+		case KEYWORD:
+			if(Data->vData.eData == ABORT)
+			{
+				GetDAta = 0;
+			}
 	}
 
-}
+ }
 void Data_Recv_Single(void)
 {
 	char Message[50];

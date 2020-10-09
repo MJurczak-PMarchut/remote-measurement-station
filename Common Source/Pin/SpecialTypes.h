@@ -94,6 +94,7 @@ typedef struct {
 
 	uint16_t 		ConnectionHandle ;
 	uint8_t 		BdAddr[6] ;
+	uint8_t			BdAddrType;
 	uint8_t			ServicesPresent ;
 	uint8_t			CharPresent ;
 	CharIDData 		sCharIDData[MAX_CHAR_NUM_PER_SERV*MAX_SERV_NUM_PER_DEV];

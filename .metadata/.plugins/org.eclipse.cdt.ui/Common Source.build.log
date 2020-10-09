@@ -1,0 +1,12 @@
+21:35:24 **** Incremental Build of configuration Debug for project Common Source ****
+make all 
+arm-none-eabi-gcc "../psrc/LoadWeighingAL.c" -std=gnu11 -g3 -c -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"psrc/LoadWeighingAL.d" -MT"psrc/LoadWeighingAL.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "psrc/LoadWeighingAL.o"
+../psrc/LoadWeighingAL.c:8:10: fatal error: LoadWeighingAL.h: No such file or directory
+ #include "LoadWeighingAL.h"
+          ^~~~~~~~~~~~~~~~~~
+compilation terminated.
+make: *** [psrc/subdir.mk:24: psrc/LoadWeighingAL.o] Error 1
+"make all" terminated with exit code 2. Build might be incomplete.
+
+21:35:27 Build Failed. 2 errors, 0 warnings. (took 3s.585ms)
+

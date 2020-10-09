@@ -4,6 +4,17 @@
  *  Created on: 4 sty 2020
  *      Author: Mateusz Jurczak
  */
+
+/*
+ * A better context based control would be useful here
+ * I'am inching ever closer to finishing of this project, however each time i add 1 new functionality
+ * 4 other get broken or need rewriting, good programming practices should be implemented, however they are hard
+ * so I'll keep up with my questionable practices in hopes that no soul will ever be forced to read or support this monstrosity
+ * The more time I spend here the more I think that the entire decision and event handling tree
+ * needs to be implemented to just get basic functionality working reliably
+ */
+
+
 #include "ble_decode_callback.h"
 #include "station_specific.h"
 #include "bluenrg_aci_const.h"
@@ -69,7 +80,7 @@ BLE_DEV_DATA BLEDeviceData[NoOfDevices];
 #ifdef BOARD_SENSORTILE
 BLE_DEV_DATA BLEDeviceData;
 #endif
-void DisconnectionComplete_CB(void);
+void DisconnectionComplete_CB(evt_disconn_complete evt_data);
 
 void ConnectionComplete_CB(uint8_t addr[6], uint16_t handle,uint8_t Status);
 
@@ -565,7 +576,8 @@ void BLE_EVNT_CALLBACK(void * pData)
 	  case EVT_DISCONN_COMPLETE:
 	    {
 	      evt_disconn_complete *cc = (void *)event_pckt->data;
-	      DisconnectionComplete_CB();
+	      //Who disconnected ? if it was initiated by us it most likely was a timeout, if so lets try to reconnect
+	      DisconnectionComplete_CB(cc);
 	    }
 	    break;
 
@@ -598,6 +610,12 @@ void BLE_EVNT_CALLBACK(void * pData)
 	    {
 	      evt_blue_aci *blue_evt = (void*)event_pckt->data;
 	      switch(blue_evt->ecode){
+	      case EVT_BLUE_GATT_PROCEDURE_TIMEOUT:
+	    	  // Basically dead, we can disconnect and reconnect later
+	    	  //TODO check if there is a better way to do this, maybe update link ?
+	    	  evt_gatt_procedure_timeout *cc = (void*) blue_evt->data;
+	    	  aci_gap_terminate(cc->conn_handle, ERR_CONNECTION_TIMEOUT);
+	    	  break;
 	      case EVT_BLUE_ATT_READ_BY_GROUP_TYPE_RESP:
 	       {
 	    	   evt_att_read_by_group_resp *cc = (void*)blue_evt->data;
@@ -657,7 +675,7 @@ void BLE_EVNT_CALLBACK(void * pData)
 	      {
 	    	  evt_att_read_mult_resp *cc = (void*)blue_evt->data;
 
-
+//TODO I think this should be implemented
 	      }
 	      break;
 	      case EVT_BLUE_ATT_READ_RESP:
@@ -739,6 +757,7 @@ void BLE_EVNT_CALLBACK(void * pData)
 
 void GATT_DISC_CPLT(uint16_t handle)
 {
+	//TODO We need to add BdAddrType to BLEDeviceData. it is needed during reconnection
 	uint8_t u8Iter = 0;
 	if(BLEDeviceData[MasterDevNo].ConnectionHandle == handle){
 		switch(GET_DECODER_STATE())
@@ -819,8 +838,14 @@ void DISC_CPLT(uint16_t handle)
 }
 
 #endif
-void DisconnectionComplete_CB(void)
+void DisconnectionComplete_CB(evt_disconn_complete *evt_data)
 {
+	//Did we disconnect on purpose ?
+	if(evt_data.reason == ERR_CONNECTION_TIMEOUT){
+		//We should initiate a connection to that device
+		//TODO This seems stupid, there has got to be be a better way
+
+	}
 	SET_DECODER_STATE(BLE_IDLE);
 #ifdef BOARD_SENSORTILE
 	connected = 0;
@@ -872,7 +897,6 @@ HAL_StatusTypeDef BLE_START_SCAN(VoidFuncPointer Callback)
  	if(GET_DECODER_STATE() == BLE_IDLE){
 		BLE_CLEAR_ADV_DATA();
 		CpltCallback = Callback;
-		SET_DECODER_STATE(BLE_SCAN);
 		return (aci_gap_start_general_discovery_proc(0x4000,0x4000,ADDR_TYPE,1) == BLE_STATUS_SUCCESS)? HAL_OK:HAL_ERROR;
 	}
 	return HAL_ERROR;
