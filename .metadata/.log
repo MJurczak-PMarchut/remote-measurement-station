@@ -1848,3 +1848,2161 @@ java.io.IOException: Cannot run program "g++": Launching failed
 
 !ENTRY org.eclipse.cdt.core 1 0 2020-11-21 21:44:10.910
 !MESSAGE Indexed 'Base' (37 sources, 200 headers) in 2,31 sec: 13 616 declarations; 52 756 references; 6 unresolved inclusions; 30 syntax errors; 496 unresolved names (0,74%)
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.252
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.254
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.260
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.262
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.267
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.269
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.275
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.276
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.289
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.291
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.297
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.302
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.304
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.306
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.308
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.309
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.311
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.313
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.315
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.317
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.318
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.329
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.331
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.332
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.334
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.335
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.337
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.339
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.340
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.342
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.344
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.345
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.347
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.348
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.350
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.351
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.352
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.354
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.356
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.357
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.359
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.360
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.362
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.363
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.369
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.370
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.372
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.373
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.375
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.376
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.378
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.379
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.381
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.383
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.384
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.386
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.388
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.389
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.391
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.392
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.394
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.395
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.397
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.398
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.400
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.401
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.403
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.409
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.410
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.411
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.413
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.415
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.416
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.417
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.419
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.420
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.422
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.424
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.425
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.427
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.428
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.430
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.431
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.432
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.434
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.436
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.437
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.439
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.440
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.442
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.447
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.456
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.462
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.463
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.464
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.466
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.467
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.469
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.470
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.472
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.473
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.475
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.477
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.479
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.480
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.482
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.483
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.485
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.487
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.488
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.490
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.491
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.492
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.494
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.495
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.497
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.499
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.500
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.502
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.503
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.504
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.506
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.507
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.508
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.510
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.511
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.512
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.514
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.516
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.519
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.521
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.522
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.523
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.525
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.527
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.528
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.529
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.530
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.532
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.533
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.535
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.536
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.538
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.539
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.540
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.542
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.544
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.545
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.547
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.548
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.550
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.551
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.553
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.555
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.556
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.558
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.560
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.561
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.563
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.564
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.566
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.567
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.568
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.570
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.571
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.572
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.573
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.575
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.576
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.578
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.580
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.581
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.582
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.584
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.585
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.586
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.588
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.589
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.590
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.591
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.593
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.594
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.596
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.597
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.598
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.599
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.601
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.603
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.604
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.606
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.614
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.615
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.621
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.622
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.635
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.638
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.645
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.647
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.648
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.649
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.650
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.651
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.653
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.654
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.658
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.663
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.668
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.669
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.676
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.682
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.683
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.688
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.690
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.696
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.697
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.703
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.705
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.712
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.713
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.719
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.720
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.726
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.728
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.729
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.734
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.735
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.741
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.742
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.747
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.752
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.753
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.759
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.764
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.766
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.772
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.773
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.780
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.781
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.788
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.795
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.801
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.806
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.811
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.816
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.822
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.827
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.831
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.838
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.839
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.844
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.849
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.851
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.855
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.860
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.865
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.870
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.875
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.880
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.887
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.888
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.894
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.896
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.902
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.903
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.909
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.911
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.916
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.921
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.923
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.924
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.926
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.927
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.933
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.938
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.939
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.941
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.942
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.943
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.950
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.951
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.952
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.953
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.958
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.960
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.961
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.966
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.967
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.968
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.969
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.971
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.972
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.974
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.975
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.981
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.982
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.983
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.985
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.986
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.987
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:07.989
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.000
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.005
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.006
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.011
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.012
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.014
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.015
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.016
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.018
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.019
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.025
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.031
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.037
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.042
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.047
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.062
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.067
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.073
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.078
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.080
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.085
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.086
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.091
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.092
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.097
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.099
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.105
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.107
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.114
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.116
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.121
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.123
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.124
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.125
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.126
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.132
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.137
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.142
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.147
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.153
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.160
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.166
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.172
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.173
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.174
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 21:53:08.183
+!MESSAGE Failed to get MCU from name: 
+!SESSION 2020-11-21 22:04:49.084 -----------------------------------------------
+eclipse.buildId=Version 1.5.0
+java.version=1.8.0_252
+java.vendor=AdoptOpenJDK
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=pl_PL
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -data C:\Users\Mateusz\STM32CubeIDE\bck2\remote-measurement-station
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2020-11-21 22:04:54.824
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2020-11-21 22:04:54.872
+!MESSAGE Log4j initialized with config file C:\Users\Mateusz\STM32CubeIDE\bck2\remote-measurement-station\.metadata\.log4j.xml
+
+!ENTRY org.eclipse.cdt.core 4 0 2020-11-21 22:04:58.484
+!MESSAGE Error: Cannot run program "gcc": Launching failed
+!STACK 0
+java.io.IOException: Cannot run program "gcc": Launching failed
+	at org.eclipse.cdt.utils.spawner.Spawner.exec(Spawner.java:352)
+	at org.eclipse.cdt.utils.spawner.Spawner.<init>(Spawner.java:94)
+	at org.eclipse.cdt.utils.spawner.ProcessFactory.exec(ProcessFactory.java:91)
+	at org.eclipse.cdt.core.CommandLauncher.execute(CommandLauncher.java:193)
+	at org.eclipse.cdt.internal.core.BuildRunnerHelper.build(BuildRunnerHelper.java:274)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.runProgramForLanguage(AbstractBuiltinSpecsDetector.java:802)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.runForLanguage(AbstractBuiltinSpecsDetector.java:727)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.runForEachLanguage(AbstractBuiltinSpecsDetector.java:592)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector$1.runInWorkspace(AbstractBuiltinSpecsDetector.java:518)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.cdt.core 4 0 2020-11-21 22:04:58.555
+!MESSAGE Error: Cannot run program "g++": Launching failed
+!STACK 0
+java.io.IOException: Cannot run program "g++": Launching failed
+	at org.eclipse.cdt.utils.spawner.Spawner.exec(Spawner.java:352)
+	at org.eclipse.cdt.utils.spawner.Spawner.<init>(Spawner.java:94)
+	at org.eclipse.cdt.utils.spawner.ProcessFactory.exec(ProcessFactory.java:91)
+	at org.eclipse.cdt.core.CommandLauncher.execute(CommandLauncher.java:193)
+	at org.eclipse.cdt.internal.core.BuildRunnerHelper.build(BuildRunnerHelper.java:274)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.runProgramForLanguage(AbstractBuiltinSpecsDetector.java:802)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.runForLanguage(AbstractBuiltinSpecsDetector.java:727)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.runForEachLanguage(AbstractBuiltinSpecsDetector.java:592)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector$1.runInWorkspace(AbstractBuiltinSpecsDetector.java:518)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.cdt.core 4 0 2020-11-21 22:04:58.629
+!MESSAGE Error: Cannot run program "gcc": Launching failed
+!STACK 0
+java.io.IOException: Cannot run program "gcc": Launching failed
+	at org.eclipse.cdt.utils.spawner.Spawner.exec(Spawner.java:352)
+	at org.eclipse.cdt.utils.spawner.Spawner.<init>(Spawner.java:94)
+	at org.eclipse.cdt.utils.spawner.ProcessFactory.exec(ProcessFactory.java:91)
+	at org.eclipse.cdt.core.CommandLauncher.execute(CommandLauncher.java:193)
+	at org.eclipse.cdt.internal.core.BuildRunnerHelper.build(BuildRunnerHelper.java:274)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.runProgramForLanguage(AbstractBuiltinSpecsDetector.java:802)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.runForLanguage(AbstractBuiltinSpecsDetector.java:727)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.runForEachLanguage(AbstractBuiltinSpecsDetector.java:592)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector$1.runInWorkspace(AbstractBuiltinSpecsDetector.java:518)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.cdt.core 4 0 2020-11-21 22:04:58.688
+!MESSAGE Error: Cannot run program "g++": Launching failed
+!STACK 0
+java.io.IOException: Cannot run program "g++": Launching failed
+	at org.eclipse.cdt.utils.spawner.Spawner.exec(Spawner.java:352)
+	at org.eclipse.cdt.utils.spawner.Spawner.<init>(Spawner.java:94)
+	at org.eclipse.cdt.utils.spawner.ProcessFactory.exec(ProcessFactory.java:91)
+	at org.eclipse.cdt.core.CommandLauncher.execute(CommandLauncher.java:193)
+	at org.eclipse.cdt.internal.core.BuildRunnerHelper.build(BuildRunnerHelper.java:274)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.runProgramForLanguage(AbstractBuiltinSpecsDetector.java:802)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.runForLanguage(AbstractBuiltinSpecsDetector.java:727)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector.runForEachLanguage(AbstractBuiltinSpecsDetector.java:592)
+	at org.eclipse.cdt.managedbuilder.language.settings.providers.AbstractBuiltinSpecsDetector$1.runInWorkspace(AbstractBuiltinSpecsDetector.java:518)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:42)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2020-11-21 22:04:59.320
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 4 4 2020-11-21 22:04:59.936
+!MESSAGE com.st.stm32cube.ide.mcu.ide/META-INF/version/build_ref file not found, build reference will not be reported into properties
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.588
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.590
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.594
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.595
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.599
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.601
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.604
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.606
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.609
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.611
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.614
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.619
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.620
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.622
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.623
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.625
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.626
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.628
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.636
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.637
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.639
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.643
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.644
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.645
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.647
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.648
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.650
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.651
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.653
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.654
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.655
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.657
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.658
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.660
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.661
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.663
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.664
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.665
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.667
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.669
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.670
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.672
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.673
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.674
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.678
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.680
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.681
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.682
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.684
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.685
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.686
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.688
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.690
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.692
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.694
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.695
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.696
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.697
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.699
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.700
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.701
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.702
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.715
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.716
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.718
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.719
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.721
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.725
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.727
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.728
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.729
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.730
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.732
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.733
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.734
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.735
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.736
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.737
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.738
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.740
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.741
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.742
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.744
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.745
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.746
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.747
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.749
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.750
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.751
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.752
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.756
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.760
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.763
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.764
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.765
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.766
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.768
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.769
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.770
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.771
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.773
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.774
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.776
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.777
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.778
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.780
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.781
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.782
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.784
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.785
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.787
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.789
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.791
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.792
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.794
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.796
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.798
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.800
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.801
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.803
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.805
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.806
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.808
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.809
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.810
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.812
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.813
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.815
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.816
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.818
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.819
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.821
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.822
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.824
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.825
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.826
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.827
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.829
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.830
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.837
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.839
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.840
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.841
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.843
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.844
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.846
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.847
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.849
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.851
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.852
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.854
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.855
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.856
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.858
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.859
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.860
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.862
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.864
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.865
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.867
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.868
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.869
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.871
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.872
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.873
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.874
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.876
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.877
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.878
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.880
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.881
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.882
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.884
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.885
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.886
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.887
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.888
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.889
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.890
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.892
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.893
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.894
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.897
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.898
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.900
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.901
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.903
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.904
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.905
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.906
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.911
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.912
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.916
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.917
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.920
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.921
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.924
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.926
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.927
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.928
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.929
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.931
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.932
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.934
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.937
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.940
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.944
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.945
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.948
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.952
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.953
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.956
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.957
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.960
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.962
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.966
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.967
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.972
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.974
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.977
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.979
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.982
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.983
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.984
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.988
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.989
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.992
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.993
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:08.997
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.000
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.021
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.025
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.028
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.030
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.033
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.034
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.037
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.038
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.042
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.046
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.050
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.053
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.057
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.061
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.064
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.068
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.072
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.075
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.078
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.081
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.085
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.086
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.090
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.093
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.097
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.100
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.104
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.107
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.111
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.112
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.115
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.117
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.120
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.121
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.124
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.125
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.129
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.132
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.133
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.134
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.135
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.136
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.139
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.142
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.143
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.144
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.146
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.147
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.150
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.151
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.152
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.153
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.157
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.158
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.159
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.162
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.164
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.165
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.166
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.167
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.168
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.169
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.170
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.173
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.175
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.176
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.177
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.178
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.179
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.180
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.185
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.188
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.190
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.193
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.194
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.195
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.197
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.198
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.200
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.201
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.204
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.208
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.211
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.215
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.219
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.222
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.226
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.231
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.234
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.236
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.239
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.240
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.244
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.245
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.249
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.250
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.254
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.255
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.259
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.261
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.264
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.266
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.267
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.268
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.269
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.272
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.276
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.279
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.282
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.285
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.288
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.292
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.296
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.297
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.298
+!MESSAGE Failed to get MCU from name: 
+
+!ENTRY com.st.stm32cube.ide.mcu.toolchain.arm-none 4 4 2020-11-21 22:06:09.303
+!MESSAGE Failed to get MCU from name: 
