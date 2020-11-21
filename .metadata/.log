@@ -1845,3 +1845,6 @@ java.io.IOException: Cannot run program "g++": Launching failed
 
 !ENTRY com.st.stm32cube.ide.mcu.ide 4 4 2020-11-21 21:42:20.150
 !MESSAGE com.st.stm32cube.ide.mcu.ide/META-INF/version/build_ref file not found, build reference will not be reported into properties
+
+!ENTRY org.eclipse.cdt.core 1 0 2020-11-21 21:44:10.910
+!MESSAGE Indexed 'Base' (37 sources, 200 headers) in 2,31 sec: 13 616 declarations; 52 756 references; 6 unresolved inclusions; 30 syntax errors; 496 unresolved names (0,74%)
