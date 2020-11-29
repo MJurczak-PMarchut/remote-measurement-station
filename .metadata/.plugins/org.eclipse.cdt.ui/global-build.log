@@ -1,12 +1,27 @@
-22:07:57 **** Clean-only build of configuration Debug for project Base ****
-make -j8 clean 
-rm -rf *
+21:32:23 **** Incremental Build of configuration Debug for project Remote Sensor ****
+make -j8 all 
+arm-none-eabi-gcc "C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32_SENSORTILE -DSTM32L476xx -DUSE_STM32L4XX_NUCLEO -c -I../../../Inc -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Inc" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Drivers/BSP/Components/Common" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Drivers/BSP/Components/lsm303agr" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Drivers/BSP/Components/lsm6dsm" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Middlewares/ST/BlueNRG-MS/utils" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Middlewares/ST/BlueNRG-MS/includes" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Middlewares/ST/STM32_USB_Device_Library/Core/Inc" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Drivers/BSP/Components/lps22hb" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Drivers/BSP/Components/hts221" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Drivers/CMSIS/Include" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Drivers/BSP/SensorTile" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Drivers/STM32L4xx_HAL_Driver/Inc" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Pin" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Remote Sensor/BOARD_SPEC" -O0 -ffunction-sections -Wall -fstack-usage -MMD -MP -MF"Remote App/psrc/ble_decode_callback.d" -MT"Remote App/psrc/ble_decode_callback.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Remote App/psrc/ble_decode_callback.o"
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c: In function 'BLE_EVNT_CALLBACK':
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:717:37: warning: unused variable 'cc' [-Wunused-variable]
+         evt_gatt_attr_notification *cc = (void*)blue_evt->data;
+                                     ^~
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c: In function 'DisconnectionComplete_CB':
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:874:10: warning: unused variable '__DevNo_DCCB' [-Wunused-variable]
+  uint8_t __DevNo_DCCB;
+          ^~~~~~~~~~~~
+arm-none-eabi-gcc -o "Remote Sensor.elf" @"objects.list"   -mcpu=cortex-m4 -T"../LinkerScript.ld" -Wl,-Map="Remote Sensor.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Remote Sensor.elf
  
-22:07:57 **** Clean-only build of configuration Debug for project Common Source ****
-make clean 
-rm -rf *
+arm-none-eabi-size   Remote\ Sensor.elf 
+arm-none-eabi-objdump -h -S  Remote\ Sensor.elf  > "Remote Sensor.list"
+   text	   data	    bss	    dec	    hex	filename
+  51976	    440	  44812	  97228	  17bcc	Remote Sensor.elf
+arm-none-eabi-objcopy  -O binary  Remote\ Sensor.elf  "Remote Sensor.bin"
+Finished building: default.size.stdout
  
-22:07:58 **** Clean-only build of configuration Debug for project Remote Sensor ****
-make -j8 clean 
-rm -rf *
+Finished building: Remote Sensor.bin
+ 
+Finished building: Remote Sensor.list
+ 
+arm-none-eabi-objcopy -O binary "Remote Sensor.elf" "BLE_SampleApp.bin"
  

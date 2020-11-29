@@ -8,10 +8,15 @@
 /*
  * A better context based control would be useful here
  * I'am inching ever closer to finishing of this project, however each time i add 1 new functionality
- * 4 other get broken or need rewriting, good programming practices should be implemented, however they are hard
+ * 4 other get broken or need rewriting, good programming practices should be implemented, however they are hard and take time
  * so I'll keep up with my questionable practices in hopes that no soul will ever be forced to read or support this monstrosity
+ *
  * The more time I spend here the more I think that the entire decision and event handling tree
  * needs to be implemented to just get basic functionality working reliably
+ *
+ * Hours wasted here : 24
+ *
+ *
  */
 
 
@@ -31,8 +36,8 @@
 
 extern int connected;
 extern TargetFeatures_t TargetBoardFeatures;
-static uint16_t SensorServiceHandle, SDServiceHandle, LEDServiceHandle;
-static uint16_t ACC_char_handle, GYRO_char_handle, SD_char_handle, LED_char_handle, LED_conf_handle, SD_conf_handle;
+//static uint16_t SensorServiceHandle, SDServiceHandle, LEDServiceHandle;
+//static uint16_t ACC_char_handle, GYRO_char_handle, SD_char_handle, LED_char_handle, LED_conf_handle, SD_conf_handle;
 
 
 #endif
@@ -82,7 +87,7 @@ BLE_DEV_DATA BLEDeviceData;
 #endif
 void DisconnectionComplete_CB(evt_disconn_complete *evt_data);
 
-void ConnectionComplete_CB(uint8_t addr[6], uint16_t handle,uint8_t Status);
+void ConnectionComplete_CB(uint8_t addr[6], uint16_t handle,uint8_t Status, uint8_t addr_type);
 
 HAL_StatusTypeDef BLE_SET_DISC_DEV_NO(uint8_t DevNo);
 
@@ -117,7 +122,8 @@ uint8_t UUID_SERVICE_DATA[MAX_SERV_NUM_PER_DEV][UUID_LENGTH] ={
 uint8_t UUID_SERVICE_DATA[MAX_SERV_NUM_PER_DEV][UUID_LENGTH] ={
 	[BLE_SENS_SERVICE] = CUSTOM_BLE_SENS_SERVICE_UUID,
 	[BLE_LED_SERVICE] = CUSTOM_BLE_LED_SERVICE_UUID,
-	[BLE_SD_SERVICE] = CUSTOM_BLE_SD_SERVICE_UUID
+	[BLE_SD_SERVICE] = CUSTOM_BLE_SD_SERVICE_UUID,
+	[BLE_CONF_SERVICE] = CUSTOM_BLE_CONFIG_SERVICE_UUID
 };
 
 #endif
@@ -140,7 +146,10 @@ uint8_t UUID_CHAR_DATA[MAX_CHAR_NUM_PER_SERV*MAX_SERV_NUM_PER_DEV][UUID_LENGTH] 
 	[BLE_LED_CONF_CHAR] = CUSTOM_BLE_LED_CONF_CHAR_UUID,
 	[BLE_LED_READ_CHAR] = CUSTOM_BLE_LED_READ_CHAR_UUID,
 	[BLE_SD_CONF_CHAR] = CUSTOM_BLE_SD_CONF_CHAR_UUID,
-	[BLE_SD_READ_CHAR] = CUSTOM_BLE_SD_READ_CHAR_UUID
+	[BLE_SD_READ_CHAR] = CUSTOM_BLE_SD_READ_CHAR_UUID,
+	[BLE_GYRO_CONF_CHAR] = CUSTOM_BLE_GYRO_CONF_CHAR_UUID,
+	[BLE_ACCEL_CONF_CHAR] = CUSTOM_BLE_ACCEL_CONF_CHAR_UUID
+
 };
 #endif
 
@@ -409,6 +418,9 @@ HAL_StatusTypeDef BLE_CONNECT_TO_DEVICE(uint8_t DevNo, BLE_DEVICE_LOCATION ble_d
 	if(DevNo < BdAddrBufferCounter){
 		ret = aci_gap_create_connection(0x4000, 0x4000, TempBdAddrType[DevNo], TempBdAddr[DevNo],ADDR_TYPE, 9, 9, 0, 60, 1000 , 1000);
 		BLE_SET_DISC_DEV_NO(ble_dl);
+		if(ret == 0){
+				SET_DECODER_STATE(BLE_CONNECTING);
+		}
 		return (ret == 0)? HAL_OK: HAL_ERROR;
 	}
 	return HAL_ERROR;
@@ -589,7 +601,7 @@ void BLE_EVNT_CALLBACK(void * pData)
 	      case EVT_LE_CONN_COMPLETE:
 	        {
 	          evt_le_connection_complete *cc = (void *)evt->data;
-	          ConnectionComplete_CB(cc->peer_bdaddr, cc->handle,cc->status);
+	          ConnectionComplete_CB(cc->peer_bdaddr, cc->handle,cc->status, cc->peer_bdaddr_type);
 	        }
 	        break;
 	      case EVT_LE_ADVERTISING_REPORT:
@@ -597,6 +609,9 @@ void BLE_EVNT_CALLBACK(void * pData)
 	    	  le_advertising_info *cc = (void *)evt->data+1;
 #ifdef BOARD_N64_F4
 	    	  BLE_ADV_REPORT_CALLBACK(cc);
+#endif
+#ifdef BOARD_SENSORTILE
+	    	  UNUSED(cc);
 #endif
 //			  HAL_Delay(10);
 	      }
@@ -614,11 +629,10 @@ void BLE_EVNT_CALLBACK(void * pData)
 	      {
 	    	  // Basically dead, we can disconnect and reconnect later
 	    	  //TODO check if there is a better way to do this, maybe update link ?
-
-	    	  evt_gatt_procedure_timeout *cc = (void*) blue_evt->data;
+	    	  evt_gatt_procedure_timeout *cc = (void*)blue_evt->data;
 	    	  aci_gap_terminate(cc->conn_handle, ERR_CONNECTION_TIMEOUT);
-	      }
 	    	  break;
+	      }
 	      case EVT_BLUE_ATT_READ_BY_GROUP_TYPE_RESP:
 	       {
 	    	   evt_att_read_by_group_resp *cc = (void*)blue_evt->data;
@@ -635,6 +649,7 @@ void BLE_EVNT_CALLBACK(void * pData)
 	      case EVT_BLUE_GATT_READ_PERMIT_REQ:
 	        {
 	          evt_gatt_read_permit_req *pr = (void*)blue_evt->data;
+	          UNUSED(pr);
 //	          BLE_READ_REQUEST_CB(pr->attr_handle);
 	          //TODO Implement this
 	        }
@@ -642,7 +657,7 @@ void BLE_EVNT_CALLBACK(void * pData)
 	      case EVT_BLUE_GATT_ATTRIBUTE_MODIFIED:
 	        {
 	          evt_gatt_attr_modified_IDB05A1 *evt = (evt_gatt_attr_modified_IDB05A1*)blue_evt->data;
-//	          BLE_ATTR_MODIFIED_CB(evt->attr_handle, evt->att_data,evt->data_length);
+	          BLE_ATTR_MODIFIED_CB(evt->attr_handle, evt->att_data,evt->data_length);
 	          //TODO Implement this
 	        }
 	        break;
@@ -650,9 +665,13 @@ void BLE_EVNT_CALLBACK(void * pData)
 	      case EVT_BLUE_GATT_ERROR_RESP:
 	      {
 	    	  evt_gatt_error_resp *cc = (void*)blue_evt->data;
+	    	  UNUSED(cc);
 //	    	  aci_gap_terminate_gap_procedure();
 //	    	  SET_DECODER_STATE(BLE_IDLE); // 0x10
 #ifdef BOARD_N64_F4
+	    	  /*
+	    	   * Perhaps someday i'll try to handle errors, but today is not that day
+	    	   */
 //	    	  if((GET_DECODER_STATE() == BLE_DISC_SERV) && (cc->req_opcode == 0x10) && (cc->error_code == 0xA)){
 //					if(BLE_DISC_ALL_SERVICES_MASTER_STATE == BLE_DISC_ALL_SERVICES_ON){
 //						if(MasterDevNo < NoOfDevices - 1){
@@ -677,8 +696,9 @@ void BLE_EVNT_CALLBACK(void * pData)
 	      case EVT_BLUE_ATT_READ_MULTIPLE_RESP:
 	      {
 	    	  evt_att_read_mult_resp *cc = (void*)blue_evt->data;
+	    	  UNUSED(cc);
 
-//TODO I think this should be implemented
+//TODO I think this should be implemented, it could greatly increase speed
 	      }
 	      break;
 	      case EVT_BLUE_ATT_READ_RESP:
@@ -686,6 +706,9 @@ void BLE_EVNT_CALLBACK(void * pData)
 	    	  evt_att_read_resp *cc = (void*)blue_evt->data;
 #ifdef BOARD_N64_F4
 	    	  ATT_READ_RESP(cc);
+#endif
+#ifdef BOARD_SENSORTILE
+	    	  UNUSED(cc);
 #endif
 	      }
 	      break;
@@ -722,10 +745,10 @@ void BLE_EVNT_CALLBACK(void * pData)
 		    	}
 
 #endif
+		    	UNUSED(pr);
 		    	if(CpltCallback != NULL){
-				  CpltCallback();
-				  SET_DECODER_STATE(BLE_IDLE);
-				  CpltCallback = NULL;
+		    		SET_DECODER_STATE(BLE_IDLE);
+		    		CpltCallback();
 			  }
 	        }
 	    	break;
@@ -755,8 +778,13 @@ void BLE_EVNT_CALLBACK(void * pData)
 	  }
 }
 
-
+void CLR_CALLBACK_FUNC(void)
+{
+	CpltCallback = NULL;
+}
 #ifdef BOARD_N64_F4
+
+
 
 void GATT_DISC_CPLT(uint16_t handle)
 {
@@ -843,10 +871,25 @@ void DISC_CPLT(uint16_t handle)
 #endif
 void DisconnectionComplete_CB(evt_disconn_complete *evt_data)
 {
+	uint8_t __DevNo_DCCB;
 	//Did we disconnect on purpose ?
 	if(evt_data->reason == ERR_CONNECTION_TIMEOUT){
+#ifdef BOARD_N64_F4
 		//We should initiate a connection to that device
 		//TODO This seems stupid, there has got to be be a better way
+		//To be done on a central device
+		SET_DECODER_STATE(BLE_IDLE); //Set State to idle because we need to change it later to reconnection
+		if (BLE_GET_DEV_NO_BY_HANDLE(evt_data->handle, &__DevNo_DCCB) == HAL_OK){
+			aci_gap_create_connection(0x4000, 0x4000, BLEDeviceData[__DevNo_DCCB].BdAddrType, BLEDeviceData[__DevNo_DCCB].BdAddr, ADDR_TYPE, 9, 9, 0, 60, 1000 , 1000);
+			SET_DECODER_STATE(BLE_RECONNECTING);
+			return 0;
+		}
+		else{
+			/* TODO Debug code here
+			 * possibly handle the error
+			 */
+		}
+#endif
 
 	}
 	SET_DECODER_STATE(BLE_IDLE);
@@ -856,19 +899,36 @@ void DisconnectionComplete_CB(evt_disconn_complete *evt_data)
 #endif
 }
 
+#ifdef BOARD_N64_F4
+HAL_StatusTypeDef BLE_GET_DEV_NO_BY_HANDLE(uint16_t ConnHandle, uint8_t *__DevNo_BDH)
+{
+	uint8_t u8iter = 0;
+	for(u8iter=0; u8iter<NoOfDevices; u8iter++)
+	{
+		if(BLEDeviceData[u8iter].ConnectionHandle == ConnHandle){
+			*__DevNo_BDH = u8iter;
+			return HAL_OK;
+		}
+	}
+	return HAL_ERROR;
+}
+#endif
 
-void ConnectionComplete_CB(uint8_t addr[6], uint16_t handle,uint8_t Status)
+void ConnectionComplete_CB(uint8_t addr[6], uint16_t handle,uint8_t Status, uint8_t addr_type)
 {
 #ifdef BOARD_N64_F4
 	if(Status == 0){
-		BLEDeviceData[MasterDevNo].BdAddr[0] = addr[0];
-		BLEDeviceData[MasterDevNo].BdAddr[1] = addr[1];
-		BLEDeviceData[MasterDevNo].BdAddr[2] = addr[2];
-		BLEDeviceData[MasterDevNo].BdAddr[3] = addr[3];
-		BLEDeviceData[MasterDevNo].BdAddr[4] = addr[4];
-		BLEDeviceData[MasterDevNo].BdAddr[5] = addr[5];
-		BLEDeviceData[MasterDevNo].ConnectionHandle = handle;
-		BLE_DISC_CONN_SERVICES(handle);
+		if(GET_DECODER_STATE() != BLE_RECONNECTING){
+			BLEDeviceData[MasterDevNo].BdAddr[0] = addr[0];
+			BLEDeviceData[MasterDevNo].BdAddr[1] = addr[1];
+			BLEDeviceData[MasterDevNo].BdAddr[2] = addr[2];
+			BLEDeviceData[MasterDevNo].BdAddr[3] = addr[3];
+			BLEDeviceData[MasterDevNo].BdAddr[4] = addr[4];
+			BLEDeviceData[MasterDevNo].BdAddr[5] = addr[5];
+			BLEDeviceData[MasterDevNo].ConnectionHandle = handle;
+			BLEDeviceData[MasterDevNo].BdAddrType = addr_type;
+			BLE_DISC_CONN_SERVICES(handle);
+		}
 	}
 	else{
 		SendConnectionFeedback(BLE_CONNECTION_FAILED);
@@ -889,7 +949,7 @@ void ConnectionComplete_CB(uint8_t addr[6], uint16_t handle,uint8_t Status)
 #ifdef BOARD_SENSORTILE
 	connected = 0x10;
 #endif
-
+	CLR_CALLBACK_FUNC();
 }
 
 #ifdef BOARD_N64_F4
@@ -1120,8 +1180,15 @@ tBleStatus BLE_ADD_SERVICES(void)
 /*Sens service*/
 
 	ret =  aci_gatt_add_serv(UUID_TYPE_128,  UUID_SERVICE_DATA[BLE_SENS_SERVICE], PRIMARY_SERVICE,
-								1+3*2,                                     /*service attr + (desc + inc + val)*char_no*/
+								1+2,                                     /*service attr + (desc + inc + val)*char_no*/
 								&BLEDeviceData.sServiceIDData[BLE_SENS_SERVICE].ServiceHandle);
+
+#ifdef DEBUG_BL_INIT
+	if(ret != 0)
+	{
+		while(1)
+	}
+#endif
 //TODO check if this will stand
 
 
@@ -1131,47 +1198,123 @@ tBleStatus BLE_ADD_SERVICES(void)
 								ATTR_PERMISSION_NONE,
 								0,
 								16, 0, &BLEDeviceData.sCharIDData[BLE_ACC_CHAR].CharHandle);
-
+#ifdef DEBUG_BL_INIT
+	if(ret != 0)
+	{
+		while(1)
+	}
+#endif
 	ret =  aci_gatt_add_char(BLEDeviceData.sServiceIDData[BLE_SENS_SERVICE].ServiceHandle, UUID_TYPE_128, UUID_CHAR_DATA[BLE_GYRO_CHAR], (3*4),
 								CHAR_PROP_NOTIFY|CHAR_PROP_READ,
 								ATTR_PERMISSION_NONE,
 								0,
 								16, 0, &BLEDeviceData.sCharIDData[BLE_GYRO_CHAR].CharHandle);
-
+#ifdef DEBUG_BL_INIT
+	if(ret != 0)
+	{
+		while(1)
+	}
+#endif
 /*SD service*/
 	ret = aci_gatt_add_serv(UUID_TYPE_128,  UUID_SERVICE_DATA[BLE_SD_SERVICE], PRIMARY_SERVICE,
-								1+3*2,
+								1+2,
 								&BLEDeviceData.sServiceIDData[BLE_SD_SERVICE].ServiceHandle);
-
+#ifdef DEBUG_BL_INIT
+	if(ret != 0)
+	{
+		while(1)
+	}
+#endif
 	ret =  aci_gatt_add_char(BLEDeviceData.sServiceIDData[BLE_SD_SERVICE].ServiceHandle, UUID_TYPE_128, UUID_CHAR_DATA[BLE_SD_READ_CHAR], 1,
 								CHAR_PROP_NOTIFY|CHAR_PROP_READ,
 								ATTR_PERMISSION_NONE,
 								0,
 								16, 0, &BLEDeviceData.sCharIDData[BLE_SD_READ_CHAR].CharHandle);
-
+#ifdef DEBUG_BL_INIT
+	if(ret != 0)
+	{
+		while(1)
+	}
+#endif
 	ret =  aci_gatt_add_char(BLEDeviceData.sServiceIDData[BLE_SD_SERVICE].ServiceHandle, UUID_TYPE_128, UUID_CHAR_DATA[BLE_SD_CONF_CHAR], 1,
 								CHAR_PROP_NOTIFY| CHAR_PROP_WRITE_WITHOUT_RESP,
 								ATTR_PERMISSION_NONE,
 								GATT_NOTIFY_ATTRIBUTE_WRITE | GATT_NOTIFY_READ_REQ_AND_WAIT_FOR_APPL_RESP,
 								16, 0, &BLEDeviceData.sCharIDData[BLE_SD_CONF_CHAR].CharHandle);
+#ifdef DEBUG_BL_INIT
+	if(ret != 0)
+	{
+		while(1)
+	}
+#endif
 
 /* LED service*/
+
 	ret = aci_gatt_add_serv(UUID_TYPE_128,  UUID_SERVICE_DATA[BLE_LED_SERVICE], PRIMARY_SERVICE,
-								1+3*2,
+								1+2,
 								&BLEDeviceData.sServiceIDData[BLE_LED_SERVICE].ServiceHandle);
+#ifdef DEBUG_BL_INIT
+	if(ret != 0)
+	{
+		while(1)
+	}
+#endif
 
 	ret =  aci_gatt_add_char(BLEDeviceData.sServiceIDData[BLE_LED_SERVICE].ServiceHandle, UUID_TYPE_128, UUID_CHAR_DATA[BLE_LED_READ_CHAR], 1,
 								CHAR_PROP_NOTIFY|CHAR_PROP_READ,
 								ATTR_PERMISSION_NONE,
 								0,
 								16, 0, &BLEDeviceData.sCharIDData[BLE_LED_READ_CHAR].CharHandle);
+#ifdef DEBUG_BL_INIT
+	if(ret != 0)
+	{
+		while(1)
+	}
+#endif
 
 	ret =  aci_gatt_add_char(BLEDeviceData.sServiceIDData[BLE_LED_SERVICE].ServiceHandle, UUID_TYPE_128, UUID_CHAR_DATA[BLE_LED_CONF_CHAR], 1,
 								CHAR_PROP_NOTIFY| CHAR_PROP_WRITE_WITHOUT_RESP,
 								ATTR_PERMISSION_NONE,
 								GATT_NOTIFY_ATTRIBUTE_WRITE | GATT_NOTIFY_READ_REQ_AND_WAIT_FOR_APPL_RESP,
 								16, 0, &BLEDeviceData.sCharIDData[BLE_LED_CONF_CHAR].CharHandle);
-
+#ifdef DEBUG_BL_INIT
+	if(ret != 0)
+	{
+		while(1)
+	}
+#endif
+/* SENSOR config service */
+	ret = aci_gatt_add_serv(UUID_TYPE_128,  UUID_SERVICE_DATA[BLE_CONF_SERVICE], PRIMARY_SERVICE,
+								1+2,
+								&BLEDeviceData.sServiceIDData[BLE_LED_SERVICE].ServiceHandle);
+#ifdef DEBUG_BL_INIT
+	if(ret != 0)
+	{
+		while(1)
+	}
+#endif
+	ret =  aci_gatt_add_char(BLEDeviceData.sServiceIDData[BLE_LED_SERVICE].ServiceHandle, UUID_TYPE_128, UUID_CHAR_DATA[BLE_LED_READ_CHAR], 1,
+								CHAR_PROP_NOTIFY|CHAR_PROP_READ,
+								ATTR_PERMISSION_NONE,
+								0,
+								16, 0, &BLEDeviceData.sCharIDData[BLE_LED_READ_CHAR].CharHandle);
+#ifdef DEBUG_BL_INIT
+	if(ret != 0)
+	{
+		while(1)
+	}
+#endif
+	ret =  aci_gatt_add_char(BLEDeviceData.sServiceIDData[BLE_LED_SERVICE].ServiceHandle, UUID_TYPE_128, UUID_CHAR_DATA[BLE_LED_CONF_CHAR], 1,
+								CHAR_PROP_NOTIFY| CHAR_PROP_WRITE_WITHOUT_RESP,
+								ATTR_PERMISSION_NONE,
+								GATT_NOTIFY_ATTRIBUTE_WRITE | GATT_NOTIFY_READ_REQ_AND_WAIT_FOR_APPL_RESP,
+								16, 0, &BLEDeviceData.sCharIDData[BLE_LED_CONF_CHAR].CharHandle);
+#ifdef DEBUG_BL_INIT
+	if(ret != 0)
+	{
+		while(1)
+	}
+#endif
 return ret;
 }
 
@@ -1241,3 +1384,7 @@ HAL_StatusTypeDef BLE_UPDATE_CHAR(ServiceIDData *Service, CharIDData *Characteri
 }
 
 #endif
+void BLE_ATTR_MODIFIED_CB(uint16_t attr_handle, uint8_t * att_data, uint8_t data_length)
+{
+
+}

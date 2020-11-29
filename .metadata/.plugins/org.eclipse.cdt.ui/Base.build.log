@@ -1,7 +1,61 @@
-22:07:57 **** Clean-only build of configuration Debug for project Base ****
-make -j8 clean 
-rm -rf *
+21:23:45 **** Incremental Build of configuration Debug for project Base ****
+make -j8 all 
+arm-none-eabi-gcc "C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c" -mcpu=cortex-m4 -std=gnu11 -g3 '-DUSE_HAL_UART_REGISTER_CALLBACKS=1' -DUSE_HAL_DRIVER -DSTM32F401xE -DDEBUG -c -I../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic -I../Middlewares/ST/BlueNRG-MS/includes -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../BlueNRG-MS/Target -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Middlewares/ST/BlueNRG-MS/utils -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Pin" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/psrc/ble_decode_callback.d" -MT"Core/psrc/ble_decode_callback.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/psrc/ble_decode_callback.o"
+In file included from ../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic/hci_tl.h:22:0,
+                 from ../Middlewares/ST/BlueNRG-MS/includes/hci_const.h:14,
+                 from C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Pin/SpecialTypes.h:12,
+                 from C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Pin/ble_decode_callback.h:13,
+                 from C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:23:
+../BlueNRG-MS/Target/bluenrg_conf.h:36:0: warning: "DEBUG" redefined
+ #define DEBUG      0
+ 
+<command-line>:0:0: note: this is the location of the previous definition
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c: In function 'BLE_DECODE_GROUP_RESP':
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:299:6: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+   c2 = cc;
+      ^
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:267:10: warning: unused variable 'BLE_UUID_DATA' [-Wunused-variable]
+  uint8_t BLE_UUID_DATA;
+          ^~~~~~~~~~~~~
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c: In function 'BLE_ADV_REPORT_CALLBACK':
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:443:14: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+  Temp_BdAddr = &cc->bdaddr;
+              ^
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c: In function 'BLE_EVNT_CALLBACK':
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:663:30: warning: unused variable 'cc' [-Wunused-variable]
+         evt_gatt_error_resp *cc = (void*)blue_evt->data;
+                              ^~
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:693:33: warning: unused variable 'cc' [-Wunused-variable]
+         evt_att_read_mult_resp *cc = (void*)blue_evt->data;
+                                 ^~
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:708:37: warning: unused variable 'cc' [-Wunused-variable]
+         evt_gatt_attr_notification *cc = (void*)blue_evt->data;
+                                     ^~
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c: In function 'DisconnectionComplete_CB':
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:874:11: warning: 'return' with a value, in function returning void
+    return 0;
+           ^
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:862:6: note: declared here
+ void DisconnectionComplete_CB(evt_disconn_complete *evt_data)
+      ^~~~~~~~~~~~~~~~~~~~~~~~
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c: In function 'BLE_INIT_SPEC':
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:1003:3: warning: unused variable 'uname' [-Wunused-variable]
+  }uname = {.sname = sname};
+   ^~~~~
+arm-none-eabi-g++ -o "Base.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Mateusz\STM32CubeIDE\bck2\remote-measurement-station\Base\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Base.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: Base.elf
+ 
+arm-none-eabi-objdump -h -S  Base.elf  > "Base.list"
+arm-none-eabi-objcopy  -O binary  Base.elf  "Base.bin"
+arm-none-eabi-size   Base.elf 
+   text	   data	    bss	    dec	    hex	filename
+  30892	    736	   3600	  35228	   899c	Base.elf
+Finished building: default.size.stdout
+ 
+Finished building: Base.bin
+ 
+Finished building: Base.list
  
 
-22:07:57 Build Finished. 0 errors, 0 warnings. (took 512ms)
+21:23:46 Build Finished. 0 errors, 9 warnings. (took 1s.249ms)
 

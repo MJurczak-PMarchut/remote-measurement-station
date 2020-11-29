@@ -21,7 +21,7 @@ typedef enum {ST_RECURRENT, ST_SINGLE} SLOT_TYPE;
 typedef enum  {TS_TIME_LEFT, TS_OVERTIME, TS_IN_MARGIN, TS_ERROR} TimingState;
 typedef void (*VoidFuncPointer) (void) ;
 typedef uint8_t RunPriority;
-typedef enum {BLE_DISC_SERV = 0, BLE_DISC_CHAR, BLE_IDLE, BLE_DISC_DESC, BLE_SCAN, BLE_READ} BLE_State;
+typedef enum {BLE_DISC_SERV = 0, BLE_DISC_CHAR, BLE_IDLE, BLE_DISC_DESC, BLE_SCAN, BLE_READ, BLE_CONNECTING, BLE_RECONNECTING} BLE_State;
 
 typedef enum {COMP_RESULT_OK, COMP_RESULT_NOK, COMP_ERROR} Comp_Result;
 
@@ -41,8 +41,10 @@ typedef enum {
 typedef enum {
 	BLE_SENS_SERVICE = 0,
 	BLE_LED_SERVICE = 1,
-	BLE_SD_SERVICE = 2
+	BLE_SD_SERVICE = 2,
+	BLE_CONF_SERVICE = 3
 } BLE_SERVICE_UUID;
+
 
 typedef enum {
 	BLE_COMPARE_SERVICE_UUID = 0,
@@ -55,7 +57,9 @@ typedef enum {
 	BLE_LED_CONF_CHAR = 2,
 	BLE_LED_READ_CHAR = 3,
 	BLE_SD_CONF_CHAR = 4,
-	BLE_SD_READ_CHAR = 5
+	BLE_SD_READ_CHAR = 5,
+	BLE_GYRO_CONF_CHAR = 6,
+	BLE_ACCEL_CONF_CHAR = 7
 } BLE_CHAR_UUID;
 
 

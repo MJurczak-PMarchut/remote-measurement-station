@@ -42,6 +42,7 @@ uint8_t GetDAta = 0;
 
 uint8_t TxBuffer[TX_BUFFER_SIZE];
 
+
 typedef struct {
 	uint8_t BufferStart;
 	uint8_t BufferEnd;
@@ -66,6 +67,7 @@ Token sToken[] = {
 
 uint8_t PutDataToBuffer(char *pData, int8_t len);
 
+BLE_DEV_DATA *BLEDevData = NULL;
 
 UART_HandleTypeDef *StationUart = NULL;
 char Message[RX_BUFFER_SIZE] = {0};
@@ -263,6 +265,7 @@ void DiscoveryCplt(void)
 	{
 		PutDataToBuffer("DISC_DONE\n", 10);
 	}
+	CLR_CALLBACK_FUNC();
 }
 
 void ExecuteCommands(void)
@@ -359,6 +362,7 @@ void SYNCHRONIZE(void)
 	{
 		Dev_No = 0;
 	}
+	CLR_CALLBACK_FUNC();
 }
 #endif
 
@@ -367,8 +371,9 @@ void SYNCHRONIZE(void)
 
 void BLE_GET_DATA(DataDecode *Data)
 {
-	BLE_DEV_DATA *BLEDevData;
+//	BLE_DEV_DATA *BLEDevData;
 //	GetDAta = 1;
+	static uint8_t state = 0;
 	switch(Data->eDataTypes){
 		case INT:
 			if(Data->vData.iData < NoOfDevices){
@@ -377,7 +382,7 @@ void BLE_GET_DATA(DataDecode *Data)
 				{
 	//				CharHandle[0] = BLEDevData->sCharIDData[BLE_ACC_CHAR].CharHandle;
 	//				CharHandle[1] = BLEDevData->sCharIDData[BLE_GYRO_CHAR].CharHandle;
- 					if (BLE_READ_CHAR(BLEDevData->ConnectionHandle, BLE_DATA_PTR, 4*3,  &BLEDevData->sCharIDData[BLE_ACC_CHAR], Data_Recv_Single) == HAL_OK){
+ 					if (BLE_READ_CHAR(BLEDevData->ConnectionHandle, BLE_DATA_PTR, 4*3,  &BLEDevData->sCharIDData[BLE_ACC_CHAR], Data_Recv_Multiple) == HAL_OK){
  						GetDAta = 1;
  					}
 				}
@@ -406,13 +411,31 @@ void Data_Recv_Single(void)
 
 	len = sprintf(Message,"%d %d %d\n", paData->x, paData->y,paData->z);
 	PutDataToBuffer(Message, len);
-
+	CLR_CALLBACK_FUNC();
 }
+
 
 void Data_Recv_Multiple(void)
 {
+	char Message[50];
+	//FIXME wywalic to
+	uint8_t len;
+	typedef struct
+	{
+		int32_t x;
+		int32_t y;
+		int32_t z;
+	}axisData;
+	axisData *paData = (axisData*)BLE_DATA_PTR;
 
-	return;
+	len = sprintf(Message,"%d %d %d\n", paData->x, paData->y,paData->z);
+	PutDataToBuffer(Message, len);
+	if(GetDAta != 0){
+		CLR_CALLBACK_FUNC();
+		if (BLE_READ_CHAR(BLEDevData->ConnectionHandle, BLE_DATA_PTR, 4*3,  &BLEDevData->sCharIDData[BLE_ACC_CHAR], Data_Recv_Multiple) == HAL_OK){
+			//TODO Add something here
+		}
+	}
 }
 
 #endif

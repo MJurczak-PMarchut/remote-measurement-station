@@ -24,8 +24,12 @@
 void BLE_DECODE_GROUP_RESP(evt_att_read_by_group_resp *cc);
 HAL_StatusTypeDef SET_DECODER_STATE(BLE_State eBLE_State);
 BLE_State GET_DECODER_STATE(void);
+void CLR_CALLBACK_FUNC(void);
 #ifdef BOARD_N64_F4
 void BLE_GET_DEV_DATA(uint8_t DevNo, BLE_DEV_DATA **DevStruct);
+#ifdef BOARD_N64_F4
+HAL_StatusTypeDef BLE_GET_DEV_NO_BY_HANDLE(uint16_t ConnHandle, uint8_t *__DevNo_BDH);
+#endif
 HAL_StatusTypeDef BLE_READ_CHAR(uint16_t ConnHandle, uint8_t *pData, uint8_t len, CharIDData *Characteristic, VoidFuncPointer Callback);
 HAL_StatusTypeDef BLE_READ_MULTIPLE_CHAR(uint16_t ConnHandle, uint8_t *pData, uint8_t len,  uint8_t *Characteristic, uint8_t NoOfhandles, VoidFuncPointer Callback);
 #endif
