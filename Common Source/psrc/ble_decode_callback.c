@@ -86,6 +86,7 @@ BLE_DEV_DATA BLEDeviceData[NoOfDevices];
 BLE_DEV_DATA BLEDeviceData;
 #endif
 void DisconnectionComplete_CB(evt_disconn_complete *evt_data);
+HAL_StatusTypeDef BLE_WAIT_FOR_TX_POOL(void);
 
 void ConnectionComplete_CB(uint8_t addr[6], uint16_t handle,uint8_t Status, uint8_t addr_type);
 
@@ -152,6 +153,8 @@ uint8_t UUID_CHAR_DATA[MAX_CHAR_NUM_PER_SERV*MAX_SERV_NUM_PER_DEV][UUID_LENGTH] 
 
 };
 #endif
+
+uint8_t BLE_TX_POOL_FREE = 0;
 
 #ifdef BOARD_N64_F4
 
@@ -625,6 +628,11 @@ void BLE_EVNT_CALLBACK(void * pData)
 	    {
 	      evt_blue_aci *blue_evt = (void*)event_pckt->data;
 	      switch(blue_evt->ecode){
+	      case EVT_BLUE_GATT_TX_POOL_AVAILABLE:
+	      {
+	    	  BLE_TX_POOL_FREE = 0;
+	    	  break;
+	      }
 	      case EVT_BLUE_GATT_PROCEDURE_TIMEOUT:
 	      {
 	    	  // Basically dead, we can disconnect and reconnect later
@@ -1103,7 +1111,7 @@ void BLE_INIT_SPEC(void)
 #ifdef DEBUG_BL_INIT
 	ret =
 #endif
-	aci_hal_set_tx_power_level(1,4);
+	aci_hal_set_tx_power_level(1,7);
 
 
 #ifdef BOARD_SENSORTILE
@@ -1177,10 +1185,13 @@ HAL_StatusTypeDef BLE_READ_MULTIPLE_CHAR(uint16_t ConnHandle, uint8_t *pData, ui
 tBleStatus BLE_ADD_SERVICES(void)
 {
 	tBleStatus ret;
+	uint16_t char_desc;
+	uint16_t temp = CHAR_USER_DESC_UUID;
+
 /*Sens service*/
 
 	ret =  aci_gatt_add_serv(UUID_TYPE_128,  UUID_SERVICE_DATA[BLE_SENS_SERVICE], PRIMARY_SERVICE,
-								1+2,                                     /*service attr + (desc + inc + val)*char_no*/
+								1+(1 + 1 + 1) * 2,                                     /*service attr + (desc + inc + val)*char_no*/
 								&BLEDeviceData.sServiceIDData[BLE_SENS_SERVICE].ServiceHandle);
 
 #ifdef DEBUG_BL_INIT
@@ -1198,6 +1209,20 @@ tBleStatus BLE_ADD_SERVICES(void)
 								ATTR_PERMISSION_NONE,
 								0,
 								16, 0, &BLEDeviceData.sCharIDData[BLE_ACC_CHAR].CharHandle);
+	ret = aci_gatt_add_char_desc(
+								 BLEDeviceData.sServiceIDData[BLE_SENS_SERVICE].ServiceHandle,
+								 BLEDeviceData.sCharIDData[BLE_ACC_CHAR].CharHandle,
+								 UUID_TYPE_16,
+								 (uint8_t*)&temp,
+							     10,
+								 7,
+								 "ACC_RD",
+								 ATTR_PERMISSION_NONE,
+								 ATTR_ACCESS_READ_ONLY,
+								 0,
+								 16,
+								 0,
+								 &char_desc);
 #ifdef DEBUG_BL_INIT
 	if(ret != 0)
 	{
@@ -1217,7 +1242,7 @@ tBleStatus BLE_ADD_SERVICES(void)
 #endif
 /*SD service*/
 	ret = aci_gatt_add_serv(UUID_TYPE_128,  UUID_SERVICE_DATA[BLE_SD_SERVICE], PRIMARY_SERVICE,
-								1+2,
+			1+(1 + 1 +2) * 2,
 								&BLEDeviceData.sServiceIDData[BLE_SD_SERVICE].ServiceHandle);
 #ifdef DEBUG_BL_INIT
 	if(ret != 0)
@@ -1251,7 +1276,7 @@ tBleStatus BLE_ADD_SERVICES(void)
 /* LED service*/
 
 	ret = aci_gatt_add_serv(UUID_TYPE_128,  UUID_SERVICE_DATA[BLE_LED_SERVICE], PRIMARY_SERVICE,
-								1+2,
+			1+(1 + 1 +2) * 2,
 								&BLEDeviceData.sServiceIDData[BLE_LED_SERVICE].ServiceHandle);
 #ifdef DEBUG_BL_INIT
 	if(ret != 0)
@@ -1285,7 +1310,7 @@ tBleStatus BLE_ADD_SERVICES(void)
 #endif
 /* SENSOR config service */
 	ret = aci_gatt_add_serv(UUID_TYPE_128,  UUID_SERVICE_DATA[BLE_CONF_SERVICE], PRIMARY_SERVICE,
-								1+2,
+			1+(1 + 1 +2) * 2,
 								&BLEDeviceData.sServiceIDData[BLE_LED_SERVICE].ServiceHandle);
 #ifdef DEBUG_BL_INIT
 	if(ret != 0)
@@ -1369,8 +1394,23 @@ void BLE_SET_CONNECTABLE(void)
 	aci_gap_update_adv_data(26, manuf_data);
 }
 
+HAL_StatusTypeDef BLE_WAIT_FOR_TX_POOL(void)
+{
+	BLE_TX_POOL_FREE = 1;
+	while(BLE_TX_POOL_FREE == 1)
+	{
+	    if(HCI_ProcessEvent)
+	    {
+	      HCI_ProcessEvent=0;
+	      hci_user_evt_proc();
+	    }
+	}
+	return HAL_OK;
+}
+
 HAL_StatusTypeDef BLE_UPDATE_CHAR(ServiceIDData *Service, CharIDData *Characteristic, uint8_t len, uint8_t *pData, VoidFuncPointer Callback)
 {
+	uint8_t ret;
 	if(CpltCallback == NULL)
 	{
 		CpltCallback = CpltCallback;
@@ -1379,8 +1419,21 @@ HAL_StatusTypeDef BLE_UPDATE_CHAR(ServiceIDData *Service, CharIDData *Characteri
 	{
 		return HAL_ERROR;
 	}
+	ret = BLE_STATUS_INSUFFICIENT_RESOURCES;
+	while (ret == BLE_STATUS_INSUFFICIENT_RESOURCES)
+	{
+		ret = aci_gatt_update_char_value(Service->ServiceHandle, Characteristic->CharHandle, 0, len, pData);
+		if (ret == BLE_STATUS_INSUFFICIENT_RESOURCES)
+		{
+			BLE_WAIT_FOR_TX_POOL();
+		}
+		else if (ret != BLE_STATUS_SUCCESS)
+		{
+			while(1);
+		}
+	}
 
-	return (aci_gatt_update_char_value(Service->ServiceHandle, Characteristic->CharHandle, 0, len, pData) == BLE_STATUS_SUCCESS)?HAL_OK:HAL_ERROR;
+	return (ret == BLE_STATUS_SUCCESS)?HAL_OK:HAL_ERROR;
 }
 
 #endif
