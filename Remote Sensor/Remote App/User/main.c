@@ -60,6 +60,7 @@
 extern uint8_t set_connectable;
 extern int connected;
 
+BLE_DEV_DATA *DevData;
 extern TIM_HandleTypeDef TimHandle;
 extern void CDC_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
 
@@ -106,8 +107,8 @@ int main(void)
 //  InitTargetPlatform(BoardType)
   /* Configure the System clock */
   SystemClock_Config();
-
   
+
   BSP_LED_Init(LED1);
   /* Initialize the BlueNRG */
   BLE_INIT_SPEC();
@@ -151,12 +152,11 @@ int main(void)
       HCI_ProcessEvent=0;
       hci_user_evt_proc();
     }
-//    if(SendEnv)
+    BLE_GET_DEV_DATA(&DevData);
+//    if(DevData->sCharIDData[BLE_ACC_CHAR].CharProperties & 0x3)
 //    {
-//    	SendEnv = 0;
     	UpdateCharacteristics();
 //    }
-    HAL_Delay(1);
 
     
     /* Wait for Interrupt */

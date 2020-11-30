@@ -1,6 +1,38 @@
-21:23:45 **** Incremental Build of configuration Debug for project Base ****
+03:58:30 **** Incremental Build of configuration Debug for project Base ****
 make -j8 all 
+arm-none-eabi-gcc "C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/LoadWeighingAL.c" -mcpu=cortex-m4 -std=gnu11 -g3 '-DUSE_HAL_UART_REGISTER_CALLBACKS=1' -DUSE_HAL_DRIVER -DSTM32F401xE -DDEBUG -c -I../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic -I../Middlewares/ST/BlueNRG-MS/includes -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../BlueNRG-MS/Target -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Middlewares/ST/BlueNRG-MS/utils -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Pin" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/psrc/LoadWeighingAL.d" -MT"Core/psrc/LoadWeighingAL.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/psrc/LoadWeighingAL.o"
 arm-none-eabi-gcc "C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c" -mcpu=cortex-m4 -std=gnu11 -g3 '-DUSE_HAL_UART_REGISTER_CALLBACKS=1' -DUSE_HAL_DRIVER -DSTM32F401xE -DDEBUG -c -I../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic -I../Middlewares/ST/BlueNRG-MS/includes -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../BlueNRG-MS/Target -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Middlewares/ST/BlueNRG-MS/utils -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Pin" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/psrc/ble_decode_callback.d" -MT"Core/psrc/ble_decode_callback.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/psrc/ble_decode_callback.o"
+arm-none-eabi-gcc "C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/station_specific.c" -mcpu=cortex-m4 -std=gnu11 -g3 '-DUSE_HAL_UART_REGISTER_CALLBACKS=1' -DUSE_HAL_DRIVER -DSTM32F401xE -DDEBUG -c -I../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic -I../Middlewares/ST/BlueNRG-MS/includes -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../BlueNRG-MS/Target -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Middlewares/ST/BlueNRG-MS/utils -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Pin" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/psrc/station_specific.d" -MT"Core/psrc/station_specific.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/psrc/station_specific.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 '-DUSE_HAL_UART_REGISTER_CALLBACKS=1' -DUSE_HAL_DRIVER -DSTM32F401xE -DDEBUG -c -I../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic -I../Middlewares/ST/BlueNRG-MS/includes -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../BlueNRG-MS/Target -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Middlewares/ST/BlueNRG-MS/utils -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Pin" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/stm32f4xx_hal_msp.c" -mcpu=cortex-m4 -std=gnu11 -g3 '-DUSE_HAL_UART_REGISTER_CALLBACKS=1' -DUSE_HAL_DRIVER -DSTM32F401xE -DDEBUG -c -I../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic -I../Middlewares/ST/BlueNRG-MS/includes -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../BlueNRG-MS/Target -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Middlewares/ST/BlueNRG-MS/utils -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Pin" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/stm32f4xx_hal_msp.d" -MT"Core/Src/stm32f4xx_hal_msp.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_hal_msp.o"
+arm-none-eabi-gcc "../Core/Src/stm32f4xx_it.c" -mcpu=cortex-m4 -std=gnu11 -g3 '-DUSE_HAL_UART_REGISTER_CALLBACKS=1' -DUSE_HAL_DRIVER -DSTM32F401xE -DDEBUG -c -I../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic -I../Middlewares/ST/BlueNRG-MS/includes -I../Drivers/CMSIS/Include -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Core/Inc -I../BlueNRG-MS/Target -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Middlewares/ST/BlueNRG-MS/utils -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Pin" -I"C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/stm32f4xx_it.d" -MT"Core/Src/stm32f4xx_it.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/stm32f4xx_it.o"
+In file included from ../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic/hci_tl.h:22:0,
+                 from ../Middlewares/ST/BlueNRG-MS/includes/hci_const.h:14,
+                 from C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Pin/SpecialTypes.h:12,
+                 from C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Pin/station_specific.h:11,
+                 from C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/station_specific.c:7:
+../BlueNRG-MS/Target/bluenrg_conf.h:36:0: warning: "DEBUG" redefined
+ #define DEBUG      0
+ 
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic/hci_tl.h:22:0,
+                 from ../Middlewares/ST/BlueNRG-MS/includes/hci_const.h:14,
+                 from C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Pin/SpecialTypes.h:12,
+                 from C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Pin/station_specific.h:11,
+                 from ../Core/Src/main.c:27:
+../BlueNRG-MS/Target/bluenrg_conf.h:36:0: warning: "DEBUG" redefined
+ #define DEBUG      0
+ 
+<command-line>:0:0: note: this is the location of the previous definition
+In file included from ../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic/hci_tl.h:22:0,
+                 from ../Middlewares/ST/BlueNRG-MS/includes/hci_const.h:14,
+                 from C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Pin/SpecialTypes.h:12,
+                 from C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Pin/LoadWeighingAL.h:20,
+                 from C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/LoadWeighingAL.c:8:
+../BlueNRG-MS/Target/bluenrg_conf.h:36:0: warning: "DEBUG" redefined
+ #define DEBUG      0
+ 
+<command-line>:0:0: note: this is the location of the previous definition
 In file included from ../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic/hci_tl.h:22:0,
                  from ../Middlewares/ST/BlueNRG-MS/includes/hci_const.h:14,
                  from C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/Pin/SpecialTypes.h:12,
@@ -11,51 +43,82 @@ In file included from ../Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic/hci
  
 <command-line>:0:0: note: this is the location of the previous definition
 C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c: In function 'BLE_DECODE_GROUP_RESP':
-C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:299:6: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:305:6: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
    c2 = cc;
       ^
-C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:267:10: warning: unused variable 'BLE_UUID_DATA' [-Wunused-variable]
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:273:10: warning: unused variable 'BLE_UUID_DATA' [-Wunused-variable]
   uint8_t BLE_UUID_DATA;
           ^~~~~~~~~~~~~
 C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c: In function 'BLE_ADV_REPORT_CALLBACK':
-C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:443:14: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:449:14: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
   Temp_BdAddr = &cc->bdaddr;
               ^
 C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c: In function 'BLE_EVNT_CALLBACK':
-C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:663:30: warning: unused variable 'cc' [-Wunused-variable]
-         evt_gatt_error_resp *cc = (void*)blue_evt->data;
-                              ^~
-C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:693:33: warning: unused variable 'cc' [-Wunused-variable]
-         evt_att_read_mult_resp *cc = (void*)blue_evt->data;
-                                 ^~
-C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:708:37: warning: unused variable 'cc' [-Wunused-variable]
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:728:37: warning: unused variable 'cc' [-Wunused-variable]
          evt_gatt_attr_notification *cc = (void*)blue_evt->data;
                                      ^~
 C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c: In function 'DisconnectionComplete_CB':
-C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:874:11: warning: 'return' with a value, in function returning void
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:896:11: warning: 'return' with a value, in function returning void
     return 0;
            ^
-C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:862:6: note: declared here
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:883:6: note: declared here
  void DisconnectionComplete_CB(evt_disconn_complete *evt_data)
       ^~~~~~~~~~~~~~~~~~~~~~~~
 C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c: In function 'BLE_INIT_SPEC':
-C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:1003:3: warning: unused variable 'uname' [-Wunused-variable]
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:1025:3: warning: unused variable 'uname' [-Wunused-variable]
   }uname = {.sname = sname};
    ^~~~~
-arm-none-eabi-g++ -o "Base.elf" @"objects.list"   -mcpu=cortex-m4 -T"C:\Users\Mateusz\STM32CubeIDE\bck2\remote-measurement-station\Base\STM32F401RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Base.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-Finished building target: Base.elf
- 
-arm-none-eabi-objdump -h -S  Base.elf  > "Base.list"
-arm-none-eabi-objcopy  -O binary  Base.elf  "Base.bin"
-arm-none-eabi-size   Base.elf 
-   text	   data	    bss	    dec	    hex	filename
-  30892	    736	   3600	  35228	   899c	Base.elf
-Finished building: default.size.stdout
- 
-Finished building: Base.bin
- 
-Finished building: Base.list
- 
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c: In function 'BLE_ATTR_MODIFIED_CB':
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:1489:33: error: '(BLE_DEV_DATA *)&BLEDeviceData' is a pointer; did you mean to use '->'?
+  if(attr_handle == BLEDeviceData.sCharIDData[BLE_ACC_CHAR].CharValueHandle)
+                                 ^
+                                 ->
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/ble_decode_callback.c:1491:16: error: '(BLE_DEV_DATA *)&BLEDeviceData' is a pointer; did you mean to use '->'?
+   BLEDeviceData.sCharIDData[BLE_ACC_CHAR].CharProperties = att_data[0] | (att_data[1] << 8);
+                ^
+                ->
+make: *** [Core/psrc/subdir.mk:26: Core/psrc/ble_decode_callback.o] Error 1
+make: *** Waiting for unfinished jobs....
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/station_specific.c: In function 'BLE_GET_DATA':
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/station_specific.c:377:2: warning: enumeration value 'EMPTY' not handled in switch [-Wswitch]
+  switch(Data->eDataTypes){
+  ^~~~~~
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/station_specific.c:377:2: warning: enumeration value 'FLOAT' not handled in switch [-Wswitch]
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/station_specific.c:377:2: warning: enumeration value 'STRING' not handled in switch [-Wswitch]
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/station_specific.c:376:17: warning: unused variable 'state' [-Wunused-variable]
+  static uint8_t state = 0;
+                 ^~~~~
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/station_specific.c: In function 'Data_Recv_Single':
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/station_specific.c:412:26: warning: format '%d' expects argument of type 'int', but argument 3 has type 'int32_t {aka long int}' [-Wformat=]
+  len = sprintf(Message,"%d %d %d\n", paData->x, paData->y,paData->z);
+                         ~^           ~~~~~~~~~
+                         %ld
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/station_specific.c:412:29: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int32_t {aka long int}' [-Wformat=]
+  len = sprintf(Message,"%d %d %d\n", paData->x, paData->y,paData->z);
+                            ~^                   ~~~~~~~~~
+                            %ld
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/station_specific.c:412:32: warning: format '%d' expects argument of type 'int', but argument 5 has type 'int32_t {aka long int}' [-Wformat=]
+  len = sprintf(Message,"%d %d %d\n", paData->x, paData->y,paData->z);
+                               ~^                          ~~~~~~~~~
+                               %ld
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/station_specific.c: In function 'Data_Recv_Multiple':
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/station_specific.c:431:26: warning: format '%d' expects argument of type 'int', but argument 3 has type 'int32_t {aka long int}' [-Wformat=]
+  len = sprintf(Message,"%d %d %d\n", paData->x, paData->y,paData->z);
+                         ~^           ~~~~~~~~~
+                         %ld
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/station_specific.c:431:29: warning: format '%d' expects argument of type 'int', but argument 4 has type 'int32_t {aka long int}' [-Wformat=]
+  len = sprintf(Message,"%d %d %d\n", paData->x, paData->y,paData->z);
+                            ~^                   ~~~~~~~~~
+                            %ld
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/station_specific.c:431:32: warning: format '%d' expects argument of type 'int', but argument 5 has type 'int32_t {aka long int}' [-Wformat=]
+  len = sprintf(Message,"%d %d %d\n", paData->x, paData->y,paData->z);
+                               ~^                          ~~~~~~~~~
+                               %ld
+At top level:
+C:/Users/Mateusz/STM32CubeIDE/bck2/remote-measurement-station/Common Source/psrc/station_specific.c:376:17: warning: 'state' defined but not used [-Wunused-variable]
+  static uint8_t state = 0;
+                 ^~~~~
+"make -j8 all" terminated with exit code 2. Build might be incomplete.
 
-21:23:46 Build Finished. 0 errors, 9 warnings. (took 1s.249ms)
+03:58:31 Build Failed. 4 errors, 21 warnings. (took 869ms)
 

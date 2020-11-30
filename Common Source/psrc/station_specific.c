@@ -497,7 +497,9 @@ int32_t getSensorsData( T_SensorsData *mptr)
 
 void UpdateCharacteristics(void)
 {
+	uint8_t Message[50];
 	BLE_DEV_DATA *DevData = NULL;
+	uint8_t len;
 	typedef struct
 	{
 		BSP_MOTION_SENSOR_Axes_t acc;
@@ -526,7 +528,8 @@ void UpdateCharacteristics(void)
 
 		BLE_GET_DEV_DATA(&DevData);
 
-		BLE_UPDATE_CHAR(&DevData->sServiceIDData[BLE_SENS_SERVICE], &DevData->sCharIDData[BLE_ACC_CHAR], 4*3, (uint8_t*)&rptr->acc, NULL);
+		len = sprintf(Message,"%d %d %d\n", rptr->acc.x, rptr->acc.y, rptr->acc.z);
+		BLE_UPDATE_CHAR(&DevData->sServiceIDData[BLE_SERIAL_SERVICE], &DevData->sCharIDData[BLE_SERIAL_RD_CHAR], len, Message, NULL);
 
 	}
 }
