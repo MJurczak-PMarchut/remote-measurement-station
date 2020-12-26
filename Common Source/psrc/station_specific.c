@@ -497,7 +497,7 @@ int32_t getSensorsData( T_SensorsData *mptr)
 
 void UpdateCharacteristics(void)
 {
-	uint8_t Message[50];
+	uint8_t Message[50] = "aaa\n";
 	BLE_DEV_DATA *DevData = NULL;
 	uint8_t len;
 	typedef struct
@@ -516,7 +516,8 @@ void UpdateCharacteristics(void)
 
 //	uint8_t Data[4*3*2] = 0;
 
-	if(getSensorsData(rptr) != BSP_ERROR_NONE)
+//	if(getSensorsData(rptr) != BSP_ERROR_NONE)
+	if(0)
 	{
 		return;
 	}
@@ -528,7 +529,8 @@ void UpdateCharacteristics(void)
 
 		BLE_GET_DEV_DATA(&DevData);
 
-		len = sprintf(Message,"%d %d %d\n", rptr->acc.x, rptr->acc.y, rptr->acc.z);
+//		len = sprintf(Message,"%d %d %d\n", rptr->acc.x, rptr->acc.y, rptr->acc.z);
+		len = 4;
 		BLE_UPDATE_CHAR(&DevData->sServiceIDData[BLE_SERIAL_SERVICE], &DevData->sCharIDData[BLE_SERIAL_RD_CHAR], len, Message, NULL);
 
 	}

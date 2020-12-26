@@ -1442,7 +1442,7 @@ void BLE_SET_CONNECTABLE(void)
 
 
 	aci_gap_set_discoverable(ADV_DATA_TYPE, ADV_INTERV_MIN, ADV_INTERV_MAX, ADDR_TYPE,
-		                                 NO_WHITE_LIST_USE, sizeof(uname), &uname.cname, 0, NULL, 0, 0);
+		                                 NO_WHITE_LIST_USE, sizeof(uname), &uname.cname, 0, NULL, 0xFFFF, 0xFFFF);
 	aci_gap_update_adv_data(26, manuf_data);
 }
 

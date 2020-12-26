@@ -144,7 +144,14 @@ int main(void)
         }
       }
     }
-    
+    else{
+    	if(TargetBoardFeatures.LedStatus == 1)
+    	{
+    		LedOffTargetPlatform();
+    		TargetBoardFeatures.LedStatus = 0;
+    	}
+    	UpdateCharacteristics();
+    }
     /* handle BLE event */
 
     if(HCI_ProcessEvent) 
@@ -155,7 +162,7 @@ int main(void)
     BLE_GET_DEV_DATA(&DevData);
 //    if(DevData->sCharIDData[BLE_ACC_CHAR].CharProperties & 0x3)
 //    {
-    	UpdateCharacteristics();
+
 //    }
 
     
@@ -197,140 +204,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   }
 }
 
-/**
-* @brief  Send Environmetal Data (Temperature/Pressure/Humidity) to BLE
-* @param  None
-* @retval None
-*/
-//static void SendEnvironmentalData(void)
-//{
-//#ifdef ENABLE_USB_DEBUG_NOTIFY_TRAMISSION
-//  if(W2ST_CHECK_CONNECTION(W2ST_CONNECT_STD_TERM))
-//  {
-//    BytesToWrite = sprintf((char *)BufferToWrite,"Sending: ");
-//    Term_Update(BufferToWrite,BytesToWrite);
-//  }
-//  else
-//  {
-//    STLBLE_PRINTF("Sending: ");
-//  }
-//#endif /* ENABLE_USB_DEBUG_NOTIFY_TRAMISSION */
-//
-//  /* Pressure,Humidity, and Temperatures*/
-//  if(W2ST_CHECK_CONNECTION(W2ST_CONNECT_ENV))
-//  {
-//    float SensorValue;
-//    int32_t PressToSend=0;
-//    uint16_t HumToSend=0;
-//    int16_t Temp2ToSend=0,Temp1ToSend=0;
-//    int32_t decPart, intPart;
-//
-//    if(TargetBoardFeatures.HandlePressSensor)
-//    {
-//      BSP_ENV_SENSOR_GetValue(LPS22HB_0, ENV_PRESSURE,(float *)&SensorValue);
-//      MCR_BLUEMS_F2I_2D(SensorValue, intPart, decPart);
-//      PressToSend=intPart*100+decPart;
-//#ifdef ENABLE_USB_DEBUG_NOTIFY_TRAMISSION
-//      if(W2ST_CHECK_CONNECTION(W2ST_CONNECT_STD_TERM))
-//      {
-//        BytesToWrite = sprintf((char *)BufferToWrite,"Press=%ld ",PressToSend);
-//        Term_Update(BufferToWrite,BytesToWrite);
-//      }
-//      else
-//      {
-//        STLBLE_PRINTF("Press=%ld ",PressToSend);
-//      }
-//#endif /* ENABLE_USB_DEBUG_NOTIFY_TRAMISSION */
-//    }
-//
-//    if(TargetBoardFeatures.HandleHumSensor)
-//    {
-//
-//      BSP_ENV_SENSOR_GetValue(HTS221_0, ENV_HUMIDITY, (float *)&SensorValue);
-//      MCR_BLUEMS_F2I_1D(SensorValue, intPart, decPart);
-//      HumToSend = intPart*10+decPart;
-//#ifdef ENABLE_USB_DEBUG_NOTIFY_TRAMISSION
-//      if(W2ST_CHECK_CONNECTION(W2ST_CONNECT_STD_TERM))
-//      {
-//        BytesToWrite = sprintf((char *)BufferToWrite,"Hum=%d ",HumToSend);
-//        Term_Update(BufferToWrite,BytesToWrite);
-//      }
-//      else
-//      {
-//        STLBLE_PRINTF("Hum=%d ",HumToSend);
-//      }
-//#endif /* ENABLE_USB_DEBUG_NOTIFY_TRAMISSION */
-//    }
-//
-//    if(TargetBoardFeatures.NumTempSensors==2)
-//    {
-//      BSP_ENV_SENSOR_GetValue(HTS221_0, ENV_TEMPERATURE,(float *)&SensorValue);
-//      MCR_BLUEMS_F2I_1D(SensorValue, intPart, decPart);
-//      Temp1ToSend = intPart*10+decPart;
-//#ifdef ENABLE_USB_DEBUG_NOTIFY_TRAMISSION
-//      if(W2ST_CHECK_CONNECTION(W2ST_CONNECT_STD_TERM))
-//      {
-//        BytesToWrite = sprintf((char *)BufferToWrite,"Temp=%d ",Temp1ToSend);
-//        Term_Update(BufferToWrite,BytesToWrite);
-//      }
-//      else
-//      {
-//        STLBLE_PRINTF("Temp=%d ",Temp1ToSend);
-//      }
-//#endif /* ENABLE_USB_DEBUG_NOTIFY_TRAMISSION */
-//
-//      BSP_ENV_SENSOR_GetValue(LPS22HB_0, ENV_TEMPERATURE,(float *)&SensorValue);
-//      MCR_BLUEMS_F2I_1D(SensorValue, intPart, decPart);
-//      Temp2ToSend = intPart*10+decPart;
-//#ifdef ENABLE_USB_DEBUG_NOTIFY_TRAMISSION
-//      if(W2ST_CHECK_CONNECTION(W2ST_CONNECT_STD_TERM))
-//      {
-//        BytesToWrite = sprintf((char *)BufferToWrite,"Temp2=%d ",Temp2ToSend);
-//        Term_Update(BufferToWrite,BytesToWrite);
-//      }
-//      else
-//      {
-//        STLBLE_PRINTF("Temp2=%d ",Temp2ToSend);
-//      }
-//#endif /* ENABLE_USB_DEBUG_NOTIFY_TRAMISSION */
-//    }
-//    else if(TargetBoardFeatures.NumTempSensors==1)
-//    {
-//      if (BSP_ENV_SENSOR_GetValue(HTS221_0, ENV_TEMPERATURE,(float *)&SensorValue)!=BSP_ERROR_NONE)
-//      {
-//        BSP_ENV_SENSOR_GetValue(LPS22HB_0, ENV_TEMPERATURE,(float *)&SensorValue);
-//      }
-//      MCR_BLUEMS_F2I_1D(SensorValue, intPart, decPart);
-//      Temp1ToSend = intPart*10+decPart;
-//#ifdef ENABLE_USB_DEBUG_NOTIFY_TRAMISSION
-//      if(W2ST_CHECK_CONNECTION(W2ST_CONNECT_STD_TERM))
-//      {
-//        BytesToWrite = sprintf((char *)BufferToWrite,"Temp1=%d ",Temp1ToSend);
-//        Term_Update(BufferToWrite,BytesToWrite);
-//      }
-//      else
-//      {
-//        STLBLE_PRINTF("Temp1=%d ",Temp1ToSend);
-//      }
-//#endif /* ENABLE_USB_DEBUG_NOTIFY_TRAMISSION */
-//
-//    }
-////    0,
-////	(PressToSend,HumToSend,Temp2ToSend,Temp1ToSend);
-//  }
-//
-//#ifdef ENABLE_USB_DEBUG_NOTIFY_TRAMISSION
-//  if(W2ST_CHECK_CONNECTION(W2ST_CONNECT_STD_TERM))
-//  {
-//    BytesToWrite = sprintf((char *)BufferToWrite,"\r\n");
-//    Term_Update(BufferToWrite,BytesToWrite);
-//  }
-//  else
-//  {
-//    STLBLE_PRINTF("\r\n");
-//  }
-//#endif /* ENABLE_USB_DEBUG_NOTIFY_TRAMISSION */
-//}
 
 /**
 * @brief  Function for initializing timers for sending the information to BLE:
@@ -382,156 +255,6 @@ static void InitTimers(void)
 * @retval None
 */
 //#define STATIC_BLE_MAC
-static void Init_BlueNRG_Stack(void)
-{
-  const char BoardName[8] = {NAME_STLBLE,0};
-  uint16_t service_handle, dev_name_char_handle, appearance_char_handle;
-  int ret;
-  uint8_t  hwVersion;
-  uint16_t fwVersion;
-  
-#ifdef STATIC_BLE_MAC
-  {
-    uint8_t tmp_bdaddr[6]= {STATIC_BLE_MAC};
-    int32_t i;
-    for(i=0;i<6;i++)
-      bdaddr[i] = tmp_bdaddr[i];
-  }
-#endif /* STATIC_BLE_MAC */
-
-  /* Initialize the BlueNRG HCI */
-  hci_init(HCI_Event_CB, NULL);
-  
-  /* get the BlueNRG HW and FW versions */
-  getBlueNRGVersion(&hwVersion, &fwVersion);
-  
-  /* 
-  * Reset BlueNRG again otherwise we won't
-  * be able to change its MAC address.
-  * aci_hal_write_config_data() must be the first
-  * command after reset otherwise it will fail.
-  */
-  hci_reset();
-  
-  HAL_Delay(100);
-  
-#ifndef STATIC_BLE_MAC
-  /* Create a Unique BLE MAC */
-  {
-    bdaddr[0] = (STM32_UUID[1]>>24)&0xFF;
-    bdaddr[1] = (STM32_UUID[0]    )&0xFF;
-    bdaddr[2] = (STM32_UUID[2] >>8)&0xFF;
-    bdaddr[3] = (STM32_UUID[0]>>16)&0xFF;
-    bdaddr[4] = (((STLBLE_VERSION_MAJOR-48)*10) + (STLBLE_VERSION_MINOR-48)+100)&0xFF;
-    bdaddr[5] = 0xC0; /* for a Legal BLE Random MAC */
-  }
-#else /* STATIC_BLE_MAC */
-  
-  ret = aci_hal_write_config_data(CONFIG_DATA_PUBADDR_OFFSET,
-                                  CONFIG_DATA_PUBADDR_LEN,
-                                  bdaddr);
-  if(ret)
-  {
-    STLBLE_PRINTF("\r\nSetting Pubblic BD_ADDR failed\r\n");
-    goto fail;
-  }
-#endif /* STATIC_BLE_MAC */
-  
-  ret = aci_gatt_init();    
-  if(ret)
-  {
-    STLBLE_PRINTF("\r\nGATT_Init failed\r\n");
-    goto fail;
-  }
-  
-
-    ret = aci_gap_init_IDB05A1(GAP_PERIPHERAL_ROLE_IDB05A1, 0, 0x07, &service_handle, &dev_name_char_handle, &appearance_char_handle);
-  
-  if(ret != BLE_STATUS_SUCCESS)
-  {
-    STLBLE_PRINTF("\r\nGAP_Init failed\r\n");
-    goto fail;
-  }
-  
-#ifndef  STATIC_BLE_MAC
-  ret = hci_le_set_random_address(bdaddr);
-  
-  if(ret)
-  {
-    STLBLE_PRINTF("\r\nSetting the Static Random BD_ADDR failed\r\n");
-    goto fail;
-  }
-#endif /* STATIC_BLE_MAC */
-  
-  ret = aci_gatt_update_char_value(service_handle, dev_name_char_handle, 0,
-                                   7/*strlen(BoardName)*/, (uint8_t *)BoardName);
-  
-  if(ret)
-  {
-    STLBLE_PRINTF("\r\naci_gatt_update_char_value failed\r\n");
-    while(1);
-  }
-  
-  ret = aci_gap_set_auth_requirement(MITM_PROTECTION_REQUIRED,
-                                     OOB_AUTH_DATA_ABSENT,
-                                     NULL, 7, 16,
-                                     USE_FIXED_PIN_FOR_PAIRING, 123456,
-                                     BONDING);
-  if (ret != BLE_STATUS_SUCCESS) 
-  {
-    STLBLE_PRINTF("\r\nGAP setting Authentication failed\r\n");
-    goto fail;
-  }
-  
-  STLBLE_PRINTF("SERVER: BLE Stack Initialized \r\n"
-                "\t\tBoard type=%s HWver=%d, FWver=%d.%d.%c\r\n"
-                  "\t\tBoardName= %s\r\n"
-                    "\t\tBoardMAC = %x:%x:%x:%x:%x:%x\r\n\n",
-                    "SensorTile",
-                    hwVersion,
-                    fwVersion>>8,
-                    (fwVersion>>4)&0xF,
-                    (hwVersion > 0x30) ? ('a'+(fwVersion&0xF)-1) : 'a',
-                    BoardName,
-                    bdaddr[5],bdaddr[4],bdaddr[3],bdaddr[2],bdaddr[1],bdaddr[0]);
-  
-  /* Set output power level */
-  aci_hal_set_tx_power_level(1,4);
-  
-  return;
-  
-fail:
-  return;
-}
-
-/** @brief Initialize all the Custom BlueNRG services
-* @param None
-* @retval None
-*/
-static void Init_BlueNRG_Custom_Services(void)
-{
-  int ret;
-  
-  ret = Add_HWServW2ST_Service();
-  if(ret == BLE_STATUS_SUCCESS) 
-  {
-    STLBLE_PRINTF("HW      Service W2ST added successfully\r\n");
-  } 
-  else 
-  {
-    STLBLE_PRINTF("\r\nError while adding HW Service W2ST\r\n");
-  }
-  
-  ret = Add_ConfigW2ST_Service();
-  if(ret == BLE_STATUS_SUCCESS) 
-  {
-    STLBLE_PRINTF("Config  Service W2ST added successfully\r\n");
-  } 
-  else 
-  {
-    STLBLE_PRINTF("\r\nError while adding Config Service W2ST\r\n");
-  }
-}
 
 /**
 * @brief  System Clock Configuration
