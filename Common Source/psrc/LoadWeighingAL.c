@@ -3,7 +3,14 @@
  *
  *  Created on: Dec 31, 2019
  *      Author: Mateusz Jurczak
+ *
+ *      Dec 26, 2020
+ *      Note to self:
+ *      Always comment your code, people change and you are not the same person that wrote that code
+ *      All of this will probably need to be discarded, not really needed for the project
  */
+
+
 
 #include "LoadWeighingAL.h"
 

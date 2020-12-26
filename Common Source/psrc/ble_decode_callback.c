@@ -1481,6 +1481,18 @@ HAL_StatusTypeDef BLE_UPDATE_CHAR(ServiceIDData *Service, CharIDData *Characteri
 		}
 		else if (ret != BLE_STATUS_SUCCESS)
 		{
+			/*
+			 * Sometimes we get here
+			 * Sometimes that is ok
+			 * But not always
+			 * Not all error codes that pop up are defined ex. 0x60
+			 * Why ?
+			 * What I'm supposed to do then ?
+			 * Will probably try guessing what to do
+			 * In any case while(1) is the worst thing that could be put here
+			 * So I probably should do something about it
+			 */
+			//TODO fix this, this should not be like this
 			while(1);
 		}
 	}
