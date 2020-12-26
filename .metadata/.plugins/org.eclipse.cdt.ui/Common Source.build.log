@@ -1,8 +1,8 @@
-23:13:37 **** Incremental Build of configuration Debug for project Common Source ****
+01:02:59 **** Incremental Build of configuration Debug for project Common Source ****
 make all 
 Error: Cannot find the specified linker script. Check the linker settings in the build configuration.
 make: *** [makefile:190: fail-specified-linker-script-missing] Error 2
 "make all" terminated with exit code 2. Build might be incomplete.
 
-23:13:40 Build Failed. 2 errors, 0 warnings. (took 2s.934ms)
+01:03:01 Build Failed. 2 errors, 0 warnings. (took 1s.962ms)
 

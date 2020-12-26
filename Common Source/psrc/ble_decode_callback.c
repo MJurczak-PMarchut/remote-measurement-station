@@ -1489,6 +1489,7 @@ HAL_StatusTypeDef BLE_UPDATE_CHAR(ServiceIDData *Service, CharIDData *Characteri
 }
 
 #endif
+#ifdef BOARD_SENSORTILE
 void BLE_ATTR_MODIFIED_CB(uint16_t attr_handle, uint8_t * att_data, uint8_t data_length)
 {
 
@@ -1497,7 +1498,7 @@ void BLE_ATTR_MODIFIED_CB(uint16_t attr_handle, uint8_t * att_data, uint8_t data
 		BLEDeviceData.sCharIDData[BLE_ACC_CHAR].CharProperties = att_data[0] | (att_data[1] << 8);
 	}
 }
-
+#endif
 
 
 
