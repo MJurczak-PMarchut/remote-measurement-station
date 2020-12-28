@@ -96,7 +96,6 @@ static void SendEnvironmentalData(void);
 int main(void)
 {
   uint32_t StartTime;
-  
   /* STM32L4xx HAL library initialization:
   - Configure the Flash prefetch, instruction and Data caches
   - Configure the Systick to generate an interrupt each 1 msec
@@ -106,14 +105,13 @@ int main(void)
   HAL_Init();
 //  InitTargetPlatform(BoardType)
   /* Configure the System clock */
-  SystemClock_Config();
-  
-
+//  SystemClock_Config();
+  Prepare_for_LPRun();
+  HAL_PWREx_EnableLowPowerRunMode();
+  ClkDependentInit();
   BSP_LED_Init(LED1);
   /* Initialize the BlueNRG */
-  BLE_INIT_SPEC();
-  InitBoard();
-  BLE_ADD_SERVICES();
+  ClkDependentInit();
   /* initialize timers */
   InitTimers();
   
@@ -352,6 +350,37 @@ void Error_Handler(void)
   }
 }
 
+HAL_StatusTypeDef MX_SPI1_Init(SPI_HandleTypeDef* hspi)
+{
+//TODO check if this function is called instead of weak one
+  HAL_StatusTypeDef ret = HAL_OK;
+  hspi->Instance = SPI1;
+  hspi->Init.Mode = SPI_MODE_MASTER;
+  hspi->Init.Direction = SPI_DIRECTION_2LINES;
+  hspi->Init.DataSize = SPI_DATASIZE_8BIT;
+  hspi->Init.CLKPolarity = SPI_POLARITY_LOW;
+  hspi->Init.CLKPhase = SPI_PHASE_1EDGE;
+  hspi->Init.NSS = SPI_NSS_SOFT;
+  //SPI is stable at around 20MHz, above that we lose communication with BLE chip
+  if(HAL_RCC_GetSysClockFreq() <= 40000000){
+	  hspi->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  }
+  else{
+	  hspi->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+  }
+  hspi->Init.FirstBit = SPI_FIRSTBIT_MSB;
+  hspi->Init.TIMode = SPI_TIMODE_DISABLE;
+  hspi->Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  hspi->Init.CRCPolynomial = 7;
+  hspi->Init.CRCLength = SPI_CRC_LENGTH_DATASIZE;
+  hspi->Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
+  if (HAL_SPI_Init(hspi) != HAL_OK)
+  {
+    ret = HAL_ERROR;
+  }
+
+  return ret;
+}
 
 
 #ifdef  USE_FULL_ASSERT

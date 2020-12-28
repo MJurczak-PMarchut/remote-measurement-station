@@ -536,4 +536,14 @@ void UpdateCharacteristics(void)
 	}
 }
 
+void ClkDependentInit(void)
+{
+	  BLE_INIT_SPEC();
+	  InitBoard();
+	  BLE_ADD_SERVICES();
+}
+
+
+
+
 #endif
