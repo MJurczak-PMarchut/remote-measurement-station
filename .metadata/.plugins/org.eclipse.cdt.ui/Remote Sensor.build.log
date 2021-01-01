@@ -1,32 +1,12 @@
-03:55:28 **** Incremental Build of configuration Debug for project Remote Sensor ****
+00:53:53 **** Incremental Build of configuration Debug for project Remote Sensor ****
 make -j16 all 
-arm-none-eabi-gcc "../Remote App/User/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32_SENSORTILE -DSTM32L476xx -DUSE_STM32L4XX_NUCLEO -c -I../../../Inc -I"C:/p_inzynierska/remote-measurement-station/Common Source/Inc" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Drivers/BSP/Components/Common" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Drivers/BSP/Components/lsm303agr" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Drivers/BSP/Components/lsm6dsm" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Middlewares/ST/BlueNRG-MS/utils" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Middlewares/ST/BlueNRG-MS/includes" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Middlewares/ST/STM32_USB_Device_Library/Core/Inc" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Drivers/BSP/Components/lps22hb" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Drivers/BSP/Components/hts221" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Drivers/CMSIS/Include" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Drivers/BSP/SensorTile" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Drivers/STM32L4xx_HAL_Driver/Inc" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"C:/p_inzynierska/remote-measurement-station/Common Source/psrc" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Pin" -I"C:/p_inzynierska/remote-measurement-station/Remote Sensor/BOARD_SPEC" -O0 -ffunction-sections -Wall -fstack-usage -MMD -MP -MF"Remote App/User/main.d" -MT"Remote App/User/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Remote App/User/main.o"
-arm-none-eabi-gcc "../Drivers/BSP/SensorTile/SensorTile_bus.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DUSE_HAL_DRIVER -DSTM32_SENSORTILE -DSTM32L476xx -DUSE_STM32L4XX_NUCLEO -c -I../../../Inc -I"C:/p_inzynierska/remote-measurement-station/Common Source/Inc" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Drivers/BSP/Components/Common" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Drivers/BSP/Components/lsm303agr" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Drivers/BSP/Components/lsm6dsm" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Middlewares/ST/BlueNRG-MS/utils" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Middlewares/ST/BlueNRG-MS/includes" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Middlewares/ST/STM32_USB_Device_Library/Core/Inc" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Middlewares/ST/BlueNRG-MS/hci/hci_tl_patterns/Basic" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Drivers/BSP/Components/lps22hb" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Drivers/BSP/Components/hts221" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Drivers/CMSIS/Include" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Drivers/BSP/SensorTile" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Drivers/STM32L4xx_HAL_Driver/Inc" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Drivers/CMSIS/Device/ST/STM32L4xx/Include" -I"C:/p_inzynierska/remote-measurement-station/Common Source/psrc" -I"C:/p_inzynierska/remote-measurement-station/Common Source/Pin" -I"C:/p_inzynierska/remote-measurement-station/Remote Sensor/BOARD_SPEC" -O0 -ffunction-sections -Wall -fstack-usage -MMD -MP -MF"Drivers/BSP/SensorTile/SensorTile_bus.d" -MT"Drivers/BSP/SensorTile/SensorTile_bus.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Drivers/BSP/SensorTile/SensorTile_bus.o"
-../Remote App/User/main.c:84:13: warning: 'Init_BlueNRG_Custom_Services' declared 'static' but never defined [-Wunused-function]
- static void Init_BlueNRG_Custom_Services(void);
-             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
-../Remote App/User/main.c:85:13: warning: 'Init_BlueNRG_Stack' declared 'static' but never defined [-Wunused-function]
- static void Init_BlueNRG_Stack(void);
-             ^~~~~~~~~~~~~~~~~~
-../Remote App/User/main.c:87:13: warning: 'SendEnvironmentalData' declared 'static' but never defined [-Wunused-function]
- static void SendEnvironmentalData(void);
-             ^~~~~~~~~~~~~~~~~~~~~
-arm-none-eabi-gcc -o "Remote Sensor.elf" @"objects.list"   -mcpu=cortex-m4 -T"../LinkerScript.ld" -Wl,-Map="Remote Sensor.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Remote Sensor.elf
- 
 arm-none-eabi-size   Remote\ Sensor.elf 
-arm-none-eabi-objdump -h -S  Remote\ Sensor.elf  > "Remote Sensor.list"
-arm-none-eabi-objcopy  -O binary  Remote\ Sensor.elf  "Remote Sensor.bin"
    text	   data	    bss	    dec	    hex	filename
-  52720	    480	  44780	  97980	  17ebc	Remote Sensor.elf
+  49576	    464	  44784	  94824	  17268	Remote Sensor.elf
 Finished building: default.size.stdout
- 
-Finished building: Remote Sensor.bin
- 
-Finished building: Remote Sensor.list
  
 arm-none-eabi-objcopy -O binary "Remote Sensor.elf" "BLE_SampleApp.bin"
  
 
-03:55:30 Build Finished. 0 errors, 3 warnings. (took 2s.250ms)
+00:53:54 Build Finished. 0 errors, 0 warnings. (took 1s.81ms)
 

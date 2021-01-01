@@ -7,9 +7,9 @@
 
 #include "pwr_control.h"
 
-HAL_StatusTypeDef CheckPowerLewerPrerequisite(PowerState ePowerState)
+HAL_StatusTypeDef CheckPowerLevelPrerequisites(PowerState ePowerState)
 {
-	uint8_t state;
+//	uint8_t state;
 	switch(ePowerState){
 	case PS_DONT_CARE:
 		//There are no prerequisites for "don't care", we should know what state we want to be in
@@ -23,6 +23,9 @@ HAL_StatusTypeDef CheckPowerLewerPrerequisite(PowerState ePowerState)
 		else{
 			return HAL_ERROR;
 		}
+		break;
+	default:
+		return HAL_ERROR;
 		break;
 	}
 	return HAL_ERROR;
@@ -70,7 +73,8 @@ void SetSysclk2MHz(void)
 }
 
 
-HAL_StatusTypeDef Prepare_for_LPRun()
+
+HAL_StatusTypeDef Prepare_for_LPRun(void)
 {
 	//We must lower the sysclk to max 2MHz
 	if(HAL_RCC_GetSysClockFreq() > 2000000){
@@ -81,8 +85,14 @@ HAL_StatusTypeDef Prepare_for_LPRun()
 
 	//All clock-dependent peripherals need to be reinitialized
 //	ClkDependentInit();
-
-
 	return HAL_OK;
+}
 
+void EnableLPRun(void)
+{
+	if(CheckPowerLevelPrerequisites(PS_LOW_POWER_RUN) != HAL_OK)
+	{
+		Prepare_for_LPRun();
+	}
+	HAL_PWREx_EnableLowPowerRunMode();
 }

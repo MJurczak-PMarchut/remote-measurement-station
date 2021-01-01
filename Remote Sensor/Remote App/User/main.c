@@ -51,7 +51,8 @@
 #include "bluenrg_utils.h"
 #include "ble_decode_callback.h"
 #include "station_specific.h"
-
+#include "pwr_control.h"
+#include "test_payloads.h"
 /* Private typedef -----------------------------------------------------------*/
 
 /* Private define ------------------------------------------------------------*/
@@ -102,10 +103,12 @@ int main(void)
   - Set NVIC Group Priority to 4
   - Global MSP (MCU Support Package) initialization
   */
+
   HAL_Init();
 //  InitTargetPlatform(BoardType)
   /* Configure the System clock */
-//  SystemClock_Config();
+  SystemClock_Config();
+  MemoryCopyTest();
   Prepare_for_LPRun();
   HAL_PWREx_EnableLowPowerRunMode();
   ClkDependentInit();

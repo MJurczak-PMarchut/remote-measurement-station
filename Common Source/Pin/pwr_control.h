@@ -15,4 +15,6 @@
 #endif
 #include "station_specific.h"
 
+HAL_StatusTypeDef Prepare_for_LPRun(void);
+
 #endif /* PIN_PWR_CONTROL_H_ */
