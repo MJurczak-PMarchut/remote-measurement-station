@@ -348,7 +348,7 @@ void BLE_DECODE_GROUP_RESP(evt_att_read_by_group_resp *cc)
 }
 HAL_StatusTypeDef SET_DECODER_STATE(BLE_State eBLE_State)
 {
-	if(eBLE_State <= 5)
+	if(eBLE_State <= 8)
 	{
 		MasterState = eBLE_State;
 		return HAL_OK;
@@ -916,6 +916,7 @@ void DisconnectionComplete_CB(evt_disconn_complete *evt_data)
 #ifdef BOARD_SENSORTILE
 	connected = 0;
 	BLE_SET_CONNECTABLE();
+	PurgeSerialBuffer();
 #endif
 }
 
@@ -1484,6 +1485,7 @@ HAL_StatusTypeDef BLE_UPDATE_CHAR(ServiceIDData *Service, CharIDData *Characteri
 	{
 		return HAL_ERROR;
 	}
+	SET_DECODER_STATE(BLE_WAIT_FOR_IND);
 	ret = BLE_STATUS_INSUFFICIENT_RESOURCES;
 	while (ret == BLE_STATUS_INSUFFICIENT_RESOURCES)
 	{

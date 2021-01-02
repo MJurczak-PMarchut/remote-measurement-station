@@ -62,7 +62,10 @@ void TestPayload(void)
 	start_time = HAL_GetTick();
 	MemoryCopyTest();
 	end_Time = HAL_GetTick();
-	len = sprintf(message, "Time per test : %d ms 1234 \n", end_Time-start_time);
+	len = sprintf(message, "Time per test : %d ms\n", end_Time-start_time);
+	SendToBLESerial(message, len);
+	start_time = HAL_GetTick();
+	len = sprintf(message, "Time per msg send : %d ms\n", start_time-end_Time);
 	SendToBLESerial(message, len);
 #endif
 

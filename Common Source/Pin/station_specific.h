@@ -43,7 +43,7 @@ void BLE_GET_DATA(DataDecode *Data);
 	void UpdateCharacteristics(void);
 	void ClkDependentInit(void);
 	void SendToBLESerial(unsigned char *string, unsigned char len);
-
+	void setHCI_Event_var(uint32_t* puin);
 
 
 #endif

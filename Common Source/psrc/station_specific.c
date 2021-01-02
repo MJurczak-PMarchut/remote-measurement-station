@@ -14,7 +14,7 @@
 
 uint8_t TxBuffer[TX_BUFFER_SIZE];
 void* BLESendBuffer(void);
-
+void PurgeSerialBuffer(void);
 typedef struct {
 	uint8_t BufferStart;
 	uint8_t BufferEnd;
@@ -29,7 +29,7 @@ BufferStruct sBuffer = {
 uint8_t CheckBufferSize(void);
 uint8_t PutDataToBuffer(char *pData, int8_t len);
 uint8_t* GetDataFromBUffer(void);
-
+void CheckBufferAndSend(void);
 
 #ifdef BOARD_N64_F4
 
@@ -89,11 +89,11 @@ uint8_t CheckBufferSize(void)
 	uint8_t ret;
 	if(sBuffer.BufferStart < sBuffer.BufferEnd)
 	{
-		ret = sBuffer.BufferStart - sBuffer.BufferEnd;
+		ret = TX_BUFFER_SIZE - (sBuffer.BufferEnd - sBuffer.BufferStart);
 	}
 	else if (sBuffer.BufferStart > sBuffer.BufferEnd)
 	{
-		ret = TX_BUFFER_SIZE - sBuffer.BufferStart +  sBuffer.BufferEnd;
+		ret = sBuffer.BufferStart -  sBuffer.BufferEnd - 1;
 	}
 	else
 	{
@@ -101,6 +101,7 @@ uint8_t CheckBufferSize(void)
 	}
 	return ret;
 }
+
 
 uint8_t* GetDataFromBUffer(void)
 {
@@ -541,18 +542,34 @@ void UpdateCharacteristics(void)
 	}
 }
 
+uint32_t *pHCI_ProcessEvent;
+
+void setHCI_Event_var(uint32_t* puin)
+{
+	pHCI_ProcessEvent = pHCI_ProcessEvent;
+}
+
 void SendToBLESerial(unsigned char *string, unsigned char len)
 {
 
 
 //TODO it will probably be better to send max 15 characters each time, as notification has a data limit of around 20
-	while(CheckBufferSize() < len){
-//		BLE_WAIT_FOR_TX_POOL();
-		while(1);
-	} // wait for a place in a buffer
+//	while(GET_DECODER_STATE() != BLE_IDLE){
+//		if(*pHCI_ProcessEvent)
+//			{
+//			  *pHCI_ProcessEvent=0;
+//			  hci_user_evt_proc();
+//			}
+//	}
+	while(PutDataToBuffer(string, len) == 1){
+		if(*pHCI_ProcessEvent)
+			{
+			  *pHCI_ProcessEvent=0;
+			  hci_user_evt_proc();
+			}
+	}
 
 
-	PutDataToBuffer(string, len);
 }
 void ClkDependentInit(void)
 {
@@ -567,11 +584,11 @@ uint8_t CheckBufferSize(void)
 	uint8_t ret;
 	if(sBuffer.BufferStart < sBuffer.BufferEnd)
 	{
-		ret = sBuffer.BufferStart - sBuffer.BufferEnd;
+		ret = TX_BUFFER_SIZE - (sBuffer.BufferEnd - sBuffer.BufferStart);
 	}
 	else if (sBuffer.BufferStart > sBuffer.BufferEnd)
 	{
-		ret = TX_BUFFER_SIZE - sBuffer.BufferStart +  sBuffer.BufferEnd;
+		ret = sBuffer.BufferStart -  sBuffer.BufferEnd - 1;
 	}
 	else
 	{
@@ -599,18 +616,9 @@ uint8_t PutDataToBuffer(char *pData, int8_t len)
 {
 
 	uint8_t u8Iter;
-	uint8_t send_flag = 0;
-	uint8_t buffer_size = 0;
-	buffer_size = CheckBufferSize();
-	if(buffer_size ==  TX_BUFFER_SIZE)
-	{
-		send_flag = 1;
-	}
-	else
-	{
-		send_flag = 0;
-	}
-	if(CheckBufferSize() >= len){
+	uint8_t buffer_size_left = 0;
+	buffer_size_left = CheckBufferSize();
+	if(buffer_size_left > len){
 		for(u8Iter = 0; u8Iter < len; u8Iter++)
 		{
 			if(sBuffer.BufferEnd + u8Iter < TX_BUFFER_SIZE){
@@ -622,13 +630,25 @@ uint8_t PutDataToBuffer(char *pData, int8_t len)
 			}
 		}
 		sBuffer.BufferEnd = ((sBuffer.BufferEnd + len) < TX_BUFFER_SIZE)? (sBuffer.BufferEnd + len) : (sBuffer.BufferEnd + len - TX_BUFFER_SIZE);
-		if(send_flag)
+		if(GET_DECODER_STATE() == BLE_IDLE)
 		{
 			BLESendBuffer();
 		}
 		return 0;
 	}
+	if(GET_DECODER_STATE() == BLE_IDLE)
+	{
+		BLESendBuffer();
+	}
 	return 1;
+}
+
+void CheckBufferAndSend(void)
+{
+	if((CheckBufferSize() != TX_BUFFER_SIZE) && (GET_DECODER_STATE() == BLE_IDLE))
+	{
+		BLESendBuffer();
+	}
 }
 
 void* BLESendBuffer(void){
@@ -646,6 +666,10 @@ void* BLESendBuffer(void){
  for(uIter = 1; (uIter < 20) && (pu8char != NULL);  uIter++)
  {
 	 pu8char = GetDataFromBUffer();
+	 if(pu8char == NULL)
+	 {
+		 break;
+	 }
 	 message[uIter] = *pu8char;
  }
  if(uIter > 0)
@@ -658,4 +682,9 @@ void* BLESendBuffer(void){
  else return NULL;
 }
 
+void PurgeSerialBuffer(void)
+{
+	sBuffer.BufferStart = 0;
+	sBuffer.BufferEnd = 0;
+}
 #endif

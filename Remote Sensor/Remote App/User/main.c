@@ -116,7 +116,7 @@ int main(void)
   ClkDependentInit();
   /* initialize timers */
   InitTimers();
-  
+  setHCI_Event_var(&HCI_ProcessEvent);
   StartTime = HAL_GetTick();
   HAL_NVIC_SetPriority(TIM1_CC_IRQn, 0, 0);
   /* Infinite loop */
@@ -155,12 +155,14 @@ int main(void)
     }
     /* handle BLE event */
 
-    if(HCI_ProcessEvent) 
+    if(HCI_ProcessEvent)
     {
       HCI_ProcessEvent=0;
       hci_user_evt_proc();
+      CheckBufferAndSend();
     }
-    BLE_GET_DEV_DATA(&DevData);
+
+//    BLE_GET_DEV_DATA(&DevData);
 //    if(DevData->sCharIDData[BLE_ACC_CHAR].CharProperties & 0x3)
 //    {
 
