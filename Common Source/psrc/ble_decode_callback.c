@@ -761,6 +761,7 @@ void BLE_EVNT_CALLBACK(void * pData)
 		    	if(CpltCallback != NULL){
 		    		SET_DECODER_STATE(BLE_IDLE);
 		    		CpltCallback();
+		    		CpltCallback = NULL;
 			  }
 	        }
 	    	break;
@@ -773,8 +774,8 @@ void BLE_EVNT_CALLBACK(void * pData)
 				  SET_DECODER_STATE(BLE_IDLE);
 				  if(CpltCallback != NULL){
 					  CpltCallback();
-					  SET_DECODER_STATE(BLE_IDLE);
 					  CpltCallback = NULL;
+					  SET_DECODER_STATE(BLE_IDLE);
 				  }
 				  break;
 			  case GAP_DIRECT_CONNECTION_ESTABLISHMENT_PROC:
@@ -783,6 +784,13 @@ void BLE_EVNT_CALLBACK(void * pData)
 				  }
 				}
 				break;
+		   case EVT_BLUE_GATT_SERVER_CONFIRMATION_EVENT:
+		   {
+			   SET_DECODER_STATE(BLE_IDLE);
+			   if(CpltCallback != NULL){
+				  CpltCallback = (VoidFuncPointer) CpltCallback();
+			   }
+		   }
 	      }
 
 	    }
@@ -1355,12 +1363,13 @@ tBleStatus BLE_ADD_SERVICES(void)
 			while(1)
 		}
 	#endif
-		ret =  aci_gatt_add_char(BLEDeviceData.sServiceIDData[BLE_SERIAL_SERVICE].ServiceHandle, UUID_TYPE_128, UUID_CHAR_DATA[BLE_SERIAL_RD_CHAR], 20,
-									CHAR_PROP_NOTIFY,
+		ret =  aci_gatt_add_char(BLEDeviceData.sServiceIDData[BLE_SERIAL_SERVICE].ServiceHandle, UUID_TYPE_128, UUID_CHAR_DATA[BLE_SERIAL_RD_CHAR], 30,
+//									CHAR_PROP_NOTIFY,
+									CHAR_PROP_INDICATE,
 									ATTR_PERMISSION_NONE,
 									0,
 									16, 1, &BLEDeviceData.sCharIDData[BLE_SERIAL_RD_CHAR].CharHandle);
-		ret =  aci_gatt_add_char(BLEDeviceData.sServiceIDData[BLE_SERIAL_SERVICE].ServiceHandle, UUID_TYPE_128, UUID_CHAR_DATA[BLE_SERIAL_WR_CHAR], 20,
+		ret =  aci_gatt_add_char(BLEDeviceData.sServiceIDData[BLE_SERIAL_SERVICE].ServiceHandle, UUID_TYPE_128, UUID_CHAR_DATA[BLE_SERIAL_WR_CHAR], 30,
 									CHAR_PROP_WRITE_WITHOUT_RESP|CHAR_PROP_WRITE,
 									ATTR_PERMISSION_NONE,
 									GATT_NOTIFY_ATTRIBUTE_WRITE,
@@ -1465,9 +1474,13 @@ HAL_StatusTypeDef BLE_UPDATE_CHAR(ServiceIDData *Service, CharIDData *Characteri
 	uint8_t ret;
 	if(CpltCallback == NULL)
 	{
-		CpltCallback = CpltCallback;
+		CpltCallback = Callback;
 	}
-	else
+	else if (CpltCallback == Callback)
+	{
+		CpltCallback = Callback;
+	}
+	else if(Callback != NULL)
 	{
 		return HAL_ERROR;
 	}

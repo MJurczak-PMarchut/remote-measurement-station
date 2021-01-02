@@ -42,6 +42,7 @@ void BLE_GET_DATA(DataDecode *Data);
 	void InitBoard(void);
 	void UpdateCharacteristics(void);
 	void ClkDependentInit(void);
+	void SendToBLESerial(unsigned char *string, unsigned char len);
 
 
 

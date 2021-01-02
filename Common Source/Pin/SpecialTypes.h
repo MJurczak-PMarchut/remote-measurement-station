@@ -19,7 +19,7 @@ typedef enum  {PS_LOW_POWER_RUN, PS_LOW_SPEED, PS_HIGH_SPEED, PS_BURST, PS_DONT_
 typedef uint8_t ProcessID ;
 typedef enum {ST_RECURRENT, ST_SINGLE} SLOT_TYPE;
 typedef enum  {TS_TIME_LEFT, TS_OVERTIME, TS_IN_MARGIN, TS_ERROR} TimingState;
-typedef void (*VoidFuncPointer) (void) ;
+typedef void* (*VoidFuncPointer) (void) ;
 typedef uint8_t RunPriority;
 typedef enum {BLE_DISC_SERV = 0, BLE_DISC_CHAR, BLE_IDLE, BLE_DISC_DESC, BLE_SCAN, BLE_READ, BLE_CONNECTING, BLE_RECONNECTING} BLE_State;
 

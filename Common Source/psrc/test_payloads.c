@@ -54,9 +54,16 @@ uint8_t a,b;
 							MEMORY_COPY3()
 void TestPayload(void)
 {
-
+	uint32_t start_time, end_Time;
+	unsigned char len;
+	unsigned char message[50];
 #ifdef MEMORY_COPY_TEST
+
+	start_time = HAL_GetTick();
 	MemoryCopyTest();
+	end_Time = HAL_GetTick();
+	len = sprintf(message, "Time per test : %d ms 1234 \n", end_Time-start_time);
+	SendToBLESerial(message, len);
 #endif
 
 }
@@ -73,12 +80,13 @@ void MemoryCopyTest(void)
 	 *
 	 * each copy is a
 	 * ldr, ldrb, ldr, strb, ldr, ldrb, ldr, strb
+	 *
+	 * after 244 bytes of code there is a b.n jump
 	 */
 	unsigned int iter = 0;
 	for(iter = 0; iter < TestIterationCount; iter++)
 	{
 		MEMORY_COPY()
-
 	}
 }
 

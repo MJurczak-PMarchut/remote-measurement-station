@@ -51,6 +51,6 @@ HAL_StatusTypeDef BLE_UPDATE_CHAR(ServiceIDData *Service, CharIDData *Characteri
 #endif
 void BLE_INIT_SPEC(void);
 tBleStatus BLE_ADD_SERVICES(void);
-
+HAL_StatusTypeDef BLE_WAIT_FOR_TX_POOL(void);
 
 #endif /* ST_BLUENRG_MS_INCLUDES_BLE_DECODE_CALLBACK_H_ */

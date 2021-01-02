@@ -12,8 +12,27 @@
 
 #include "hci.h"
 
+uint8_t TxBuffer[TX_BUFFER_SIZE];
+void* BLESendBuffer(void);
+
+typedef struct {
+	uint8_t BufferStart;
+	uint8_t BufferEnd;
+	uint8_t *pBuffer;
+}BufferStruct;
+
+BufferStruct sBuffer = {
+		.BufferEnd = 0,
+		.BufferStart = 0,
+		.pBuffer = TxBuffer
+};
+uint8_t CheckBufferSize(void);
+uint8_t PutDataToBuffer(char *pData, int8_t len);
+uint8_t* GetDataFromBUffer(void);
+
+
 #ifdef BOARD_N64_F4
-#define TX_BUFFER_SIZE 80
+
 #define bool uint8_t
 #define true 1
 #define false 0
@@ -40,20 +59,6 @@ uint8_t BLE_DATA_PTR[MAX_LEN_OF_MULT_CHAR_READ];
 
 uint8_t GetDAta = 0;
 
-uint8_t TxBuffer[TX_BUFFER_SIZE];
-
-
-typedef struct {
-	uint8_t BufferStart;
-	uint8_t BufferEnd;
-	uint8_t *pBuffer;
-}BufferStruct;
-
-BufferStruct sBuffer = {
-		.BufferEnd = 0,
-		.BufferStart = 0,
-		.pBuffer = TxBuffer
-};
 
 
 Token sToken[] = {
@@ -65,7 +70,7 @@ Token sToken[] = {
 				{HARD_RESET, "HRD_RESET"}
 		};
 
-uint8_t PutDataToBuffer(char *pData, int8_t len);
+
 
 BLE_DEV_DATA *BLEDevData = NULL;
 
@@ -527,7 +532,7 @@ void UpdateCharacteristics(void)
 //		vDat.sData.acc.y = rptr->acc.y;
 
 
-		BLE_GET_DEV_DATA(&DevData);
+//		BLE_GET_DEV_DATA(&DevData);
 
 //		len = sprintf(Message,"%d %d %d\n", rptr->acc.x, rptr->acc.y, rptr->acc.z);
 		len = 4;
@@ -536,6 +541,19 @@ void UpdateCharacteristics(void)
 	}
 }
 
+void SendToBLESerial(unsigned char *string, unsigned char len)
+{
+
+
+//TODO it will probably be better to send max 15 characters each time, as notification has a data limit of around 20
+	while(CheckBufferSize() < len){
+//		BLE_WAIT_FOR_TX_POOL();
+		while(1);
+	} // wait for a place in a buffer
+
+
+	PutDataToBuffer(string, len);
+}
 void ClkDependentInit(void)
 {
 	  BLE_INIT_SPEC();
@@ -544,6 +562,100 @@ void ClkDependentInit(void)
 }
 
 
+uint8_t CheckBufferSize(void)
+{
+	uint8_t ret;
+	if(sBuffer.BufferStart < sBuffer.BufferEnd)
+	{
+		ret = sBuffer.BufferStart - sBuffer.BufferEnd;
+	}
+	else if (sBuffer.BufferStart > sBuffer.BufferEnd)
+	{
+		ret = TX_BUFFER_SIZE - sBuffer.BufferStart +  sBuffer.BufferEnd;
+	}
+	else
+	{
+		ret = TX_BUFFER_SIZE;
+	}
+	return ret;
+}
 
+uint8_t* GetDataFromBUffer(void)
+{
+	uint8_t* ret;
+	ret = &sBuffer.pBuffer[sBuffer.BufferStart];
+	if(sBuffer.BufferStart != sBuffer.BufferEnd)
+	{
+		sBuffer.BufferStart = (sBuffer.BufferStart < (TX_BUFFER_SIZE - 1))?sBuffer.BufferStart+1:0;
+	}
+	else
+	{
+		ret = NULL;
+	}
+	return ret;
+}
+
+uint8_t PutDataToBuffer(char *pData, int8_t len)
+{
+
+	uint8_t u8Iter;
+	uint8_t send_flag = 0;
+	uint8_t buffer_size = 0;
+	buffer_size = CheckBufferSize();
+	if(buffer_size ==  TX_BUFFER_SIZE)
+	{
+		send_flag = 1;
+	}
+	else
+	{
+		send_flag = 0;
+	}
+	if(CheckBufferSize() >= len){
+		for(u8Iter = 0; u8Iter < len; u8Iter++)
+		{
+			if(sBuffer.BufferEnd + u8Iter < TX_BUFFER_SIZE){
+				sBuffer.pBuffer[sBuffer.BufferEnd + u8Iter] = pData[u8Iter];
+			}
+			else if(sBuffer.BufferEnd + u8Iter >= TX_BUFFER_SIZE)
+			{
+				sBuffer.pBuffer[sBuffer.BufferEnd + u8Iter - TX_BUFFER_SIZE] = pData[u8Iter];
+			}
+		}
+		sBuffer.BufferEnd = ((sBuffer.BufferEnd + len) < TX_BUFFER_SIZE)? (sBuffer.BufferEnd + len) : (sBuffer.BufferEnd + len - TX_BUFFER_SIZE);
+		if(send_flag)
+		{
+			BLESendBuffer();
+		}
+		return 0;
+	}
+	return 1;
+}
+
+void* BLESendBuffer(void){
+ uint8_t uIter = 0;
+ uint8_t message[20];
+ uint8_t *pu8char;
+ BLE_DEV_DATA *DevData = NULL;
+ BLE_GET_DEV_DATA(&DevData);
+ pu8char = GetDataFromBUffer();
+ if(pu8char != NULL)
+ {
+	 message[0] = *pu8char;
+	 uIter++;
+ }
+ for(uIter = 1; (uIter < 20) && (pu8char != NULL);  uIter++)
+ {
+	 pu8char = GetDataFromBUffer();
+	 message[uIter] = *pu8char;
+ }
+ if(uIter > 0)
+ {
+	 BLE_UPDATE_CHAR(&DevData->sServiceIDData[BLE_SERIAL_SERVICE], &DevData->sCharIDData[BLE_SERIAL_RD_CHAR], uIter, message, BLESendBuffer);
+ }
+ if(CheckBufferSize() < TX_BUFFER_SIZE){
+	 return BLESendBuffer;
+ }
+ else return NULL;
+}
 
 #endif

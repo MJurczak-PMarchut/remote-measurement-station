@@ -108,10 +108,9 @@ int main(void)
 //  InitTargetPlatform(BoardType)
   /* Configure the System clock */
   SystemClock_Config();
-  MemoryCopyTest();
-  Prepare_for_LPRun();
-  HAL_PWREx_EnableLowPowerRunMode();
-  ClkDependentInit();
+//  Prepare_for_LPRun();
+//  HAL_PWREx_EnableLowPowerRunMode();
+//  ClkDependentInit();
   BSP_LED_Init(LED1);
   /* Initialize the BlueNRG */
   ClkDependentInit();
@@ -151,7 +150,8 @@ int main(void)
     		LedOffTargetPlatform();
     		TargetBoardFeatures.LedStatus = 0;
     	}
-    	UpdateCharacteristics();
+//    	UpdateCharacteristics();
+    	TestPayload();
     }
     /* handle BLE event */
 

@@ -48,6 +48,7 @@
 
 #define MAX_TOKEN_NO 4
 #define RX_BUFFER_SIZE 15
+#define TX_BUFFER_SIZE 250
 #define UART_TERM_CHAR '\n'
 
 #define BAUD_RATE 115200
