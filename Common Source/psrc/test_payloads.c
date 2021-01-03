@@ -55,17 +55,20 @@ uint8_t a,b;
 void TestPayload(void)
 {
 	uint32_t start_time, end_Time;
+	float time;
 	unsigned char len;
 	unsigned char message[50];
 #ifdef MEMORY_COPY_TEST
 
-	start_time = HAL_GetTick();
+	start_time = GetTim2Tick();
 	MemoryCopyTest();
-	end_Time = HAL_GetTick();
-	len = sprintf(message, "Time per test : %d ms\n", end_Time-start_time);
+	end_Time = GetTim2Tick();
+	time = ((float)end_Time-(float)start_time)/(TIM2_FREQUENCY_FOR_TIMING/1000);
+	len = sprintf(message, "Time per test : %.3f ms\n", time);
 	SendToBLESerial(message, len);
-	start_time = HAL_GetTick();
-	len = sprintf(message, "Time per msg send : %d ms\n", start_time-end_Time);
+	start_time = GetTim2Tick();
+	time = ((float)start_time-(float)end_Time)/(TIM2_FREQUENCY_FOR_TIMING/1000);
+	len = sprintf(message, "Time per msg send : %.3f ms\n", time);
 	SendToBLESerial(message, len);
 #endif
 

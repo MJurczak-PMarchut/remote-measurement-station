@@ -9,7 +9,7 @@
 #define REMOTE_APP_PIN_TEST_PAYLOADS_H_
 #include "stm32l4xx.h"
 #include "station_specific.h"
-
+#include "timings.h"
 void TestPayload(void);
 //void MemoryCopyTest(void);
 

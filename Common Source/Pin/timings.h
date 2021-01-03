@@ -19,6 +19,13 @@
 #endif
 
 
-//void InitTimer(void);
+void InitTimer2(TIM_HandleTypeDef *htim);
+#ifndef TIM2_FREE_RUN
+void TimingIncTick(void);
+#endif
+uint32_t GetTim2Tick(void);
+void ResetTimCounter(void);
+void StartTim(void);
+void StopTim(void);
 
 #endif /* REMOTE_APP_PIN_TIMINGS_H_ */
