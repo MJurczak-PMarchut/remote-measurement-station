@@ -54,7 +54,8 @@ extern PCD_HandleTypeDef hpcd;
 extern TIM_HandleTypeDef  TimHandle;
 extern I2C_HandleTypeDef hbusi2c3;
 extern EXTI_HandleTypeDef hexti5;
-
+extern TIM_HandleTypeDef htim4;
+//extern TIM_HandleTypeDef htim2;
 
 /******************************************************************************/
 /*            Cortex-M4 Processor Interruption and Exception Handlers         */ 
@@ -215,6 +216,17 @@ void TIM1_CC_IRQHandler(void)
 {
   HAL_TIM_IRQHandler(&TimCCHandle);
 }
+
+void TIM4_IRQHandler(void)
+{
+  HAL_TIM_IRQHandler(&htim4);
+}
+
+//void TIM2_IRQHandler(void)
+//{
+//  HAL_TIM_IRQHandler(&htim2);
+//}
+
 
 /**
 * @brief This function handles EXTI line[9:5] interrupts.

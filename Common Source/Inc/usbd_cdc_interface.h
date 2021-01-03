@@ -75,7 +75,7 @@ extern USBD_CDC_ItfTypeDef  USBD_CDC_fops;
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 uint8_t CDC_Fill_Buffer(uint8_t* Buf, uint32_t TotalLen);
-
+static void CDC_TIM_Config(void);
 #endif /* __USBD_CDC_IF_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
