@@ -107,9 +107,10 @@ void DisableLPRun(void)
 	HAL_PWREx_DisableLowPowerRunMode();
 }
 
-void PrepareForSleep()
+void PrepareForSleep(void)
 {
-	EnableLPRun();
+	Prepare_for_LPRun();
+//	HAL_PWR_EnterSLEEPMode(Regulator, SLEEPEntry)
 	//We must be in LPRun mode, clock below2MHz
     if (HAL_IS_BIT_SET(PWR->SR2, PWR_SR2_REGLPF) == RESET)
     {
@@ -128,11 +129,13 @@ void SetWkupContextPointer(WKUP_CONTEXT *psWkupPointer){
 	psWkupContext = psWkupPointer;
 }
 
-void SleepAndWaitForWkup(){
+void SleepAndWaitForWkup(void){
 	/*
 	 * We come here after every period of run mode, first we stop and wait for interrupt
 	 */
+	PrepareForSleep();
 	__WFI();
+	ResumeFromSleepModes();
 	//Then we set clocks up depending on context
 }
 

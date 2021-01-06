@@ -16,5 +16,7 @@
 #include "station_specific.h"
 
 HAL_StatusTypeDef Prepare_for_LPRun(void);
+void SleepAndWaitForWkup(void);
+void SetWkupContextPointer(WKUP_CONTEXT *psWkupPointer);
 
 #endif /* PIN_PWR_CONTROL_H_ */

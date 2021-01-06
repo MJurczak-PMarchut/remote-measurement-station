@@ -1,45 +1,6 @@
-/**
-******************************************************************************
-* @file    main.c
-* @author  SRA - Central Labs
-* @version v2.1.0
-* @date    5-Apr-2019
-* @brief   Main program body
-******************************************************************************
-* @attention
-*
-* <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
-*
-* Licensed under MCD-ST Liberty SW License Agreement V2, (the "License");
-* You may not use this file except in compliance with the License.
-* You may obtain a copy of the License at:
-*
-*        http://www.st.com/software_license_agreement_liberty_v2
-*
-* Redistribution and use in source and binary forms, with or without modification,
-* are permitted provided that the following conditions are met:
-*   1. Redistributions of source code must retain the above copyright notice,
-*      this list of conditions and the following disclaimer.
-*   2. Redistributions in binary form must reproduce the above copyright notice,
-*      this list of conditions and the following disclaimer in the documentation
-*      and/or other materials provided with the distribution.
-*   3. Neither the name of STMicroelectronics nor the names of its contributors
-*      may be used to endorse or promote products derived from this software
-*      without specific prior written permission.
-*https://help.eclipse.org/kepler/topic/org.eclipse.platform.doc.user/tasks/tasks-45.htm
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-* DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-* FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-* SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-* CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-* OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-* OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*
-******************************************************************************
-*/
+/*
+ *
+ */
 
 /* Includes ------------------------------------------------------------------*/
 #include <stdio.h>
@@ -81,7 +42,7 @@ uint8_t bdaddr[6];
 
 /* Private variables ---------------------------------------------------------*/
 static volatile uint32_t SendEnv = 0;
-
+WKUP_CONTEXT sWkupContext;
 /* Private function prototypes -----------------------------------------------*/
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
@@ -135,7 +96,7 @@ int main(void)
   HAL_NVIC_SetPriority(TIM1_CC_IRQn, 0, 0);
   InitTimer2(&htim2);
   /* Infinite loop */
-
+  SetWkupContextPointer(&sWkupContext);
   while (1)
   {
     /* Led Blinking when there is not a client connected */
@@ -166,27 +127,15 @@ int main(void)
     		LedOffTargetPlatform();
     		TargetBoardFeatures.LedStatus = 0;
     	}
-//    	UpdateCharacteristics();
-    	TestPayload();
+    	TestPayload(); // Test power consumption
+        SleepAndWaitForWkup();
+        if(sWkupContext.eWkupReason == BLE_IT){
+        // Handle Ble event
+		  HCI_ProcessEvent=0;
+		  hci_user_evt_proc();
+		  CheckBufferAndSend();
+        }
     }
-    /* handle BLE event */
-
-    if(HCI_ProcessEvent)
-    {
-      HCI_ProcessEvent=0;
-      hci_user_evt_proc();
-      CheckBufferAndSend();
-    }
-
-//    BLE_GET_DEV_DATA(&DevData);
-//    if(DevData->sCharIDData[BLE_ACC_CHAR].CharProperties & 0x3)
-//    {
-
-//    }
-
-    
-    /* Wait for Interrupt */
-//    __WFI();
   }
 }
 
@@ -208,12 +157,6 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
     SendEnv=1;
   }
 }
-
-/**
-* @brief  Period elapsed callback in non blocking mode for Environmental timer
-* @param  htim : TIM handle
-* @retval None
-*/
 
 
 
@@ -262,11 +205,6 @@ static void InitTimers(void)
   
 }
 
-/** @brief Initialize the BlueNRG Stack
-* @param None
-* @retval None
-*/
-//#define STATIC_BLE_MAC
 
 /**
 * @brief  System Clock Configuration
