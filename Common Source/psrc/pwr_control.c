@@ -6,6 +6,11 @@
  */
 
 #include "pwr_control.h"
+extern volatile uint32_t HCI_ProcessEvent;
+
+WKUP_CONTEXT *psWkupContext;
+
+void ResumeFromSleepModes(void);
 
 HAL_StatusTypeDef CheckPowerLevelPrerequisites(PowerState ePowerState)
 {
@@ -95,4 +100,76 @@ void EnableLPRun(void)
 		Prepare_for_LPRun();
 	}
 	HAL_PWREx_EnableLowPowerRunMode();
+}
+
+void DisableLPRun(void)
+{
+	HAL_PWREx_DisableLowPowerRunMode();
+}
+
+void PrepareForSleep()
+{
+	EnableLPRun();
+	//We must be in LPRun mode, clock below2MHz
+    if (HAL_IS_BIT_SET(PWR->SR2, PWR_SR2_REGLPF) == RESET)
+    {
+      HAL_PWREx_EnableLowPowerRunMode();
+    }
+	CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
+}
+
+
+/*
+ * Wake up management functions
+ */
+
+
+void SetWkupContextPointer(WKUP_CONTEXT *psWkupPointer){
+	psWkupContext = psWkupPointer;
+}
+
+void SleepAndWaitForWkup(){
+	/*
+	 * We come here after every period of run mode, first we stop and wait for interrupt
+	 */
+	__WFI();
+	//Then we set clocks up depending on context
+}
+
+void ResumeFromSleepModes(void)
+{
+
+	/*
+	 * Now we need to decide what to do
+	 * We process what was the cause of the wake up
+	 * and we decide at what frequency we will work
+	 */
+	switch(psWkupContext->eWkupReason)
+	{
+	case NO_WKUP:
+		// There is no known reason for the wake up, we need to check it
+		break;
+	case TIMER_IT:
+		//What to do when woke up from timer
+		break;
+	case RTC_IT:
+		//What to do if woken up by rtc
+		break;
+	case GEN_EXTI:
+		break;
+	case SENS_IT:
+		break;
+	default:
+	    if(HCI_ProcessEvent)
+	    {
+	    	psWkupContext->eWkupReason= BLE_IT;
+//	    	SetSysclk2MHz(); //We can't really get lower, there are problems with spi to ble chip below that
+	    	EnableLPRun();
+	    	ClkDependentInit();
+	    	//Now we hand off control to the calling function
+	    	return;
+	    }
+		break;
+	}
+
 }
