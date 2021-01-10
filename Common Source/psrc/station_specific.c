@@ -15,11 +15,7 @@
 uint8_t TxBuffer[TX_BUFFER_SIZE];
 void* BLESendBuffer(void);
 void PurgeSerialBuffer(void);
-typedef struct {
-	uint8_t BufferStart;
-	uint8_t BufferEnd;
-	uint8_t *pBuffer;
-}BufferStruct;
+
 
 BufferStruct sBuffer = {
 		.BufferEnd = 0,
@@ -27,10 +23,10 @@ BufferStruct sBuffer = {
 		.pBuffer = TxBuffer
 };
 uint8_t CheckBufferSize(void);
-uint8_t PutDataToBuffer(char *pData, int8_t len);
+uint8_t PutDataToBuffer(char *pData, uint8_t len);
 uint8_t* GetDataFromBUffer(void);
 void CheckBufferAndSend(void);
-
+extern TIM_HandleTypeDef htim2;
 #ifdef BOARD_N64_F4
 
 #define bool uint8_t
@@ -551,7 +547,7 @@ void setHCI_Event_var(uint32_t* puin)
 
 void SendToBLESerial(unsigned char *string, unsigned char len)
 {
-
+static uint32_t past, present;
 
 //TODO it will probably be better to send max 15 characters each time, as notification has a data limit of around 20
 //	while(GET_DECODER_STATE() != BLE_IDLE){
@@ -561,6 +557,7 @@ void SendToBLESerial(unsigned char *string, unsigned char len)
 //			  hci_user_evt_proc();
 //			}
 //	}
+	present = htim2.Instance->CNT;
 	while(PutDataToBuffer(string, len) == 1){
 		if(*pHCI_ProcessEvent)
 			{
@@ -568,14 +565,15 @@ void SendToBLESerial(unsigned char *string, unsigned char len)
 			  hci_user_evt_proc();
 			}
 	}
-
+	past  = htim2.Instance->CNT;
 
 }
 void ClkDependentInit(void)
 {
-	  BLE_INIT_SPEC();
-	  InitBoard();
-	  BLE_ADD_SERVICES();
+	  InitTimer2(&htim2);
+	  hci_tl_lowlevel_init();
+//	  InitBoard();
+
 }
 
 
@@ -612,7 +610,7 @@ uint8_t* GetDataFromBUffer(void)
 	return ret;
 }
 
-uint8_t PutDataToBuffer(char *pData, int8_t len)
+uint8_t PutDataToBuffer(char *pData, uint8_t len)
 {
 
 	uint8_t u8Iter;
@@ -652,27 +650,24 @@ void CheckBufferAndSend(void)
 }
 
 void* BLESendBuffer(void){
+// static uint32_t past, present;
  uint8_t uIter = 0;
- uint8_t message[20];
- uint8_t *pu8char;
+ uint8_t message[21];
+ uint8_t *pu8char = 1;
  BLE_DEV_DATA *DevData = NULL;
  BLE_GET_DEV_DATA(&DevData);
- pu8char = GetDataFromBUffer();
- if(pu8char != NULL)
- {
-	 message[0] = *pu8char;
-	 uIter++;
- }
- for(uIter = 1; (uIter < 20) && (pu8char != NULL);  uIter++)
+// pu8char = GetDataFromBUffer();
+ for(uIter = 0; (uIter < 20) && (pu8char != NULL);  uIter++)
  {
 	 pu8char = GetDataFromBUffer();
+	 message[uIter] = *pu8char;
 	 if(pu8char == NULL)
 	 {
 		 break;
 	 }
-	 message[uIter] = *pu8char;
- }
- if(uIter > 0)
+
+ };
+ if((uIter > 0) && (message[0] != NULL))
  {
 	 BLE_UPDATE_CHAR(&DevData->sServiceIDData[BLE_SERIAL_SERVICE], &DevData->sCharIDData[BLE_SERIAL_RD_CHAR], uIter, message, BLESendBuffer);
  }

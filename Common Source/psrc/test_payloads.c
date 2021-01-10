@@ -13,7 +13,7 @@
 
 #define TestIterationCount 17
 uint8_t a,b;
-
+extern BufferStruct sBuffer;
 
 #define MEMORY_COPY1() do {\
 	a = b;\
@@ -56,20 +56,34 @@ void TestPayload(void)
 {
 	uint32_t start_time, end_Time;
 	float time;
-	unsigned char len;
-	unsigned char message[50];
-#ifdef MEMORY_COPY_TEST
+	static unsigned char len = 0;
+	unsigned char message[200];
+	if (len == 0){
+			len = sprintf(message, "123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n");
+			SendToBLESerial(message, len);
+			len = sprintf(message, "123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n");
+			SendToBLESerial(message, len);
+	}
+	if(sBuffer.BufferEnd == 0)
+	{
+		len = 0;
+	}
 
-	start_time = GetTim2Tick();
-	MemoryCopyTest();
-	end_Time = GetTim2Tick();
-	time = ((float)end_Time-(float)start_time)/(TIM2_FREQUENCY_FOR_TIMING/1000);
-	len = sprintf(message, "Time per test : %.3f ms\n", time);
-	SendToBLESerial(message, len);
-	start_time = GetTim2Tick();
-	time = ((float)start_time-(float)end_Time)/(TIM2_FREQUENCY_FOR_TIMING/1000);
-	len = sprintf(message, "Time per msg send : %.3f ms\n", time);
-	SendToBLESerial(message, len);
+#ifdef MEMORY_COPY_TEST
+//	static uint8_t flag = 0;
+//	start_time = GetTim2Tick();
+//	MemoryCopyTest();
+//	end_Time = GetTim2Tick();
+//	time = ((float)end_Time-(float)start_time)/(TIM2_FREQUENCY_FOR_TIMING/1000);
+//	len = sprintf(message, "Time per test : %.3f ms\n", time);
+//	SendToBLESerial(message, len);
+//	start_time = GetTim2Tick();
+//	time = ((float)start_time-(float)end_Time)/(TIM2_FREQUENCY_FOR_TIMING/1000);
+//	len = sprintf(message, "Time per msg send : %.3f ms\n", time);
+//	SendToBLESerial(message, len);
+//	len = sprintf(message, "Free space in msg buffer %d\n", CheckBufferSize());
+//	SendToBLESerial(message, len);
+
 #endif
 
 }

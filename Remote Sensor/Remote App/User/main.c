@@ -82,13 +82,15 @@ int main(void)
   HAL_Init();
 //  InitTargetPlatform(BoardType)
   /* Configure the System clock */
-  SystemClock_Config();
-//  Prepare_for_LPRun();
-//  HAL_PWREx_EnableLowPowerRunMode();
+//  SystemClock_Config();
+  Prepare_for_LPRun();
+  HAL_PWREx_EnableLowPowerRunMode();
 //  ClkDependentInit();
   BSP_LED_Init(LED1);
   /* Initialize the BlueNRG */
+  BLE_INIT_SPEC();
   ClkDependentInit();
+  BLE_ADD_SERVICES();
   /* initialize timers */
   InitTimers();
   setHCI_Event_var(&HCI_ProcessEvent);
@@ -100,7 +102,7 @@ int main(void)
   while (1)
   {
     /* Led Blinking when there is not a client connected */
-    if(!connected) 
+    if(connected != 1)
     {
       if(!TargetBoardFeatures.LedStatus) 
       {
@@ -120,6 +122,23 @@ int main(void)
           StartTime = HAL_GetTick();
         }
       }
+      if(HCI_ProcessEvent){
+      // Handle Ble event
+		  HCI_ProcessEvent=0;
+		  hci_user_evt_proc();
+		  if(connected == 0x10){
+			  connected = 1;
+			  SET_DECODER_STATE(BLE_IDLE);
+			  	StartTime = HAL_GetTick();
+			  	while(HAL_GetTick()-StartTime < 3000){
+			          if(HCI_ProcessEvent){
+			    		  HCI_ProcessEvent=0;
+			    		  hci_user_evt_proc();
+			          }
+			  	}
+		  }
+      }
+
     }
     else{
     	if(TargetBoardFeatures.LedStatus == 1)
@@ -127,14 +146,17 @@ int main(void)
     		LedOffTargetPlatform();
     		TargetBoardFeatures.LedStatus = 0;
     	}
+
+
+//		CheckBufferAndSend();
     	TestPayload(); // Test power consumption
-        SleepAndWaitForWkup();
-        if(sWkupContext.eWkupReason == BLE_IT){
-        // Handle Ble event
-		  HCI_ProcessEvent=0;
-		  hci_user_evt_proc();
-		  CheckBufferAndSend();
+        if(HCI_ProcessEvent){
+  		  HCI_ProcessEvent=0;
+  		  hci_user_evt_proc();
         }
+//        HAL_Delay(10);
+        SleepAndWaitForWkup();
+//        __WFI();
     }
   }
 }

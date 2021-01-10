@@ -6,6 +6,7 @@
  */
 
 #include "pwr_control.h"
+#include "clk_speed_definitions.h"
 extern volatile uint32_t HCI_ProcessEvent;
 
 WKUP_CONTEXT *psWkupContext;
@@ -38,43 +39,7 @@ HAL_StatusTypeDef CheckPowerLevelPrerequisites(PowerState ePowerState)
 
 void SetSysclk2MHz(void)
  {
-	RCC_ClkInitTypeDef RCC_ClkInitStruct = { 0 };
-	RCC_OscInitTypeDef RCC_OscInitStruct = { 0 };
-	RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
-
-	RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_MSI;
-	RCC_OscInitStruct.MSIState = RCC_MSI_ON;
-	RCC_OscInitStruct.HSICalibrationValue = RCC_MSICALIBRATION_DEFAULT;
-	//2MHz MSI
-	RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_4;
-	//We turn off the PLL
-	RCC_OscInitStruct.PLL.PLLState = RCC_PLL_OFF;
-	RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_NONE;
-
-
-	if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
-		while (1);
-	}
-
-	/* Enable MSI Auto-calibration through LSE */
-	HAL_RCCEx_EnableMSIPLLMode();
-
-	//Disable USB
-	PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_USB;
-	PeriphClkInitStruct.UsbClockSelection = RCC_USBCLKSOURCE_NONE;
-	HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);
-
-	/* Select MSI as system clock source and configure the HCLK, PCLK1 and PCLK2
-	 clocks dividers */
-	RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK
-			| RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
-	RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_MSI;
-	RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-	RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
-	RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
-	if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK) {
-		while (1);
-	}
+	No_PLL_2MHz();
 }
 
 
@@ -110,12 +75,6 @@ void DisableLPRun(void)
 void PrepareForSleep(void)
 {
 	Prepare_for_LPRun();
-//	HAL_PWR_EnterSLEEPMode(Regulator, SLEEPEntry)
-	//We must be in LPRun mode, clock below2MHz
-    if (HAL_IS_BIT_SET(PWR->SR2, PWR_SR2_REGLPF) == RESET)
-    {
-      HAL_PWREx_EnableLowPowerRunMode();
-    }
 	CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
 }
 
@@ -133,9 +92,16 @@ void SleepAndWaitForWkup(void){
 	/*
 	 * We come here after every period of run mode, first we stop and wait for interrupt
 	 */
+	uint32_t a,b;
 	PrepareForSleep();
+//	hci_tl_lowlevel_init();
+	HAL_SuspendTick();
+
 	__WFI();
+	HAL_ResumeTick();
+	a =HAL_GetTick();
 	ResumeFromSleepModes();
+	b=HAL_GetTick();
 	//Then we set clocks up depending on context
 }
 
@@ -149,9 +115,6 @@ void ResumeFromSleepModes(void)
 	 */
 	switch(psWkupContext->eWkupReason)
 	{
-	case NO_WKUP:
-		// There is no known reason for the wake up, we need to check it
-		break;
 	case TIMER_IT:
 		//What to do when woke up from timer
 		break;

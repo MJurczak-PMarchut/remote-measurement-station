@@ -47,9 +47,9 @@ uint8_t CharDisc = 0;
 #ifdef BOARD_SENSORTILE
 #define ADV_DATA_TYPE      ADV_IND
 /*---------- Minimum Advertising Interval (for a number N, Time = N x 0.625 msec) -----------*/
-#define ADV_INTERV_MIN      2048
+#define ADV_INTERV_MIN      0x0020
 /*---------- Maximum Advertising Interval (for a number N, Time = N x 0.625 msec) -----------*/
-#define ADV_INTERV_MAX      4096
+#define ADV_INTERV_MAX      0x1000
 #endif
 
 #ifdef BOARD_N64_F4
@@ -608,6 +608,7 @@ void BLE_EVNT_CALLBACK(void * pData)
 	      case EVT_LE_CONN_COMPLETE:
 	        {
 	          evt_le_connection_complete *cc = (void *)evt->data;
+	          SET_DECODER_STATE(BLE_CONNECTING);
 	          ConnectionComplete_CB(cc->peer_bdaddr, cc->handle,cc->status, cc->peer_bdaddr_type);
 	        }
 	        break;
@@ -808,7 +809,7 @@ void CLR_CALLBACK_FUNC(void)
 
 void GATT_DISC_CPLT(uint16_t handle)
 {
-	//TODO We need to add BdAddrType to BLEDeviceData. it is needed during reconnection
+	//TODO I need to add BdAddrType to BLEDeviceData. it is needed during reconnection
 	uint8_t u8Iter = 0;
 	if(BLEDeviceData[MasterDevNo].ConnectionHandle == handle){
 		switch(GET_DECODER_STATE())
@@ -971,6 +972,8 @@ void ConnectionComplete_CB(uint8_t addr[6], uint16_t handle,uint8_t Status, uint
 	connected = 0x10;
 #endif
 	CLR_CALLBACK_FUNC();
+	aci_gap_set_non_discoverable();
+//	SET_DECODER_STATE(BLE_IDLE);
 }
 
 #ifdef BOARD_N64_F4
