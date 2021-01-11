@@ -203,9 +203,9 @@
 
 /*
  * RTC counter
- * wake up period is = RTC_WKUP_CONTER  * (RTC_WKUP_CLK_DIV / RTC_CLK_SOURCE)
+ * wake up period is = RTC_WKUP_COUNTER  * (RTC_WKUP_CLK_DIV / RTC_CLK_SOURCE)
  */
-	#define RTC_WKUP_CONTER 2048
+	#define RTC_WKUP_COUNTER 2048
 
 #endif
 

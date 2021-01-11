@@ -134,7 +134,7 @@ void SleepAndWaitForWkup(void){
 	PrepareForSleep();
 //	hci_tl_lowlevel_init();
 #if defined(RTC_WKUP_INTERNAL)
-	HAL_RTCEx_SetWakeUpTimer_IT(sphrtc, RTC_WKUP_CONTER, RTC_WKUP_CLK_DIV);
+	HAL_RTCEx_SetWakeUpTimer_IT(sphrtc, RTC_WKUP_COUNTER, RTC_WKUP_CLK_DIV);
 #endif
 	HAL_SuspendTick();
 
