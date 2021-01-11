@@ -571,7 +571,9 @@ static uint32_t past, present;
 void ClkDependentInit(void)
 {
 	  InitTimer2(&htim2);
+#if defined(HAS_BLUETOOTH)
 	  hci_tl_lowlevel_init();
+#endif
 //	  InitBoard();
 
 }

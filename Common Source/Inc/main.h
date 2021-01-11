@@ -46,6 +46,8 @@
 #define __MAIN_H
 
 /* Includes ------------------------------------------------------------------*/
+#include "stm32l4xx_hal.h"
+
 #include "console.h"
 #include "bluenrg_conf.h"
 
@@ -65,6 +67,9 @@
 /* For enabling trasmission for notified services (except for quaternions) */
 #define ENABLE_USB_DEBUG_NOTIFY_TRAMISSION
 
+
+
+//#define HAL_RTC_MODULE_ENABLED
 
 /*************** Don't Change the following defines *************/
 

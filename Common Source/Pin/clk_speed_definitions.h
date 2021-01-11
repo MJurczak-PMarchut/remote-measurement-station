@@ -183,19 +183,11 @@ while(0)
 
 
 
-#define Default() do{\
+#define Default_CLK() do{\
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};\
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};\
   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};\
   __HAL_RCC_PWR_CLK_ENABLE();\
-  HAL_PWR_EnableBkUpAccess();\
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSE;\
-  RCC_OscInitStruct.LSEState = RCC_LSE_ON;\
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)\
-  {\
-    while(1);\
-  }\
-  HAL_RCCEx_DisableLSECSS();\
   RCC_OscInitStruct.OscillatorType      = RCC_OSCILLATORTYPE_MSI;\
   RCC_OscInitStruct.MSIState            = RCC_MSI_ON;\
   RCC_OscInitStruct.HSICalibrationValue = RCC_MSICALIBRATION_DEFAULT;\

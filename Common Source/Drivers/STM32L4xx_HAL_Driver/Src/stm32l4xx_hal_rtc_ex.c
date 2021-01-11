@@ -135,7 +135,7 @@
   * @brief RTC Extended HAL module driver
   * @{
   */
-
+//#define HAL_RTC_MODULE_ENABLED
 #ifdef HAL_RTC_MODULE_ENABLED
 
 /* Private typedef -----------------------------------------------------------*/

@@ -3,6 +3,7 @@
  */
 
 /* Includes ------------------------------------------------------------------*/
+//#define HAL_RTC_MODULE_ENABLED
 #include <stdio.h>
 #include <math.h>
 #include <limits.h>
@@ -15,6 +16,7 @@
 #include "pwr_control.h"
 #include "test_payloads.h"
 #include "timings.h"
+#include "stm32l4xx_hal_rtc.h"
 /* Private typedef -----------------------------------------------------------*/
 
 /* Private define ------------------------------------------------------------*/
@@ -37,13 +39,19 @@ int32_t BytesToWrite;
 TIM_HandleTypeDef TimCCHandle;
 TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim4;
+RTC_HandleTypeDef hrtc;
 
+uint32_t StartTime;
 uint8_t bdaddr[6];
 
 /* Private variables ---------------------------------------------------------*/
 static volatile uint32_t SendEnv = 0;
 WKUP_CONTEXT sWkupContext;
 /* Private function prototypes -----------------------------------------------*/
+void HAL_RTCEx_WakeUpTimerEventCallback(RTC_HandleTypeDef *hrtc);
+void Process_BLE_Conn(void);
+void MX_RTC_Init(void);
+
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   if(htim->Instance == TIM2)
@@ -57,10 +65,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 static void SystemClock_Config(void);
 
-static void Init_BlueNRG_Custom_Services(void);
-static void Init_BlueNRG_Stack(void);
+//static void Init_BlueNRG_Custom_Services(void);
+//static void Init_BlueNRG_Stack(void);
 static void InitTimers(void);
-static void SendEnvironmentalData(void);
+//static void SendEnvironmentalData(void);
 
 //uint8_t CDC_Fill_Buffer(uint8_t* Buf, uint32_t TotalLen){}
 
@@ -71,7 +79,7 @@ static void SendEnvironmentalData(void);
 */
 int main(void)
 {
-  uint32_t StartTime;
+
   /* STM32L4xx HAL library initialization:
   - Configure the Flash prefetch, instruction and Data caches
   - Configure the Systick to generate an interrupt each 1 msec
@@ -88,77 +96,42 @@ int main(void)
 //  ClkDependentInit();
   BSP_LED_Init(LED1);
   /* Initialize the BlueNRG */
+#if defined(HAS_BLUETOOTH)
   BLE_INIT_SPEC();
+#endif
   ClkDependentInit();
+#if defined(HAS_BLUETOOTH)
   BLE_ADD_SERVICES();
+  setHCI_Event_var(&HCI_ProcessEvent);
+#endif
   /* initialize timers */
   InitTimers();
-  setHCI_Event_var(&HCI_ProcessEvent);
+
   StartTime = HAL_GetTick();
   HAL_NVIC_SetPriority(TIM1_CC_IRQn, 0, 0);
   InitTimer2(&htim2);
   /* Infinite loop */
   SetWkupContextPointer(&sWkupContext);
-  while (1)
-  {
-    /* Led Blinking when there is not a client connected */
-    if(connected != 1)
-    {
-      if(!TargetBoardFeatures.LedStatus) 
-      {
-        if(HAL_GetTick()-StartTime > 1000)
-        {
-          LedOnTargetPlatform();
-          TargetBoardFeatures.LedStatus =1;
-          StartTime = HAL_GetTick();
-        }
-      } 
-      else 
-      {
-        if(HAL_GetTick()-StartTime > 50)
-        {
-          LedOffTargetPlatform();
-          TargetBoardFeatures.LedStatus =0;
-          StartTime = HAL_GetTick();
-        }
-      }
-      if(HCI_ProcessEvent){
-      // Handle Ble event
-		  HCI_ProcessEvent=0;
-		  hci_user_evt_proc();
-		  if(connected == 0x10){
-			  connected = 1;
-			  SET_DECODER_STATE(BLE_IDLE);
-			  	StartTime = HAL_GetTick();
-			  	while(HAL_GetTick()-StartTime < 3000){
-			          if(HCI_ProcessEvent){
-			    		  HCI_ProcessEvent=0;
-			    		  hci_user_evt_proc();
-			          }
-			  	}
-		  }
-      }
-
-    }
-    else{
-    	if(TargetBoardFeatures.LedStatus == 1)
-    	{
-    		LedOffTargetPlatform();
-    		TargetBoardFeatures.LedStatus = 0;
-    	}
-
-
+#if defined(RTC_WKUP_INTERNAL)
+  MX_RTC_Init();
+  SetHrtcPointer(&hrtc);
+#endif
+	while (1) {
+#if defined(HAS_BLUETOOTH)
+		Process_BLE_Conn();
 //		CheckBufferAndSend();
-    	TestPayload(); // Test power consumption
-        if(HCI_ProcessEvent){
-  		  HCI_ProcessEvent=0;
-  		  hci_user_evt_proc();
-        }
+#endif
+		TestPayload(); // Test power consumption
+#if defined(HAS_BLUETOOTH)
+		if (HCI_ProcessEvent) {
+			HCI_ProcessEvent = 0;
+			hci_user_evt_proc();
+		}
+#endif
 //        HAL_Delay(10);
-        SleepAndWaitForWkup();
+		SleepAndWaitForWkup();
 //        __WFI();
-    }
-  }
+	}
 }
 
 /**
@@ -228,6 +201,57 @@ static void InitTimers(void)
 }
 
 
+void Process_BLE_Conn(void)
+{
+	/* Led Blinking when there is not a client connected */
+    if(connected != 1)
+    {
+      if(!TargetBoardFeatures.LedStatus)
+      {
+        if(HAL_GetTick()-StartTime > 1000)
+        {
+          LedOnTargetPlatform();
+          TargetBoardFeatures.LedStatus =1;
+          StartTime = HAL_GetTick();
+        }
+      }
+      else
+      {
+        if(HAL_GetTick()-StartTime > 50)
+        {
+          LedOffTargetPlatform();
+          TargetBoardFeatures.LedStatus =0;
+          StartTime = HAL_GetTick();
+        }
+      }
+      if(HCI_ProcessEvent){
+      // Handle Ble event
+		  HCI_ProcessEvent=0;
+		  hci_user_evt_proc();
+		  if(connected == 0x10){
+			  connected = 1;
+			  SET_DECODER_STATE(BLE_IDLE);
+			  	StartTime = HAL_GetTick();
+			  	while(HAL_GetTick()-StartTime < 3000){
+			          if(HCI_ProcessEvent){
+			    		  HCI_ProcessEvent=0;
+			    		  hci_user_evt_proc();
+			          }
+			  	}
+		  }
+      }
+
+    }
+    else{
+    	if(TargetBoardFeatures.LedStatus == 1)
+    	{
+    		LedOffTargetPlatform();
+    		TargetBoardFeatures.LedStatus = 0;
+    	}
+    }
+}
+
+
 /**
 * @brief  System Clock Configuration
 * @param  None
@@ -240,11 +264,10 @@ void SystemClock_Config(void)
   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
   
   __HAL_RCC_PWR_CLK_ENABLE();
-  HAL_PWR_EnableBkUpAccess();
   
   /* Enable the LSE Oscilator */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSE;
-  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
+  RCC_OscInitStruct.OscillatorType = RTC_CLK_SOURCE;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     while(1);
@@ -356,6 +379,52 @@ HAL_StatusTypeDef MX_SPI1_Init(SPI_HandleTypeDef* hspi)
   return ret;
 }
 
+void MX_RTC_Init(void)
+{
+	  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
+	  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+	  HAL_PWR_EnableBkUpAccess();
+	  RCC_OscInitStruct.OscillatorType = RTC_CLK_SOURCE;
+	  if(RTC_CLK_SOURCE == RCC_RTCCLKSOURCE_LSE){
+		  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
+	  }
+	  else if(RTC_CLK_SOURCE == RCC_RTCCLKSOURCE_LSI){
+		  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
+	  }
+	  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+	  {
+	    while(1);
+	  }
+	  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_RTC;
+	  PeriphClkInit.RTCClockSelection = RTC_CLK_SOURCE;
+	  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
+	  {
+	    Error_Handler();
+	  }
+	  __HAL_RCC_RTC_ENABLE();
+	  hrtc.Instance = RTC;
+	  hrtc.Init.HourFormat = RTC_HOURFORMAT_24;
+	  hrtc.Init.AsynchPrediv = 127;
+	  hrtc.Init.SynchPrediv = 255;
+	  hrtc.Init.OutPut = RTC_OUTPUT_DISABLE;
+	  hrtc.Init.OutPutRemap = RTC_OUTPUT_REMAP_NONE;
+	  hrtc.Init.OutPutPolarity = RTC_OUTPUT_POLARITY_HIGH;
+	  hrtc.Init.OutPutType = RTC_OUTPUT_TYPE_OPENDRAIN;
+	  if (HAL_RTC_Init(&hrtc) != HAL_OK)
+	  {
+	    Error_Handler();
+	  }
+
+	  HAL_NVIC_SetPriority(RTC_WKUP_IRQn, 0, 0);
+	  HAL_NVIC_EnableIRQ(RTC_WKUP_IRQn);
+
+}
+
+
+void HAL_RTCEx_WakeUpTimerEventCallback(RTC_HandleTypeDef *hrtc)
+{
+	sWkupContext.eWkupReason = RTC_IT;
+}
 
 #ifdef  USE_FULL_ASSERT
 /**

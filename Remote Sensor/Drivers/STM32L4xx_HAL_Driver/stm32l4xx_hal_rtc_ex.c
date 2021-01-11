@@ -135,7 +135,6 @@
   * @brief RTC Extended HAL module driver
   * @{
   */
-
 #ifdef HAL_RTC_MODULE_ENABLED
 
 /* Private typedef -----------------------------------------------------------*/
@@ -909,7 +908,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetWakeUpTimer_IT(RTC_HandleTypeDef *hrtc, uint32_t 
     __HAL_RTC_WAKEUPTIMER_EXTI_ENABLE_IT();
   }
 #else /* defined(STM32L412xx) || defined(STM32L422xx) */
-    __HAL_RTC_WAKEUPTIMER_EXTI_ENABLE_EVENT();
+  __HAL_RTC_WAKEUPTIMER_EXTI_ENABLE_IT();
 #endif /* defined(STM32L412xx) || defined(STM32L422xx) */
 
   __HAL_RTC_WAKEUPTIMER_EXTI_ENABLE_RISING_EDGE();

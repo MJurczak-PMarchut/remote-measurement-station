@@ -4,9 +4,10 @@
  *  Created on: Jan 1, 2020
  *      Author: Mateusz Jurczak
  */
-
+#pragma once
 #ifndef INC_CONFIGURATION_H_
 #define INC_CONFIGURATION_H_
+
 //#include "SpecialTypes.h"
 
 /*File containing board definition*/
@@ -85,24 +86,24 @@
 #ifdef HAS_BLUETOOTH
 
 
-#define BLE_PIN 123456
+	#define BLE_PIN 123456
 
 
-#define BDADDR_SIZE        6
+	#define BDADDR_SIZE        6
 
-#define RAND_BLE_ADDRESS
+	#define RAND_BLE_ADDRESS
 
-#ifndef RAND_BLE_ADDRESS
-#define BLE_BDADDR 0x21, 0x45, 0x21, 0x74, 0x65, 0x63
-#endif
+	#ifndef RAND_BLE_ADDRESS
+	#define BLE_BDADDR 0x21, 0x45, 0x21, 0x74, 0x65, 0x63
+	#endif
 
-#define DEFAULT_SERV_DATA_LEN 0x6
+	#define DEFAULT_SERV_DATA_LEN 0x6
 
-#define SYNC_LEN 1
-#define WRITE_DATA 0x05
-#define SEND_DATA_TO_NULL 0x42
+	#define SYNC_LEN 1
+	#define WRITE_DATA 0x05
+	#define SEND_DATA_TO_NULL 0x42
 
-#define UUID_LENGTH 16
+	#define UUID_LENGTH 16
 
 
 	#ifdef BOARD_N64_F4
@@ -175,5 +176,40 @@
 		#define BL_PIN_CODE 854124
 	#endif
 #endif
+#if defined(BOARD_SENSORTILE)
+/*
+ * RTC settings
+ */
+#define USE_RTC
+
+#if defined(USE_RTC)
+
+	#define RTC_WKUP_INTERNAL  //RTC uses EXTI line 20 for wake up
+
+	/* RTC clock prescaler, should be one of below
+	 * RTC_WAKEUPCLOCK_RTCCLK_DIV16
+	 * RTC_WAKEUPCLOCK_RTCCLK_DIV8
+	 * RTC_WAKEUPCLOCK_RTCCLK_DIV4
+	 * RTC_WAKEUPCLOCK_RTCCLK_DIV2
+	 */
+	#define RTC_WKUP_CLK_DIV RTC_WAKEUPCLOCK_RTCCLK_DIV16
+
+/*
+ * RTC CLOCK source selection, should be one of the below
+ * RCC_RTCCLKSOURCE_LSI - 32kHz
+ * RCC_RTCCLKSOURCE_LSE - 32.768 kHz
+ */
+	#define RTC_CLK_SOURCE RCC_RTCCLKSOURCE_LSE
+
+/*
+ * RTC counter
+ * wake up period is = RTC_WKUP_CONTER  * (RTC_WKUP_CLK_DIV / RTC_CLK_SOURCE)
+ */
+	#define RTC_WKUP_CONTER 2048
+
+#endif
+
+#endif
+
 
 #endif /* INC_CONFIGURATION_H_ */

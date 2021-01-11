@@ -44,8 +44,11 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
+#include "main.h"
 #include "TargetFeatures.h"
 #include "stm32l4xx_it.h"
+#include "stm32l4xx_hal_rtc.h"
+#include "stm32l4xx_hal_rtc_ex.h"
 
 /* Imported variables ---------------------------------------------------------*/
 extern TIM_HandleTypeDef TimCCHandle;
@@ -56,6 +59,7 @@ extern I2C_HandleTypeDef hbusi2c3;
 extern EXTI_HandleTypeDef hexti5;
 extern TIM_HandleTypeDef htim4;
 extern TIM_HandleTypeDef htim2;
+extern RTC_HandleTypeDef hrtc;
 
 /******************************************************************************/
 /*            Cortex-M4 Processor Interruption and Exception Handlers         */ 
@@ -289,6 +293,12 @@ void I2C3_ER_IRQHandler(void)
   /* USER CODE BEGIN I2C3_ER_IRQn 1 */
 
   /* USER CODE END I2C3_ER_IRQn 1 */
+}
+
+void RTC_WKUP_IRQHandler(void)
+{
+	__HAL_RTC_WAKEUPTIMER_EXTI_DISABLE_IT();
+	  HAL_RTCEx_WakeUpTimerIRQHandler(&hrtc);
 }
 
 /* USER CODE BEGIN 1 */

@@ -7,11 +7,23 @@
 
 #include "pwr_control.h"
 #include "clk_speed_definitions.h"
+//#include "stm32l4xx_hal_rtc.h"
+//#include "stm32l4xx_hal_rtc_ex.h"
+//#include "rtc_util.h"
 extern volatile uint32_t HCI_ProcessEvent;
+
 
 WKUP_CONTEXT *psWkupContext;
 
+RTC_HandleTypeDef *sphrtc;
+
 void ResumeFromSleepModes(void);
+void DisableLPRun(void);
+
+
+void SetHrtcPointer(RTC_HandleTypeDef *phrtc){
+	sphrtc = phrtc;
+}
 
 HAL_StatusTypeDef CheckPowerLevelPrerequisites(PowerState ePowerState)
 {
@@ -42,7 +54,33 @@ void SetSysclk2MHz(void)
 	No_PLL_2MHz();
 }
 
-
+void SetClkPreset(CLK_SPEED eclk)
+{
+	switch(eclk)
+	{
+		case DEFAULT_CLK:
+		{
+			DisableLPRun();
+			Default_CLK();
+			break;
+		}
+		case NO_PLL_2MHz_CLK:
+		{
+			No_PLL_2MHz();
+			break;
+		}
+		case NO_PLL_1MHz_CLK:
+		{
+			No_PLL_1MHz();
+			break;
+		}
+		case NO_PLL_400kHz_CLK:
+		{
+			No_PLL_400kHz();
+			break;
+		}
+	}
+}
 
 HAL_StatusTypeDef Prepare_for_LPRun(void)
 {
@@ -92,16 +130,28 @@ void SleepAndWaitForWkup(void){
 	/*
 	 * We come here after every period of run mode, first we stop and wait for interrupt
 	 */
-	uint32_t a,b;
+//	uint32_t a,b;
 	PrepareForSleep();
 //	hci_tl_lowlevel_init();
+#if defined(RTC_WKUP_INTERNAL)
+	HAL_RTCEx_SetWakeUpTimer_IT(sphrtc, RTC_WKUP_CONTER, RTC_WKUP_CLK_DIV);
+#endif
 	HAL_SuspendTick();
 
 	__WFI();
+
+//	while(HAL_RTCEx_PollForWakeUpTimerEvent(sphrtc,0xFFFFF) != HAL_OK)
+//	{
+//
+//	}
+
 	HAL_ResumeTick();
-	a =HAL_GetTick();
+#if defined(RTC_WKUP_INTERNAL)
+	HAL_RTCEx_DeactivateWakeUpTimer(sphrtc);
+#endif
+//	a =HAL_GetTick();
 	ResumeFromSleepModes();
-	b=HAL_GetTick();
+//	b=HAL_GetTick();
 	//Then we set clocks up depending on context
 }
 
@@ -139,3 +189,5 @@ void ResumeFromSleepModes(void)
 	}
 
 }
+
+

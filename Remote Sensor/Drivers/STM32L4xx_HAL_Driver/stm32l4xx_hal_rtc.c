@@ -192,7 +192,6 @@
   * @brief RTC HAL module driver
   * @{
   */
-
 #ifdef HAL_RTC_MODULE_ENABLED
 
 /* Private typedef -----------------------------------------------------------*/
