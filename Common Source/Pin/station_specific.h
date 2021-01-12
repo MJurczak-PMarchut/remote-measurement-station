@@ -22,12 +22,14 @@
 void BLE_GET_DATA(DataDecode *Data);
 #endif
 
+void PurgeSerialBuffer(void);
+
 #ifdef BOARD_N64_F4
 #include "stm32f4xx_hal.h"
 	HAL_StatusTypeDef InitStation(UART_HandleTypeDef *huart);
 	void SendNamesToScreen(uint8_t *pData, uint8_t len, uint8_t Number);
 	void SendConnectionFeedback(BLE_CONNECTION_STATUS Status);
-	void DiscoveryCplt(void);
+	void* DiscoveryCplt(void);
 	uint8_t* STATION_UART_RxCpltCallback(UART_HandleTypeDef *huart);
 	uint8_t* GetDataFromBUffer(void);
 

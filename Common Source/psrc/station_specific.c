@@ -8,13 +8,14 @@
 #include "stdlib.h"
 #include "ble_decode_callback.h"
 #include "stdio.h"
+#include "timings.h"
 
 
 #include "hci.h"
 
 uint8_t TxBuffer[TX_BUFFER_SIZE];
 void* BLESendBuffer(void);
-void PurgeSerialBuffer(void);
+
 
 
 BufferStruct sBuffer = {
@@ -26,7 +27,9 @@ uint8_t CheckBufferSize(void);
 uint8_t PutDataToBuffer(char *pData, uint8_t len);
 uint8_t* GetDataFromBUffer(void);
 void CheckBufferAndSend(void);
+#ifdef BOARD_SENSORTILE
 extern TIM_HandleTypeDef htim2;
+#endif
 #ifdef BOARD_N64_F4
 
 #define bool uint8_t
@@ -40,11 +43,11 @@ extern TIM_HandleTypeDef htim2;
 void AppendCommandsToBuffer(void);
 void FindAndDecodeTokensStation(void);
 void ExecuteCommands(void);
-void SYNCHRONIZE();
+void* SYNCHRONIZE();
 void CONNECT_DEV(DataDecode *data, uint8_t len);
 
 void Data_Recv_Single(void);
-void Data_Recv_Multiple(void);
+void* Data_Recv_Multiple(void);
 
 uint8_t TokenCounter = 0;
 uint8_t CheckBufferSize(void);
@@ -114,7 +117,7 @@ uint8_t* GetDataFromBUffer(void)
 	return ret;
 }
 
-uint8_t PutDataToBuffer(char *pData, int8_t len)
+uint8_t PutDataToBuffer(char *pData, uint8_t len)
 {
 
 	uint8_t u8Iter;
@@ -261,13 +264,14 @@ void SendConnectionFeedback(BLE_CONNECTION_STATUS Status)
 	}
 }
 
-void DiscoveryCplt(void)
+void* DiscoveryCplt(void)
 {
 	if(CheckBufferSize() > 10)
 	{
 		PutDataToBuffer("DISC_DONE\n", 10);
 	}
 	CLR_CALLBACK_FUNC();
+	return NULL;
 }
 
 void ExecuteCommands(void)
@@ -347,7 +351,7 @@ void CONNECT_DEV(DataDecode *data, uint8_t len)
 		}
 }
 
-void SYNCHRONIZE(void)
+void* SYNCHRONIZE(void)
 {
 	static uint8_t Dev_No = 0;
 	uint8_t VAL = WRITE_DATA;
@@ -365,6 +369,7 @@ void SYNCHRONIZE(void)
 		Dev_No = 0;
 	}
 	CLR_CALLBACK_FUNC();
+	return NULL;
 }
 #endif
 
@@ -375,7 +380,7 @@ void BLE_GET_DATA(DataDecode *Data)
 {
 //	BLE_DEV_DATA *BLEDevData;
 //	GetDAta = 1;
-	static uint8_t state = 0;
+//	static uint8_t state = 0;
 	switch(Data->eDataTypes){
 		case INT:
 			if(Data->vData.iData < NoOfDevices){
@@ -395,6 +400,8 @@ void BLE_GET_DATA(DataDecode *Data)
 			{
 				GetDAta = 0;
 			}
+		default:
+			break;
 	}
 
  }
@@ -417,7 +424,7 @@ void Data_Recv_Single(void)
 }
 
 
-void Data_Recv_Multiple(void)
+void* Data_Recv_Multiple(void)
 {
 	char Message[50];
 	//FIXME wywalic to
@@ -438,6 +445,7 @@ void Data_Recv_Multiple(void)
 			//TODO Add something here
 		}
 	}
+	return NULL;
 }
 
 #endif
@@ -502,17 +510,17 @@ void UpdateCharacteristics(void)
 	uint8_t Message[50] = "aaa\n";
 	BLE_DEV_DATA *DevData = NULL;
 	uint8_t len;
-	typedef struct
-	{
-		BSP_MOTION_SENSOR_Axes_t acc;
-		BSP_MOTION_SENSOR_Axes_t gyro;
-
-	}sDat;
-	typedef union
-	{
-		sDat sData;
-		uint8_t pData;
-	}uDat;
+//	typedef struct
+//	{
+//		BSP_MOTION_SENSOR_Axes_t acc;
+//		BSP_MOTION_SENSOR_Axes_t gyro;
+//
+//	}sDat;
+//	typedef union
+//	{
+//		sDat sData;
+//		uint8_t pData;
+//	}uDat;
 
 //	uDat vDat;
 
@@ -538,16 +546,17 @@ void UpdateCharacteristics(void)
 	}
 }
 
-uint32_t *pHCI_ProcessEvent;
+//uint32_t *pHCI_ProcessEvent;
 
-void setHCI_Event_var(uint32_t* puin)
-{
-	pHCI_ProcessEvent = pHCI_ProcessEvent;
-}
+extern volatile uint32_t HCI_ProcessEvent;
+//void setHCI_Event_var(uint32_t* puin)
+//{
+//	pHCI_ProcessEvent = puin;
+//}
 
 void SendToBLESerial(unsigned char *string, unsigned char len)
 {
-static uint32_t past, present;
+//static uint32_t past, present;
 
 //TODO it will probably be better to send max 15 characters each time, as notification has a data limit of around 20
 //	while(GET_DECODER_STATE() != BLE_IDLE){
@@ -557,15 +566,15 @@ static uint32_t past, present;
 //			  hci_user_evt_proc();
 //			}
 //	}
-	present = htim2.Instance->CNT;
-	while(PutDataToBuffer(string, len) == 1){
-		if(*pHCI_ProcessEvent)
+//	present = htim2.Instance->CNT;
+	while(PutDataToBuffer((char *)string, len) == 1){ //TODO Check if ok
+		if(HCI_ProcessEvent)
 			{
-			  *pHCI_ProcessEvent=0;
+			  HCI_ProcessEvent=0;
 			  hci_user_evt_proc();
 			}
 	}
-	past  = htim2.Instance->CNT;
+//	past  = htim2.Instance->CNT;
 
 }
 void ClkDependentInit(void)
@@ -655,7 +664,7 @@ void* BLESendBuffer(void){
 // static uint32_t past, present;
  uint8_t uIter = 0;
  uint8_t message[21];
- uint8_t *pu8char = 1;
+ uint8_t *pu8char = (uint8_t *)1;
  BLE_DEV_DATA *DevData = NULL;
  BLE_GET_DEV_DATA(&DevData);
 // pu8char = GetDataFromBUffer();
@@ -669,7 +678,7 @@ void* BLESendBuffer(void){
 	 }
 
  };
- if((uIter > 0) && (message[0] != NULL))
+ if((uIter > 0) && (message[0] != 0))
  {
 	 BLE_UPDATE_CHAR(&DevData->sServiceIDData[BLE_SERIAL_SERVICE], &DevData->sCharIDData[BLE_SERIAL_RD_CHAR], uIter, message, BLESendBuffer);
  }

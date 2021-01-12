@@ -159,6 +159,11 @@ typedef struct
 
 } WKUP_CONTEXT;
 
+typedef struct {
+	uint8_t BufferStart;
+	uint8_t BufferEnd;
+	uint8_t *pBuffer;
+}BufferStruct;
 
 #ifdef BOARD_SENSORTILE
 typedef struct
@@ -172,11 +177,7 @@ typedef struct
   BSP_MOTION_SENSOR_Axes_t mag;
 } T_SensorsData;
 
-typedef struct {
-	uint8_t BufferStart;
-	uint8_t BufferEnd;
-	uint8_t *pBuffer;
-}BufferStruct;
+
 
 #if defined(BOARD_SENSORTILE)
 	typedef enum{DEFAULT_CLK, NO_PLL_2MHz_CLK, NO_PLL_1MHz_CLK, NO_PLL_400kHz_CLK} CLK_SPEED;

@@ -12,13 +12,14 @@
 	#include "stm32f4xx.h"
 #else
 	#include "stm32l4xx.h"
+	#include "stm32l4xx_hal_rtc.h"
 #endif
 #include "station_specific.h"
-#include "stm32l4xx_hal_rtc.h"
 
+#ifdef BOARD_SENSORTILE
 HAL_StatusTypeDef Prepare_for_LPRun(void);
 void SleepAndWaitForWkup(void);
 void SetWkupContextPointer(WKUP_CONTEXT *psWkupPointer);
 void SetHrtcPointer(RTC_HandleTypeDef *phrtc);
-
+#endif
 #endif /* PIN_PWR_CONTROL_H_ */

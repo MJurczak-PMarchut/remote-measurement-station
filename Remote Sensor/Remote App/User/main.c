@@ -51,6 +51,7 @@ WKUP_CONTEXT sWkupContext;
 void HAL_RTCEx_WakeUpTimerEventCallback(RTC_HandleTypeDef *hrtc);
 void Process_BLE_Conn(void);
 void MX_RTC_Init(void);
+void Error_Handler(void);
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
@@ -90,9 +91,9 @@ int main(void)
   HAL_Init();
 //  InitTargetPlatform(BoardType)
   /* Configure the System clock */
-//  SystemClock_Config();
-  Prepare_for_LPRun();
-  HAL_PWREx_EnableLowPowerRunMode();
+  SystemClock_Config();
+//  Prepare_for_LPRun();
+//  HAL_PWREx_EnableLowPowerRunMode();
 //  ClkDependentInit();
   BSP_LED_Init(LED1);
   /* Initialize the BlueNRG */
@@ -102,7 +103,7 @@ int main(void)
   ClkDependentInit();
 #if defined(HAS_BLUETOOTH)
   BLE_ADD_SERVICES();
-  setHCI_Event_var(&HCI_ProcessEvent);
+//  setHCI_Event_var(&HCI_ProcessEvent);
 #endif
   /* initialize timers */
   InitTimers();

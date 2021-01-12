@@ -18,7 +18,7 @@
  #include "stm32f4xx_hal.h"
 #endif
 
-
+#ifdef BOARD_SENSORTILE
 void InitTimer2(TIM_HandleTypeDef *htim);
 #ifndef TIM2_FREE_RUN
 void TimingIncTick(void);
@@ -27,5 +27,6 @@ uint32_t GetTim2Tick(void);
 void ResetTimCounter(void);
 void StartTim(void);
 void StopTim(void);
+#endif
 
 #endif /* REMOTE_APP_PIN_TIMINGS_H_ */

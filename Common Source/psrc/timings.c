@@ -6,8 +6,16 @@
  */
 
 #include "timings.h"
+#ifdef BOARD_SENSORTILE
 uint32_t uTickCount = 0;
 TIM_HandleTypeDef *htim_base;
+static void Error_Handler(void)
+{
+  while(1)
+  {
+
+  }
+}
 void InitTimer2(TIM_HandleTypeDef *htim)
 {
 
@@ -119,4 +127,5 @@ uint32_t GetTim2Tick(void)
 	return __HAL_TIM_GET_COUNTER(htim_base);
 #endif
 }
+#endif
 

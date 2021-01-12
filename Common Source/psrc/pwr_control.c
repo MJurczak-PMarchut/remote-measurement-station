@@ -12,14 +12,21 @@
 //#include "rtc_util.h"
 extern volatile uint32_t HCI_ProcessEvent;
 
-
+#ifdef BOARD_SENSORTILE
 WKUP_CONTEXT *psWkupContext;
 
 RTC_HandleTypeDef *sphrtc;
 
 void ResumeFromSleepModes(void);
 void DisableLPRun(void);
+void EnableLPRun(void);
 
+static CLK_SPEED egclk = DEFAULT_CLK;
+
+void SetNextClkPreset(CLK_SPEED eclk)
+{
+	egclk = eclk;
+}
 
 void SetHrtcPointer(RTC_HandleTypeDef *phrtc){
 	sphrtc = phrtc;
@@ -66,16 +73,19 @@ void SetClkPreset(CLK_SPEED eclk)
 		}
 		case NO_PLL_2MHz_CLK:
 		{
+			DisableLPRun();
 			No_PLL_2MHz();
 			break;
 		}
 		case NO_PLL_1MHz_CLK:
 		{
+			EnableLPRun();
 			No_PLL_1MHz();
 			break;
 		}
 		case NO_PLL_400kHz_CLK:
 		{
+			EnableLPRun();
 			No_PLL_400kHz();
 			break;
 		}
@@ -130,9 +140,7 @@ void SleepAndWaitForWkup(void){
 	/*
 	 * We come here after every period of run mode, first we stop and wait for interrupt
 	 */
-//	uint32_t a,b;
 	PrepareForSleep();
-//	hci_tl_lowlevel_init();
 #if defined(RTC_WKUP_INTERNAL)
 	HAL_RTCEx_SetWakeUpTimer_IT(sphrtc, RTC_WKUP_COUNTER, RTC_WKUP_CLK_DIV);
 #endif
@@ -140,18 +148,11 @@ void SleepAndWaitForWkup(void){
 
 	__WFI();
 
-//	while(HAL_RTCEx_PollForWakeUpTimerEvent(sphrtc,0xFFFFF) != HAL_OK)
-//	{
-//
-//	}
-
 	HAL_ResumeTick();
 #if defined(RTC_WKUP_INTERNAL)
 	HAL_RTCEx_DeactivateWakeUpTimer(sphrtc);
 #endif
-//	a =HAL_GetTick();
 	ResumeFromSleepModes();
-//	b=HAL_GetTick();
 	//Then we set clocks up depending on context
 }
 
@@ -170,6 +171,8 @@ void ResumeFromSleepModes(void)
 		break;
 	case RTC_IT:
 		//What to do if woken up by rtc
+    	SetClkPreset(egclk);
+    	ClkDependentInit();
 		break;
 	case GEN_EXTI:
 		break;
@@ -179,8 +182,7 @@ void ResumeFromSleepModes(void)
 	    if(HCI_ProcessEvent)
 	    {
 	    	psWkupContext->eWkupReason= BLE_IT;
-//	    	SetSysclk2MHz(); //We can't really get lower, there are problems with spi to ble chip below that
-	    	EnableLPRun();
+	    	SetClkPreset(egclk);
 	    	ClkDependentInit();
 	    	//Now we hand off control to the calling function
 	    	return;
@@ -189,5 +191,5 @@ void ResumeFromSleepModes(void)
 	}
 
 }
-
+#endif
 

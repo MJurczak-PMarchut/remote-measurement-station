@@ -5,8 +5,8 @@
  *      Author: Mateusz Jurczak
  */
 #include "test_payloads.h"
-
-
+#include <stdio.h>
+#ifdef BOARD_SENSORTILE
 #define MEMORY_COPY_TEST
 #define SIMPLE_ARITHMETIC_TEST
 #define DIV_MUL_TEST
@@ -54,15 +54,15 @@ extern BufferStruct sBuffer;
 							MEMORY_COPY3()
 void TestPayload(void)
 {
-	uint32_t start_time, end_Time;
-	float time;
+//	uint32_t start_time, end_Time;
+//	float time;
 	static unsigned char len = 0;
-	unsigned char message[200];
+	char message[200];
 	if (len == 0){
 			len = sprintf(message, "123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n");
-			SendToBLESerial(message, len);
+			SendToBLESerial((unsigned char *)message, len);
 			len = sprintf(message, "123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n");
-			SendToBLESerial(message, len);
+			SendToBLESerial((unsigned char *)message, len);
 	}
 	if(sBuffer.BufferEnd == 0)
 	{
@@ -109,4 +109,4 @@ void MemoryCopyTest(void)
 		MEMORY_COPY()
 	}
 }
-
+#endif

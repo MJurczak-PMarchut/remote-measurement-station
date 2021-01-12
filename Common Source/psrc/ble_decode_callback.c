@@ -728,6 +728,7 @@ void BLE_EVNT_CALLBACK(void * pData)
 	      case	EVT_BLUE_GATT_NOTIFICATION:
 	      {
 	    	  evt_gatt_attr_notification *cc = (void*)blue_evt->data;
+	    	  UNUSED(cc);
 	      }
 	      break;
 	      case EVT_BLUE_GATT_PROCEDURE_COMPLETE:
@@ -892,7 +893,9 @@ void DISC_CPLT(uint16_t handle)
 #endif
 void DisconnectionComplete_CB(evt_disconn_complete *evt_data)
 {
+#ifdef BOARD_N64_F4
 	uint8_t __DevNo_DCCB;
+#endif
 	//Did we disconnect on purpose ?
 	if(evt_data->reason == ERR_CONNECTION_TIMEOUT){
 #ifdef BOARD_N64_F4
