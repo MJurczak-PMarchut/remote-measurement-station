@@ -84,6 +84,9 @@ void hci_init(void(* UserEvtRx)(void* pData), void* pConf);
  * @param  None
  * @retval None
  */ 
+
+void hci_gpio_init(void* pconf);
+
 void hci_user_evt_proc(void);
 
 /**

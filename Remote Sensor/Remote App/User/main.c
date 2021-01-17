@@ -120,8 +120,9 @@ int main(void)
 	while (1) {
 #if defined(HAS_BLUETOOTH)
 		Process_BLE_Conn();
-//		CheckBufferAndSend();
+		CheckBufferAndSend();
 #endif
+
 		TestPayload(); // Test power consumption
 #if defined(HAS_BLUETOOTH)
 		if (HCI_ProcessEvent) {
@@ -235,6 +236,7 @@ void Process_BLE_Conn(void)
 			  	StartTime = HAL_GetTick();
 			  	while(HAL_GetTick()-StartTime < 3000){
 			          if(HCI_ProcessEvent){
+			        	  StartTime = HAL_GetTick();
 			    		  HCI_ProcessEvent=0;
 			    		  hci_user_evt_proc();
 			          }

@@ -1370,13 +1370,13 @@ tBleStatus BLE_ADD_SERVICES(void)
 			while(1)
 		}
 	#endif
-		ret =  aci_gatt_add_char(BLEDeviceData.sServiceIDData[BLE_SERIAL_SERVICE].ServiceHandle, UUID_TYPE_128, UUID_CHAR_DATA[BLE_SERIAL_RD_CHAR], 30,
+		ret =  aci_gatt_add_char(BLEDeviceData.sServiceIDData[BLE_SERIAL_SERVICE].ServiceHandle, UUID_TYPE_128, UUID_CHAR_DATA[BLE_SERIAL_RD_CHAR], 35,
 //									CHAR_PROP_NOTIFY,
 									CHAR_PROP_INDICATE,
 									ATTR_PERMISSION_NONE,
 									0,
 									16, 1, &BLEDeviceData.sCharIDData[BLE_SERIAL_RD_CHAR].CharHandle);
-		ret =  aci_gatt_add_char(BLEDeviceData.sServiceIDData[BLE_SERIAL_SERVICE].ServiceHandle, UUID_TYPE_128, UUID_CHAR_DATA[BLE_SERIAL_WR_CHAR], 30,
+		ret =  aci_gatt_add_char(BLEDeviceData.sServiceIDData[BLE_SERIAL_SERVICE].ServiceHandle, UUID_TYPE_128, UUID_CHAR_DATA[BLE_SERIAL_WR_CHAR], 35,
 									CHAR_PROP_WRITE_WITHOUT_RESP|CHAR_PROP_WRITE,
 									ATTR_PERMISSION_NONE,
 									GATT_NOTIFY_ATTRIBUTE_WRITE,

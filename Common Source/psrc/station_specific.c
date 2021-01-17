@@ -2,7 +2,7 @@
  * station_specific.c
  *
  *  Created on: Jan 16, 2020
- *      Author: OMEN
+ *      Author: Mateusz Jurczak
  */
 #include "station_specific.h"
 #include "stdlib.h"
@@ -29,6 +29,7 @@ uint8_t* GetDataFromBUffer(void);
 void CheckBufferAndSend(void);
 #ifdef BOARD_SENSORTILE
 extern TIM_HandleTypeDef htim2;
+extern int connected;
 #endif
 #ifdef BOARD_N64_F4
 
@@ -567,6 +568,7 @@ void SendToBLESerial(unsigned char *string, unsigned char len)
 //			}
 //	}
 //	present = htim2.Instance->CNT;
+#if defined(HAS_BLUETOOTH)
 	while(PutDataToBuffer((char *)string, len) == 1){ //TODO Check if ok
 		if(HCI_ProcessEvent)
 			{
@@ -574,6 +576,7 @@ void SendToBLESerial(unsigned char *string, unsigned char len)
 			  hci_user_evt_proc();
 			}
 	}
+#endif
 //	past  = htim2.Instance->CNT;
 
 }
@@ -582,7 +585,17 @@ void ClkDependentInit(void)
 	  InitTimer2(&htim2);
 #if defined(HAS_BLUETOOTH)
 	  hci_tl_lowlevel_init();
+	  hci_gpio_init(NULL);
 #endif
+	  /*
+	   * ART Accelerator
+	   */
+#if defined(USE_ART)
+   __HAL_FLASH_INSTRUCTION_CACHE_DISABLE();
+   __HAL_FLASH_DATA_CACHE_DISABLE();
+   __HAL_FLASH_PREFETCH_BUFFER_ENABLE();
+#endif
+
 //	  InitBoard();
 
 }
@@ -639,13 +652,13 @@ uint8_t PutDataToBuffer(char *pData, uint8_t len)
 			}
 		}
 		sBuffer.BufferEnd = ((sBuffer.BufferEnd + len) < TX_BUFFER_SIZE)? (sBuffer.BufferEnd + len) : (sBuffer.BufferEnd + len - TX_BUFFER_SIZE);
-		if(GET_DECODER_STATE() == BLE_IDLE)
+		if((GET_DECODER_STATE() == BLE_IDLE) && (connected == 1))
 		{
 			BLESendBuffer();
 		}
 		return 0;
 	}
-	if(GET_DECODER_STATE() == BLE_IDLE)
+	if((GET_DECODER_STATE() == BLE_IDLE) && (connected == 1))
 	{
 		BLESendBuffer();
 	}
@@ -654,7 +667,7 @@ uint8_t PutDataToBuffer(char *pData, uint8_t len)
 
 void CheckBufferAndSend(void)
 {
-	if((CheckBufferSize() != TX_BUFFER_SIZE) && (GET_DECODER_STATE() == BLE_IDLE))
+	if((CheckBufferSize() != TX_BUFFER_SIZE) && (GET_DECODER_STATE() == BLE_IDLE) && (connected == 1))
 	{
 		BLESendBuffer();
 	}
@@ -663,12 +676,12 @@ void CheckBufferAndSend(void)
 void* BLESendBuffer(void){
 // static uint32_t past, present;
  uint8_t uIter = 0;
- uint8_t message[21];
+ uint8_t message[SINGLE_IND_LENGTH + 1];
  uint8_t *pu8char = (uint8_t *)1;
  BLE_DEV_DATA *DevData = NULL;
  BLE_GET_DEV_DATA(&DevData);
 // pu8char = GetDataFromBUffer();
- for(uIter = 0; (uIter < 20) && (pu8char != NULL);  uIter++)
+ for(uIter = 0; (uIter < SINGLE_IND_LENGTH) && (pu8char != NULL);  uIter++)
  {
 	 pu8char = GetDataFromBUffer();
 	 message[uIter] = *pu8char;

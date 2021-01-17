@@ -60,9 +60,13 @@ void TestPayload(void)
 	char message[200];
 	if (len == 0){
 			len = sprintf(message, "123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n");
+#if defined(HAS_BLUETOOTH)
 			SendToBLESerial((unsigned char *)message, len);
+#endif
 			len = sprintf(message, "123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n");
+#if defined(HAS_BLUETOOTH)
 			SendToBLESerial((unsigned char *)message, len);
+#endif
 	}
 	if(sBuffer.BufferEnd == 0)
 	{

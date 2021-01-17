@@ -49,6 +49,7 @@
 #include "stm32l4xx_it.h"
 #include "stm32l4xx_hal_rtc.h"
 #include "stm32l4xx_hal_rtc_ex.h"
+#include "SpecialTypes.h"
 
 /* Imported variables ---------------------------------------------------------*/
 extern TIM_HandleTypeDef TimCCHandle;
@@ -60,6 +61,7 @@ extern EXTI_HandleTypeDef hexti5;
 extern TIM_HandleTypeDef htim4;
 extern TIM_HandleTypeDef htim2;
 extern RTC_HandleTypeDef hrtc;
+extern WKUP_CONTEXT sWkupContext;
 
 /******************************************************************************/
 /*            Cortex-M4 Processor Interruption and Exception Handlers         */ 
@@ -199,6 +201,9 @@ void SysTick_Handler(void)
   /* USER CODE END SysTick_IRQn 0 */
   HAL_IncTick();
   HAL_SYSTICK_IRQHandler();
+  if (sWkupContext.eWkupReason == NO_WKUP){
+	  sWkupContext.eWkupReason = SYSTICK_IT;
+  }
   /* USER CODE BEGIN SysTick_IRQn 1 */
 
   /* USER CODE END SysTick_IRQn 1 */

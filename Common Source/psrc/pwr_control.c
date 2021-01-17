@@ -23,14 +23,31 @@ void EnableLPRun(void);
 
 static CLK_SPEED egclk = DEFAULT_CLK;
 
+void DisableGPIOs(void)
+{
+
+	   GPIO_InitTypeDef GPIO_InitStructure = {0};
+	   GPIO_InitStructure.Pin = GPIO_PIN_All;
+	   GPIO_InitStructure.Mode = GPIO_MODE_ANALOG;
+	   GPIO_InitStructure.Pull = GPIO_PULLUP;
+
+	   HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
+	   HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
+	   HAL_PWREx_EnablePullUpPullDownConfig();
+	   HAL_PWREx_EnableGPIOPullUp(PWR_GPIO_A, GPIO_PIN_All);
+	   HAL_PWREx_EnableGPIOPullUp(PWR_GPIO_C, GPIO_PIN_All);
+}
 void SetNextClkPreset(CLK_SPEED eclk)
 {
 	egclk = eclk;
 }
 
+
 void SetHrtcPointer(RTC_HandleTypeDef *phrtc){
 	sphrtc = phrtc;
 }
+
+
 
 HAL_StatusTypeDef CheckPowerLevelPrerequisites(PowerState ePowerState)
 {
@@ -56,10 +73,12 @@ HAL_StatusTypeDef CheckPowerLevelPrerequisites(PowerState ePowerState)
 	return HAL_ERROR;
 }
 
+
 void SetSysclk2MHz(void)
  {
 	No_PLL_2MHz();
 }
+
 
 void SetClkPreset(CLK_SPEED eclk)
 {
@@ -73,7 +92,7 @@ void SetClkPreset(CLK_SPEED eclk)
 		}
 		case NO_PLL_2MHz_CLK:
 		{
-			DisableLPRun();
+			EnableLPRun();
 			No_PLL_2MHz();
 			break;
 		}
@@ -92,6 +111,7 @@ void SetClkPreset(CLK_SPEED eclk)
 	}
 }
 
+
 HAL_StatusTypeDef Prepare_for_LPRun(void)
 {
 	//We must lower the sysclk to max 2MHz
@@ -105,6 +125,7 @@ HAL_StatusTypeDef Prepare_for_LPRun(void)
 //	ClkDependentInit();
 	return HAL_OK;
 }
+
 
 void EnableLPRun(void)
 {
@@ -127,10 +148,16 @@ void PrepareForSleep(void)
 }
 
 
+//void EnterStopMode(uint8_t stop_mode)
+//{
+//	if(stop_mode)
+//}
 /*
  * Wake up management functions
  */
 
+
+//HAL_PWREx_EnterSTOP1Mode(uint8_t STOPEntry)
 
 void SetWkupContextPointer(WKUP_CONTEXT *psWkupPointer){
 	psWkupContext = psWkupPointer;
@@ -140,12 +167,13 @@ void SleepAndWaitForWkup(void){
 	/*
 	 * We come here after every period of run mode, first we stop and wait for interrupt
 	 */
-	PrepareForSleep();
+	//reset wakeup reson
+	psWkupContext->eWkupReason = NO_WKUP;
+	EnableLPRun();
 #if defined(RTC_WKUP_INTERNAL)
 	HAL_RTCEx_SetWakeUpTimer_IT(sphrtc, RTC_WKUP_COUNTER, RTC_WKUP_CLK_DIV);
 #endif
 	HAL_SuspendTick();
-
 	__WFI();
 
 	HAL_ResumeTick();
@@ -155,6 +183,8 @@ void SleepAndWaitForWkup(void){
 	ResumeFromSleepModes();
 	//Then we set clocks up depending on context
 }
+
+
 
 void ResumeFromSleepModes(void)
 {
@@ -181,7 +211,7 @@ void ResumeFromSleepModes(void)
 	default:
 	    if(HCI_ProcessEvent)
 	    {
-	    	psWkupContext->eWkupReason= BLE_IT;
+	    	psWkupContext->eWkupReason = BLE_IT;
 	    	SetClkPreset(egclk);
 	    	ClkDependentInit();
 	    	//Now we hand off control to the calling function

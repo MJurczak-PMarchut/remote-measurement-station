@@ -150,9 +150,9 @@ typedef struct
 	uint8_t len;
 }BLE_READ_DATA_STRUCT;
 
-typedef enum{NO_WKUP = 0, RTC_IT, BLE_IT, GEN_EXTI, SENS_IT, TIMER_IT} WKUP_REASON;
+typedef enum{NO_WKUP = 0, RTC_IT, BLE_IT, GEN_EXTI, SENS_IT, TIMER_IT, SYSTICK_IT} WKUP_REASON;
 
-typedef struct
+typedef volatile struct
 {
 	WKUP_REASON eWkupReason;
 	uint8_t u8WkupContext; // used for TIMER_IT to decide freq settings

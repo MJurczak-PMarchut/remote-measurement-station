@@ -124,7 +124,7 @@ SECTIONS
 
     . = ALIGN(8);
     _edata = .;        /* define a global symbol at data end */
-  } >RAM AT> FLASH
+  } >SRAM2 AT> FLASH
 
   
   /* Uninitialized data section */
@@ -141,7 +141,7 @@ SECTIONS
     . = ALIGN(4);
     _ebss = .;         /* define a global symbol at bss end */
     __bss_end__ = _ebss;
-  } >RAM
+  } >SRAM2
   
   .noinit (NOLOAD) :
   {

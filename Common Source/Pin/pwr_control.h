@@ -2,7 +2,7 @@
  * pwr_control.h
  *
  *  Created on: 27 gru 2020
- *      Author: Ciućmok
+ *      Author: Mateusz Jurczak
  */
 
 #ifndef PIN_PWR_CONTROL_H_

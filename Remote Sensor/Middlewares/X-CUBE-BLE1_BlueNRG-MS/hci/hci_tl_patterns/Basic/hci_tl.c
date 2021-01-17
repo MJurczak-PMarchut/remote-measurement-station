@@ -174,8 +174,13 @@ void hci_init(void(* UserEvtRx)(void* pData), void* pConf)
   } 
   
   /* Initialize low level driver */
-  if (hciContext.io.Init)  hciContext.io.Init(NULL);
-  if (hciContext.io.Reset) hciContext.io.Reset();
+  hci_gpio_init(NULL);
+}
+
+void hci_gpio_init(void* pconf)
+{
+	  if (hciContext.io.Init)  hciContext.io.Init(pconf);
+	  if (hciContext.io.Reset) hciContext.io.Reset();
 }
 
 void hci_register_io_bus(tHciIO* fops)

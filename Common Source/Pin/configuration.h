@@ -131,6 +131,10 @@
 	#define MAX_CHAR_NUM_PER_SERV 2
 	#define MAX_SERV_NUM_PER_DEV 5
 	#define NO_OF_DEFAULT_SERVICES 2
+
+	//Length of a single indication for serial service, 20 is a limit for Android devices, BLE limit is 27
+    #define SINGLE_IND_LENGTH 20
+
 	#define Sensortile_Datalog_SD
 /*If data should be taken to sd or sent over bluetooth (compile priority, can be changed after connection is established) */
 
@@ -208,6 +212,12 @@
 	#define RTC_WKUP_COUNTER 2048
 
 #endif
+
+/*
+ * Use ART accelerator
+ */
+
+#define USE_ART
 
 #endif
 
