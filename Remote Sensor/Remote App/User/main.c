@@ -107,7 +107,6 @@ HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
 if (__HAL_PWR_GET_FLAG(PWR_FLAG_SB) == RESET)
 {
 
-<<<<<<< HEAD
 	/* Clear Standby flag */
 	//  InitTargetPlatform(BoardType)
 	  /* Configure the System clock */
@@ -167,50 +166,6 @@ else{
 	//        HAL_Delay(10);
 			SleepAndWaitForWkup();
 	//        __WFI();
-=======
-  HAL_Init();
-//  InitTargetPlatform(BoardType)
-  /* Configure the System clock */
-  SystemClock_Config();
-//  Prepare_for_LPRun();
-//  HAL_PWREx_EnableLowPowerRunMode();
-//  ClkDependentInit();
-  BSP_LED_Init(LED1);
-  /* Initialize the BlueNRG */
-#if defined(HAS_BLUETOOTH)
-  BLE_INIT_SPEC();
-#endif
-  ClkDependentInit();
-#if defined(HAS_BLUETOOTH)
-  BLE_ADD_SERVICES();
-//  setHCI_Event_var(&HCI_ProcessEvent);
-#endif
-  /* initialize timers */
-  InitTimers();
-
-  StartTime = HAL_GetTick();
-  HAL_NVIC_SetPriority(TIM1_CC_IRQn, 0, 0);
-  InitTimer2(&htim2);
-  /* Infinite loop */
-  SetWkupContextPointer(&sWkupContext);
-#if defined(RTC_WKUP_INTERNAL)
-  MX_RTC_Init();
-  SetHrtcPointer(&hrtc);
-  InitBoard();
-#endif
-	while (1) {
-#if defined(HAS_BLUETOOTH)
-		Process_BLE_Conn();
-		CheckBufferAndSend();
-#endif
-
-//		TestPayload(); // Test power consumption
-		UpdateCharacteristics();
-#if defined(HAS_BLUETOOTH)
-		if (HCI_ProcessEvent) {
-			HCI_ProcessEvent = 0;
-			hci_user_evt_proc();
->>>>>>> bbecba371c39755fff8532c1d8f5449057e9018c
 		}
 }
 
