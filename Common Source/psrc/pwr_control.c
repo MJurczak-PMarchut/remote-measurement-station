@@ -25,17 +25,39 @@ static CLK_SPEED egclk = DEFAULT_CLK;
 
 void DisableGPIOs(void)
 {
+//	   HAL_PWREx_EnablePullUpPullDownConfig();
+//	   HAL_PWREx_EnableGPIOPullUp(PWR_GPIO_A, GPIO_PIN_All);
+//	   HAL_PWREx_EnableGPIOPullUp(PWR_GPIO_C, GPIO_PIN_All);
 
+//	HAL_PWREx_DisablePullUpPullDownConfig();
+	   GPIO_InitTypeDef GPIO_InitStructure1 = {0};
 	   GPIO_InitTypeDef GPIO_InitStructure = {0};
 	   GPIO_InitStructure.Pin = GPIO_PIN_All;
 	   GPIO_InitStructure.Mode = GPIO_MODE_ANALOG;
-	   GPIO_InitStructure.Pull = GPIO_PULLUP;
+	   GPIO_InitStructure.Pull = GPIO_NOPULL;
 
+	   GPIO_InitStructure1.Pin = (GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 |\
+			   GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9 |\
+			   GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_15);
+	   GPIO_InitStructure1.Mode = GPIO_MODE_ANALOG;
+	   GPIO_InitStructure1.Pull = GPIO_NOPULL;
+
+	   // GPIO_B and GPIO_C are disabled
 	   HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
+//	   __HAL_RCC_GPIOA_CLK_DISABLE();
+
+	   HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
+	   __HAL_RCC_GPIOB_CLK_DISABLE();
 	   HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
-	   HAL_PWREx_EnablePullUpPullDownConfig();
-	   HAL_PWREx_EnableGPIOPullUp(PWR_GPIO_A, GPIO_PIN_All);
-	   HAL_PWREx_EnableGPIOPullUp(PWR_GPIO_C, GPIO_PIN_All);
+	   __HAL_RCC_GPIOC_CLK_DISABLE();
+	   HAL_GPIO_Init(GPIOG, &GPIO_InitStructure);
+	   __HAL_RCC_GPIOG_CLK_DISABLE();
+	   GPIO_InitStructure.Pin = GPIO_PIN_All;
+	   GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
+	   GPIO_InitStructure.Pull = GPIO_PULLUP;
+	   HAL_GPIO_Init(GPIOH, &GPIO_InitStructure);
+	   __HAL_RCC_GPIOH_CLK_DISABLE();
+
 }
 void SetNextClkPreset(CLK_SPEED eclk)
 {
@@ -174,7 +196,14 @@ void SleepAndWaitForWkup(void){
 	HAL_RTCEx_SetWakeUpTimer_IT(sphrtc, RTC_WKUP_COUNTER, RTC_WKUP_CLK_DIV);
 #endif
 	HAL_SuspendTick();
-	__WFI();
+//	HAL_PWREx_EnableSRAM2ContentRetention();
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
+	HAL_NVIC_SystemReset();
+//	DisableGPIOs();
+//	HAL_PWREx_EnterSTOP2Mode(PWR_STOPENTRY_WFI);
+//	HAL_DeInit();
+//	HAL_PWR_EnterSTANDBYMode();
+//	__WFI();
 
 	HAL_ResumeTick();
 #if defined(RTC_WKUP_INTERNAL)

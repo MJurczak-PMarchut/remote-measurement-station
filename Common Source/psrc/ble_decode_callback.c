@@ -21,6 +21,7 @@
 
 
 #include "ble_decode_callback.h"
+
 #include "station_specific.h"
 #include "bluenrg_aci_const.h"
 #include "bluenrg_hal_aci.h"
@@ -30,6 +31,7 @@
 #include "bluenrg_utils.h"
 #include "hci_le.h"
 #include "sm.h"
+#ifdef HAS_BLUETOOTH
 
 #ifdef BOARD_SENSORTILE
 #include "TargetFeatures.h"
@@ -1529,6 +1531,19 @@ void BLE_ATTR_MODIFIED_CB(uint16_t attr_handle, uint8_t * att_data, uint8_t data
 	}
 }
 #endif
+#endif
 
+void dummy(void * pData)
+{
 
+}
 
+void InitBLEAndSetItToStandby(void)
+{
+	hci_init(dummy, NULL);
+	hci_reset();
+	HAL_Delay(5);
+	aci_hal_device_standby();
+	hci_deinit();
+
+}

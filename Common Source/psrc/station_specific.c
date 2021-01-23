@@ -505,6 +505,7 @@ int32_t getSensorsData( T_SensorsData *mptr)
   return ret;
 }
 
+#ifdef HAS_BLUETOOTH
 
 void UpdateCharacteristics(void)
 {
@@ -547,6 +548,8 @@ void UpdateCharacteristics(void)
 	}
 }
 
+#endif
+
 //uint32_t *pHCI_ProcessEvent;
 
 extern volatile uint32_t HCI_ProcessEvent;
@@ -585,14 +588,14 @@ void ClkDependentInit(void)
 	  InitTimer2(&htim2);
 #if defined(HAS_BLUETOOTH)
 	  hci_tl_lowlevel_init();
-	  hci_gpio_init(NULL);
+//	  hci_gpio_init(NULL);
 #endif
 	  /*
 	   * ART Accelerator
 	   */
 #if defined(USE_ART)
-   __HAL_FLASH_INSTRUCTION_CACHE_DISABLE();
-   __HAL_FLASH_DATA_CACHE_DISABLE();
+   __HAL_FLASH_INSTRUCTION_CACHE_ENABLE();
+   __HAL_FLASH_DATA_CACHE_ENABLE();
    __HAL_FLASH_PREFETCH_BUFFER_ENABLE();
 #endif
 
@@ -652,18 +655,24 @@ uint8_t PutDataToBuffer(char *pData, uint8_t len)
 			}
 		}
 		sBuffer.BufferEnd = ((sBuffer.BufferEnd + len) < TX_BUFFER_SIZE)? (sBuffer.BufferEnd + len) : (sBuffer.BufferEnd + len - TX_BUFFER_SIZE);
+#ifdef HAS_BLUETOOTH
 		if((GET_DECODER_STATE() == BLE_IDLE) && (connected == 1))
 		{
 			BLESendBuffer();
 		}
+#endif
 		return 0;
 	}
+#ifdef HAS_BLUETOOTH
 	if((GET_DECODER_STATE() == BLE_IDLE) && (connected == 1))
 	{
 		BLESendBuffer();
 	}
+#endif
 	return 1;
 }
+
+#ifdef HAS_BLUETOOTH
 
 void CheckBufferAndSend(void)
 {
@@ -672,6 +681,8 @@ void CheckBufferAndSend(void)
 		BLESendBuffer();
 	}
 }
+
+
 
 void* BLESendBuffer(void){
 // static uint32_t past, present;
@@ -700,7 +711,7 @@ void* BLESendBuffer(void){
  }
  else return NULL;
 }
-
+#endif
 void PurgeSerialBuffer(void)
 {
 	sBuffer.BufferStart = 0;

@@ -8,12 +8,13 @@
 #ifndef ST_BLUENRG_MS_INCLUDES_BLE_DECODE_CALLBACK_H_
 #define ST_BLUENRG_MS_INCLUDES_BLE_DECODE_CALLBACK_H_
 
+
 #include "bluenrg_gatt_aci.h"
 #include "bluenrg_gap.h"
 #include "SpecialTypes.h"
 #include "configuration.h"
 #include "bluenrg_gap_aci.h"
-
+#ifdef HAS_BLUETOOTH
 #ifdef BOARD_N64_F4
 	#include "stm32f4xx.h"
 #endif
@@ -53,4 +54,6 @@ void BLE_INIT_SPEC(void);
 tBleStatus BLE_ADD_SERVICES(void);
 HAL_StatusTypeDef BLE_WAIT_FOR_TX_POOL(void);
 
+#endif
+void InitBLEAndSetItToStandby(void);
 #endif /* ST_BLUENRG_MS_INCLUDES_BLE_DECODE_CALLBACK_H_ */

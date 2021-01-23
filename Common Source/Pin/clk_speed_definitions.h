@@ -241,10 +241,6 @@ while(0)
 	if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {\
 		while (1);\
 	}\
-	HAL_RCCEx_EnableMSIPLLMode();\
-	PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_USB;\
-	PeriphClkInitStruct.UsbClockSelection = RCC_USBCLKSOURCE_NONE;\
-	HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);\
 	RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK\
 			| RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);\
 	RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_MSI;\

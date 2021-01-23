@@ -24,8 +24,9 @@
 /* Imported Variables -------------------------------------------------------------*/
 extern uint8_t set_connectable;
 extern int connected;
-
+#ifdef HAS_BLUETOOTH
 BLE_DEV_DATA *DevData;
+#endif
 extern TIM_HandleTypeDef TimHandle;
 extern void CDC_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
 
@@ -78,62 +79,94 @@ static void InitTimers(void);
 * @param  None
 * @retval None
 */
+uint8_t everstarted_flag;
 int main(void)
 {
-
+//	static volatile uint8_t sFlag_2;
   /* STM32L4xx HAL library initialization:
   - Configure the Flash prefetch, instruction and Data caches
   - Configure the Systick to generate an interrupt each 1 msec
   - Set NVIC Group Priority to 4
   - Global MSP (MCU Support Package) initialization
   */
+GPIO_InitTypeDef GPIO_InitStructure = {0};
+__HAL_RCC_GPIOC_CLK_ENABLE();
+GPIO_InitStructure.Pin = GPIO_PIN_0;
+GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
+GPIO_InitStructure.Pull = GPIO_NOPULL;
+GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
+HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
+//HAL_Delay(5);
+HAL_Init();
+//BSP_LED_Init(LED1);
+HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
+HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
+HAL_Delay(10);
+HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
+if (__HAL_PWR_GET_FLAG(PWR_FLAG_SB) == RESET)
+{
 
-  HAL_Init();
-//  InitTargetPlatform(BoardType)
-  /* Configure the System clock */
-  SystemClock_Config();
-//  Prepare_for_LPRun();
-//  HAL_PWREx_EnableLowPowerRunMode();
-//  ClkDependentInit();
-  BSP_LED_Init(LED1);
-  /* Initialize the BlueNRG */
-#if defined(HAS_BLUETOOTH)
-  BLE_INIT_SPEC();
-#endif
-  ClkDependentInit();
-#if defined(HAS_BLUETOOTH)
-  BLE_ADD_SERVICES();
-//  setHCI_Event_var(&HCI_ProcessEvent);
-#endif
-  /* initialize timers */
-  InitTimers();
+	/* Clear Standby flag */
+	//  InitTargetPlatform(BoardType)
+	  /* Configure the System clock */
+//	  SystemClock_Config();
+//	  __HAL_FLASH_INSTRUCTION_CACHE_ENABLE();
+//	  __HAL_FLASH_DATA_CACHE_ENABLE();
+//	  __HAL_FLASH_PREFETCH_BUFFER_ENABLE();
+	  Prepare_for_LPRun();
+	  HAL_PWREx_EnableLowPowerRunMode();
+	//  ClkDependentInit();
+	  /* Initialize the BlueNRG */
+	#if defined(HAS_BLUETOOTH)
+	  BLE_INIT_SPEC();
+	#else
+	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
+	  InitBLEAndSetItToStandby();
+	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
+	  HAL_Delay(20);
+	  SleepAndWaitForWkup();
+	#endif
+	  ClkDependentInit();
+	#if defined(HAS_BLUETOOTH)
+	  BLE_ADD_SERVICES();
+	//  setHCI_Event_var(&HCI_ProcessEvent);
+	#endif
+	  /* initialize timers */
+	  InitTimers();
 
-  StartTime = HAL_GetTick();
-  HAL_NVIC_SetPriority(TIM1_CC_IRQn, 0, 0);
-  InitTimer2(&htim2);
-  /* Infinite loop */
-  SetWkupContextPointer(&sWkupContext);
-#if defined(RTC_WKUP_INTERNAL)
-  MX_RTC_Init();
-  SetHrtcPointer(&hrtc);
-#endif
-	while (1) {
-#if defined(HAS_BLUETOOTH)
-		Process_BLE_Conn();
-		CheckBufferAndSend();
-#endif
+	  StartTime = HAL_GetTick();
+	  HAL_NVIC_SetPriority(TIM1_CC_IRQn, 0, 0);
+	  InitTimer2(&htim2);
+	  /* Infinite loop */
+	  SetWkupContextPointer(&sWkupContext);
+	#if defined(RTC_WKUP_INTERNAL)
+	  MX_RTC_Init();
+	  SetHrtcPointer(&hrtc);
+	#endif
+}
+else{
+	__HAL_RCC_PWR_CLK_ENABLE();
+	__HAL_PWR_CLEAR_FLAG(PWR_FLAG_SB);
+}
 
-		TestPayload(); // Test power consumption
-#if defined(HAS_BLUETOOTH)
-		if (HCI_ProcessEvent) {
-			HCI_ProcessEvent = 0;
-			hci_user_evt_proc();
+		while (1) {
+	#if defined(HAS_BLUETOOTH)
+			Process_BLE_Conn();
+			CheckBufferAndSend();
+	#endif
+
+			TestPayload(); // Test power consumption
+	#if defined(HAS_BLUETOOTH)
+			if (HCI_ProcessEvent) {
+				HCI_ProcessEvent = 0;
+				hci_user_evt_proc();
+			}
+	#endif
+	//        HAL_Delay(10);
+			SleepAndWaitForWkup();
+	//        __WFI();
 		}
-#endif
-//        HAL_Delay(10);
-		SleepAndWaitForWkup();
-//        __WFI();
-	}
 }
 
 /**
@@ -246,7 +279,7 @@ void Process_BLE_Conn(void)
 
     }
     else{
-    	if(TargetBoardFeatures.LedStatus == 1)
+    	if(TargetBoardFeatures.LedStatus != 0)
     	{
     		LedOffTargetPlatform();
     		TargetBoardFeatures.LedStatus = 0;

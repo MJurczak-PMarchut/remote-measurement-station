@@ -185,7 +185,13 @@ void hci_register_io_bus(tHciIO* fops)
   hciContext.io.Receive = fops->Receive;  
   hciContext.io.Send    = fops->Send;
   hciContext.io.GetTick = fops->GetTick;
-  hciContext.io.Reset   = fops->Reset;    
+  hciContext.io.Reset   = fops->Reset;
+  hciContext.io.DeInit	= fops->DeInit;
+}
+
+void hci_deinit(void)
+{
+	hciContext.io.DeInit();
 }
 
 int hci_send_req(struct hci_request* r, BOOL async)

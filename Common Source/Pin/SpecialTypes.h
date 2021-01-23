@@ -25,6 +25,7 @@ typedef uint8_t RunPriority;
 typedef enum {BLE_DISC_SERV = 0, BLE_DISC_CHAR, BLE_IDLE, BLE_DISC_DESC, BLE_SCAN, BLE_READ, BLE_CONNECTING, BLE_RECONNECTING, BLE_WAIT_FOR_IND} BLE_State;
 
 typedef enum {COMP_RESULT_OK, COMP_RESULT_NOK, COMP_ERROR} Comp_Result;
+#if defined(HAS_BLUETOOTH)
 
 typedef enum {
 	DEVICE_LR = 0
@@ -115,8 +116,9 @@ typedef enum {
 	BLE_CONNECTION_FAILED
 } BLE_CONNECTION_STATUS;
 
-
+#endif
 typedef enum {SCAN, CONNECT, GET_DATA, SYNCHORONIZE, ABORT, HARD_RESET} Keyword;
+
 typedef struct {
 	Keyword eKeyword;
 	char* 	pcKeyword;

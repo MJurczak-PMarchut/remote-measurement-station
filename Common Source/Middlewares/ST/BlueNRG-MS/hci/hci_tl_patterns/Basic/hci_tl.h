@@ -124,6 +124,7 @@ typedef struct
 /** @defgroup BASIC_Functions Exported Functions
  * @{
  */
+void hci_deinit(void);
 
 /**
   * @brief  Send an HCI request either in synchronous or in asynchronous mode.

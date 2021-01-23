@@ -81,7 +81,7 @@
 
 /*BLUETOOTH options*/
 
-#define HAS_BLUETOOTH
+//#define HAS_BLUETOOTH
 
 #ifdef HAS_BLUETOOTH
 
@@ -188,7 +188,7 @@
 
 #if defined(USE_RTC)
 
-	#define RTC_WKUP_INTERNAL  //RTC uses EXTI line 20 for wake up
+//	#define RTC_WKUP_INTERNAL  //RTC uses EXTI line 20 for wake up
 
 	/* RTC clock prescaler, should be one of below
 	 * RTC_WAKEUPCLOCK_RTCCLK_DIV16
@@ -203,7 +203,7 @@
  * RCC_RTCCLKSOURCE_LSI - 32kHz
  * RCC_RTCCLKSOURCE_LSE - 32.768 kHz
  */
-	#define RTC_CLK_SOURCE RCC_RTCCLKSOURCE_LSE
+	#define RTC_CLK_SOURCE RCC_RTCCLKSOURCE_LSI
 
 /*
  * RTC counter
