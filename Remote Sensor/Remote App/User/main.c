@@ -107,6 +107,7 @@ HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
 if (__HAL_PWR_GET_FLAG(PWR_FLAG_SB) == RESET)
 {
 
+<<<<<<< HEAD
 	/* Clear Standby flag */
 	//  InitTargetPlatform(BoardType)
 	  /* Configure the System clock */
@@ -166,6 +167,50 @@ else{
 	//        HAL_Delay(10);
 			SleepAndWaitForWkup();
 	//        __WFI();
+=======
+  HAL_Init();
+//  InitTargetPlatform(BoardType)
+  /* Configure the System clock */
+  SystemClock_Config();
+//  Prepare_for_LPRun();
+//  HAL_PWREx_EnableLowPowerRunMode();
+//  ClkDependentInit();
+  BSP_LED_Init(LED1);
+  /* Initialize the BlueNRG */
+#if defined(HAS_BLUETOOTH)
+  BLE_INIT_SPEC();
+#endif
+  ClkDependentInit();
+#if defined(HAS_BLUETOOTH)
+  BLE_ADD_SERVICES();
+//  setHCI_Event_var(&HCI_ProcessEvent);
+#endif
+  /* initialize timers */
+  InitTimers();
+
+  StartTime = HAL_GetTick();
+  HAL_NVIC_SetPriority(TIM1_CC_IRQn, 0, 0);
+  InitTimer2(&htim2);
+  /* Infinite loop */
+  SetWkupContextPointer(&sWkupContext);
+#if defined(RTC_WKUP_INTERNAL)
+  MX_RTC_Init();
+  SetHrtcPointer(&hrtc);
+  InitBoard();
+#endif
+	while (1) {
+#if defined(HAS_BLUETOOTH)
+		Process_BLE_Conn();
+		CheckBufferAndSend();
+#endif
+
+//		TestPayload(); // Test power consumption
+		UpdateCharacteristics();
+#if defined(HAS_BLUETOOTH)
+		if (HCI_ProcessEvent) {
+			HCI_ProcessEvent = 0;
+			hci_user_evt_proc();
+>>>>>>> bbecba371c39755fff8532c1d8f5449057e9018c
 		}
 }
 
@@ -303,7 +348,12 @@ void SystemClock_Config(void)
   
   /* Enable the LSE Oscilator */
   RCC_OscInitStruct.OscillatorType = RTC_CLK_SOURCE;
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
+  if(RTC_CLK_SOURCE == RCC_RTCCLKSOURCE_LSE){
+	  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
+  }
+  else if(RTC_CLK_SOURCE == RCC_RTCCLKSOURCE_LSI){
+	  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
+  }
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     while(1);
@@ -383,6 +433,7 @@ void Error_Handler(void)
   }
 }
 
+
 HAL_StatusTypeDef MX_SPI1_Init(SPI_HandleTypeDef* hspi)
 {
 //TODO check if this function is called instead of weak one
@@ -395,11 +446,23 @@ HAL_StatusTypeDef MX_SPI1_Init(SPI_HandleTypeDef* hspi)
   hspi->Init.CLKPhase = SPI_PHASE_1EDGE;
   hspi->Init.NSS = SPI_NSS_SOFT;
   //SPI is stable at around 20MHz, above that we lose communication with BLE chip
-  if(HAL_RCC_GetSysClockFreq() <= 40000000){
-	  hspi->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+//  if(HAL_RCC_GetSysClockFreq() <= 40000000){
+//       hspi->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+//  }
+//  else{
+//	  hspi->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+//  }
+  if(HAL_RCC_GetSysClockFreq() <= 64000000){
+       hspi->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
+  }
+  else if (HAL_RCC_GetSysClockFreq() > 32000000){
+	  hspi->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+  }
+  else if (HAL_RCC_GetSysClockFreq() > 16000000){
+	  hspi->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
   }
   else{
-	  hspi->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
+	  hspi->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
   }
   hspi->Init.FirstBit = SPI_FIRSTBIT_MSB;
   hspi->Init.TIMode = SPI_TIMODE_DISABLE;
@@ -419,6 +482,7 @@ void MX_RTC_Init(void)
 {
 	  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 	  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+
 	  HAL_PWR_EnableBkUpAccess();
 	  RCC_OscInitStruct.OscillatorType = RTC_CLK_SOURCE;
 	  if(RTC_CLK_SOURCE == RCC_RTCCLKSOURCE_LSE){
@@ -450,9 +514,9 @@ void MX_RTC_Init(void)
 	  {
 	    Error_Handler();
 	  }
-
 	  HAL_NVIC_SetPriority(RTC_WKUP_IRQn, 0, 0);
 	  HAL_NVIC_EnableIRQ(RTC_WKUP_IRQn);
+
 
 }
 
