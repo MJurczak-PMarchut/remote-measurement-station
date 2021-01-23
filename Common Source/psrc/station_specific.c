@@ -508,7 +508,7 @@ int32_t getSensorsData( T_SensorsData *mptr)
 
 void UpdateCharacteristics(void)
 {
-	uint8_t Message[50] = "aaa\n";
+	uint8_t Message[80];
 	BLE_DEV_DATA *DevData = NULL;
 	uint8_t len;
 //	typedef struct
@@ -525,24 +525,21 @@ void UpdateCharacteristics(void)
 
 //	uDat vDat;
 
-//	uint8_t Data[4*3*2] = 0;
-
-//	if(getSensorsData(rptr) != BSP_ERROR_NONE)
-	if(0)
+	if(getSensorsData(rptr) != BSP_ERROR_NONE)
 	{
 		return;
 	}
 	else
 	{
-//		vDat.sData.acc.x = rptr->acc.x;
-//		vDat.sData.acc.y = rptr->acc.y;
+//	vDat.sData.acc.x = rptr->acc.x;
+//	vDat.sData.acc.y = rptr->acc.y;
 
 
-//		BLE_GET_DEV_DATA(&DevData);
+	BLE_GET_DEV_DATA(&DevData);
 
-//		len = sprintf(Message,"%d %d %d\n", rptr->acc.x, rptr->acc.y, rptr->acc.z);
-		len = 4;
-		BLE_UPDATE_CHAR(&DevData->sServiceIDData[BLE_SERIAL_SERVICE], &DevData->sCharIDData[BLE_SERIAL_RD_CHAR], len, Message, NULL);
+	len = sprintf((char *)Message,"Akcelerometr x: %d y: %d z: %d\n", rptr->acc.x, rptr->acc.y, rptr->acc.z);
+//	len = 4;
+	SendToBLESerial(Message, len);
 
 	}
 }
@@ -585,7 +582,7 @@ void ClkDependentInit(void)
 	  InitTimer2(&htim2);
 #if defined(HAS_BLUETOOTH)
 	  hci_tl_lowlevel_init();
-	  hci_gpio_init(NULL);
+//	  hci_gpio_init(NULL);
 #endif
 	  /*
 	   * ART Accelerator

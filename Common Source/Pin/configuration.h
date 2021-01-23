@@ -132,7 +132,7 @@
 	#define MAX_SERV_NUM_PER_DEV 5
 	#define NO_OF_DEFAULT_SERVICES 2
 
-	//Length of a single indication for serial service, 20 is a limit for Android devices, BLE limit is 27
+	//Length of a single indication for serial service, 20 is a limit for BlueNRG-MS
     #define SINGLE_IND_LENGTH 20
 
 	#define Sensortile_Datalog_SD
@@ -203,13 +203,13 @@
  * RCC_RTCCLKSOURCE_LSI - 32kHz
  * RCC_RTCCLKSOURCE_LSE - 32.768 kHz
  */
-	#define RTC_CLK_SOURCE RCC_RTCCLKSOURCE_LSE
+	#define RTC_CLK_SOURCE RCC_RTCCLKSOURCE_LSI
 
 /*
  * RTC counter
  * wake up period is = RTC_WKUP_COUNTER  * (RTC_WKUP_CLK_DIV / RTC_CLK_SOURCE)
  */
-	#define RTC_WKUP_COUNTER 2048
+	#define RTC_WKUP_COUNTER 2000
 
 #endif
 
