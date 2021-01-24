@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;STSW-STLKT01-BLE_SampleApp&apos; to &apos;Remote Sensor&apos;" description="Rename resource &apos;STSW-STLKT01-BLE_SampleApp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="/STSW-STLKT01-BLE_SampleApp" name="Remote Sensor" stamp="1601767153300" updateReferences="true"/>
-</session>

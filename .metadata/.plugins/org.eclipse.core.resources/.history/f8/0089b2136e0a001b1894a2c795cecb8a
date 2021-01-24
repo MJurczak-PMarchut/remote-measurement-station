@@ -1,4 +1,0 @@
-TargetPlatform.c:113:13:Init_MEM1_Sensors	280	static
-TargetPlatform.c:68:6:InitTargetPlatform	280	static
-TargetPlatform.c:171:6:LedOnTargetPlatform	8	static
-TargetPlatform.c:181:6:LedOffTargetPlatform	8	static
