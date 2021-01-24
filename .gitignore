@@ -55,4 +55,6 @@ dkms.conf
 .metadata/
 *Debug/
 *.launch
+*Release/
 RemoteSystemsTempFiles/
+Remote Sensor/.settings/org.eclipse.cdt.core.prefs
