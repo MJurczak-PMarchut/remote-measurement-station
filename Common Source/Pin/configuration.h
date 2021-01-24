@@ -211,6 +211,10 @@
  */
 	#define RTC_WKUP_COUNTER 2000
 
+	#define RTC_BACKUP_POWER_STATE_REG RTC_BKP_DR0
+	#define RTC_BACKUP_POWER_STATE_WRITTEN_REG RTC_BKP_DR1
+	#define RTC_BACKUP_POWER_STATE_WRITTEN 10
+
 #endif
 
 /*
@@ -218,6 +222,26 @@
  */
 
 #define USE_ART
+
+
+/*
+ * Define GPIO used for event tracking
+ */
+
+#define __EVT_GPIO_PORT GPIOC
+
+#define __EVT_GPIO_PIN GPIO_PIN_0
+
+/*
+ * Macro definitions
+ *
+ */
+
+
+#define __EVT_GPIO__ __EVT_GPIO_PORT , __EVT_GPIO_PIN
+
+#define TOGGLE_EVENT_PIN() HAL_GPIO_TogglePin(__EVT_GPIO__)
+
 
 #endif
 

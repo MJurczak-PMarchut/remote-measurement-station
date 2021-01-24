@@ -222,7 +222,6 @@ while(0)
 #define No_PLL_2MHz() do{\
 	RCC_ClkInitTypeDef RCC_ClkInitStruct = { 0 };\
 	RCC_OscInitTypeDef RCC_OscInitStruct = { 0 };\
-	RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};\
 	RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK\
 				| RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);\
 		RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_MSI;\

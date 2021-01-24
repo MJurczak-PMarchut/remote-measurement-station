@@ -17,7 +17,7 @@ WKUP_CONTEXT *psWkupContext;
 
 RTC_HandleTypeDef *sphrtc;
 
-void ResumeFromSleepModes(void);
+void ResumeFromSleepModes(PowerState ePowerState);
 void DisableLPRun(void);
 void EnableLPRun(void);
 
@@ -30,17 +30,17 @@ void DisableGPIOs(void)
 //	   HAL_PWREx_EnableGPIOPullUp(PWR_GPIO_C, GPIO_PIN_All);
 
 //	HAL_PWREx_DisablePullUpPullDownConfig();
-	   GPIO_InitTypeDef GPIO_InitStructure1 = {0};
+//	   GPIO_InitTypeDef GPIO_InitStructure1 = {0};
 	   GPIO_InitTypeDef GPIO_InitStructure = {0};
 	   GPIO_InitStructure.Pin = GPIO_PIN_All;
 	   GPIO_InitStructure.Mode = GPIO_MODE_ANALOG;
 	   GPIO_InitStructure.Pull = GPIO_NOPULL;
 
-	   GPIO_InitStructure1.Pin = (GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 |\
-			   GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9 |\
-			   GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_15);
-	   GPIO_InitStructure1.Mode = GPIO_MODE_ANALOG;
-	   GPIO_InitStructure1.Pull = GPIO_NOPULL;
+//	   GPIO_InitStructure1.Pin = (GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 |\
+//			   GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9 |\
+//			   GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_15);
+//	   GPIO_InitStructure1.Mode = GPIO_MODE_ANALOG;
+//	   GPIO_InitStructure1.Pull = GPIO_NOPULL;
 
 	   // GPIO_B and GPIO_C are disabled
 	   HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
@@ -189,33 +189,65 @@ void SleepAndWaitForWkup(void){
 	/*
 	 * We come here after every period of run mode, first we stop and wait for interrupt
 	 */
-	//reset wakeup reson
-	psWkupContext->eWkupReason = NO_WKUP;
-	EnableLPRun();
-#if defined(RTC_WKUP_INTERNAL)
-	HAL_RTCEx_SetWakeUpTimer_IT(sphrtc, RTC_WKUP_COUNTER, RTC_WKUP_CLK_DIV);
-#endif
 	HAL_SuspendTick();
+	__WFI();
+	HAL_ResumeTick();
+}
+
 //	HAL_PWREx_EnableSRAM2ContentRetention();
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
-	HAL_NVIC_SystemReset();
 //	DisableGPIOs();
 //	HAL_PWREx_EnterSTOP2Mode(PWR_STOPENTRY_WFI);
 //	HAL_DeInit();
 //	HAL_PWR_EnterSTANDBYMode();
-//	__WFI();
 
-	HAL_ResumeTick();
+void EnterLowPoweMode(PowerState ePowerState)
+{
+	psWkupContext->eWkupReason = NO_WKUP;
+#if defined(RTC_WKUP_INTERNAL)
+	HAL_RTCEx_SetWakeUpTimer_IT(sphrtc, RTC_WKUP_COUNTER, RTC_WKUP_CLK_DIV);
+#endif
+	switch(ePowerState)
+	{
+		case PS_LP_SLEEP:
+			EnableLPRun();
+			TOGGLE_EVENT_PIN();
+			HAL_Delay(10);
+			SleepAndWaitForWkup();
+			break;
+		case PS_RESET:
+			TOGGLE_EVENT_PIN();
+			HAL_Delay(15);
+			HAL_NVIC_SystemReset();
+			break; //only decorative
+		case PS_STOP0:
+			TOGGLE_EVENT_PIN();
+			HAL_Delay(20);
+			HAL_PWREx_EnterSTOP0Mode(PWR_STOPENTRY_WFI);
+			break;
+		case PS_STOP1:
+			EnableLPRun();
+			TOGGLE_EVENT_PIN();
+			HAL_Delay(25);
+			HAL_PWREx_EnterSTOP1Mode(PWR_STOPENTRY_WFI);
+			break;
+		case PS_STOP2:
+			EnableLPRun();
+			TOGGLE_EVENT_PIN();
+			HAL_Delay(30);
+			HAL_PWREx_EnterSTOP2Mode(PWR_STOPENTRY_WFI);
+			break;
+		default:
+			break;
+	}
 #if defined(RTC_WKUP_INTERNAL)
 	HAL_RTCEx_DeactivateWakeUpTimer(sphrtc);
 #endif
-	ResumeFromSleepModes();
-	//Then we set clocks up depending on context
+	ResumeFromSleepModes(ePowerState);
 }
 
 
 
-void ResumeFromSleepModes(void)
+void ResumeFromSleepModes(PowerState ePowerState)
 {
 
 	/*

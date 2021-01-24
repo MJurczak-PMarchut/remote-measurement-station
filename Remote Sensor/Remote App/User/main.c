@@ -48,6 +48,8 @@ uint8_t bdaddr[6];
 /* Private variables ---------------------------------------------------------*/
 static volatile uint32_t SendEnv = 0;
 WKUP_CONTEXT sWkupContext;
+volatile uint8_t GPIO_STATE = GPIO_PIN_RESET;
+
 /* Private function prototypes -----------------------------------------------*/
 void HAL_RTCEx_WakeUpTimerEventCallback(RTC_HandleTypeDef *hrtc);
 void Process_BLE_Conn(void);
@@ -90,20 +92,22 @@ int main(void)
   - Global MSP (MCU Support Package) initialization
   */
 GPIO_InitTypeDef GPIO_InitStructure = {0};
-__HAL_RCC_GPIOC_CLK_ENABLE();
-GPIO_InitStructure.Pin = GPIO_PIN_0;
+
+//ENABLE_EVENT_PORT_CLOCK();
+
+GPIO_InitStructure.Pin = __EVT_GPIO_PIN;
 GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
 GPIO_InitStructure.Pull = GPIO_NOPULL;
 GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+InitEvtGpioClock();
 HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
-HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
-//HAL_Delay(5);
+HAL_GPIO_WritePin(__EVT_GPIO__, GPIO_PIN_SET);
 HAL_Init();
-//BSP_LED_Init(LED1);
-HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
-HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
+HAL_GPIO_Init(__EVT_GPIO_PORT, &GPIO_InitStructure);
+TOGGLE_EVENT_PIN();
 HAL_Delay(10);
-HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
+//HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
+TOGGLE_EVENT_PIN();
 if (__HAL_PWR_GET_FLAG(PWR_FLAG_SB) == RESET)
 {
 
@@ -111,9 +115,6 @@ if (__HAL_PWR_GET_FLAG(PWR_FLAG_SB) == RESET)
 	//  InitTargetPlatform(BoardType)
 	  /* Configure the System clock */
 //	  SystemClock_Config();
-//	  __HAL_FLASH_INSTRUCTION_CACHE_ENABLE();
-//	  __HAL_FLASH_DATA_CACHE_ENABLE();
-//	  __HAL_FLASH_PREFETCH_BUFFER_ENABLE();
 	  Prepare_for_LPRun();
 	  HAL_PWREx_EnableLowPowerRunMode();
 	//  ClkDependentInit();
@@ -121,11 +122,10 @@ if (__HAL_PWR_GET_FLAG(PWR_FLAG_SB) == RESET)
 	#if defined(HAS_BLUETOOTH)
 	  BLE_INIT_SPEC();
 	#else
-	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_RESET);
+	  TOGGLE_EVENT_PIN();
 	  InitBLEAndSetItToStandby();
-	  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
+	  TOGGLE_EVENT_PIN();
 	  HAL_Delay(20);
-	  SleepAndWaitForWkup();
 	#endif
 	  ClkDependentInit();
 	#if defined(HAS_BLUETOOTH)
@@ -164,7 +164,7 @@ else{
 			}
 	#endif
 	//        HAL_Delay(10);
-			SleepAndWaitForWkup();
+			CycleLPowerStates();
 	//        __WFI();
 		}
 }
@@ -235,7 +235,7 @@ static void InitTimers(void)
   
 }
 
-
+#if defined(HAS_BLUETOOTH)
 void Process_BLE_Conn(void)
 {
 	/* Led Blinking when there is not a client connected */
@@ -286,7 +286,7 @@ void Process_BLE_Conn(void)
     	}
     }
 }
-
+#endif
 
 /**
 * @brief  System Clock Configuration

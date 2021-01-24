@@ -16,7 +16,7 @@
 #include "SensorTile_motion_sensors.h"
 #endif
 
-typedef enum  {PS_LOW_POWER_RUN, PS_LOW_SPEED, PS_HIGH_SPEED, PS_BURST, PS_DONT_CARE} PowerState;
+typedef enum  {PS_LP_SLEEP = 0, PS_STOP0 = 1, PS_STOP1 = 2, PS_STOP2 = 3, PS_STANDBY = 4, PS_SHUTDOWN = 5, PS_DEFAULT, PS_RESET, PS_LOW_POWER_RUN, PS_LOW_SPEED, PS_HIGH_SPEED, PS_BURST, PS_DONT_CARE} PowerState;
 typedef uint8_t ProcessID ;
 typedef enum {ST_RECURRENT, ST_SINGLE} SLOT_TYPE;
 typedef enum  {TS_TIME_LEFT, TS_OVERTIME, TS_IN_MARGIN, TS_ERROR} TimingState;

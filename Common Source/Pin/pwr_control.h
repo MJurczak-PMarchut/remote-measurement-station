@@ -21,5 +21,6 @@ HAL_StatusTypeDef Prepare_for_LPRun(void);
 void SleepAndWaitForWkup(void);
 void SetWkupContextPointer(WKUP_CONTEXT *psWkupPointer);
 void SetHrtcPointer(RTC_HandleTypeDef *phrtc);
+void EnterLowPoweMode(PowerState ePowerState);
 #endif
 #endif /* PIN_PWR_CONTROL_H_ */
