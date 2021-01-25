@@ -719,42 +719,42 @@ void InitEvtGpioClock(void)
 {
 	if(__EVT_GPIO_PORT == GPIOC)
 	{
-		if(__HAL_RCC_GPIOC_IS_CLK_ENABLED())
+		if(!__HAL_RCC_GPIOC_IS_CLK_ENABLED())
 		{
 			__HAL_RCC_GPIOC_CLK_ENABLE();
 		}
 	}
 	else if (__EVT_GPIO_PORT == GPIOA)
 	{
-		if(__HAL_RCC_GPIOA_IS_CLK_ENABLED())
+		if(!__HAL_RCC_GPIOA_IS_CLK_ENABLED())
 		{
 			__HAL_RCC_GPIOA_CLK_ENABLE();
 		}
 	}
 	else if (__EVT_GPIO_PORT == GPIOB)
 	{
-		if(__HAL_RCC_GPIOB_IS_CLK_ENABLED())
+		if(!__HAL_RCC_GPIOB_IS_CLK_ENABLED())
 		{
 			__HAL_RCC_GPIOB_CLK_ENABLE();
 		}
 	}
 	else if (__EVT_GPIO_PORT == GPIOD)
 	{
-		if(__HAL_RCC_GPIOD_IS_CLK_ENABLED())
+		if(!__HAL_RCC_GPIOD_IS_CLK_ENABLED())
 		{
 			__HAL_RCC_GPIOD_CLK_ENABLE();
 		}
 	}
 	else if (__EVT_GPIO_PORT == GPIOH)
 	{
-		if(__HAL_RCC_GPIOH_IS_CLK_ENABLED())
+		if(!__HAL_RCC_GPIOH_IS_CLK_ENABLED())
 		{
 			__HAL_RCC_GPIOH_CLK_ENABLE();
 		}
 	}
 	else if (__EVT_GPIO_PORT == GPIOG)
 	{
-		if(__HAL_RCC_GPIOG_IS_CLK_ENABLED())
+		if(!__HAL_RCC_GPIOG_IS_CLK_ENABLED())
 		{
 			__HAL_RCC_GPIOG_CLK_ENABLE();
 		}
@@ -776,10 +776,11 @@ void CycleLPowerStates(void)
         HAL_RTCEx_BKUPWrite(&RtcHandle, RTC_BACKUP_POWER_STATE_WRITTEN_REG, RTC_BACKUP_POWER_STATE_WRITTEN);
         HAL_PWR_DisableBkUpAccess();
     }
+    TOGGLE_EVENT_PIN();
+    ePowerState = (ePowerState > PS_SHUTDOWN)? PS_LP_SLEEP:ePowerState;
     HAL_PWR_EnableBkUpAccess();
     HAL_RTCEx_BKUPWrite(&RtcHandle, RTC_BACKUP_POWER_STATE_REG, (uint32_t)ePowerState + 1);
     HAL_PWR_DisableBkUpAccess();
-    TOGGLE_EVENT_PIN();
     EnterLowPoweMode(ePowerState);
 
 }

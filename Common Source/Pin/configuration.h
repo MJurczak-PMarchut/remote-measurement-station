@@ -188,7 +188,7 @@
 
 #if defined(USE_RTC)
 
-//	#define RTC_WKUP_INTERNAL  //RTC uses EXTI line 20 for wake up
+	#define RTC_WKUP_INTERNAL  //RTC uses EXTI line 20 for wake up
 
 	/* RTC clock prescaler, should be one of below
 	 * RTC_WAKEUPCLOCK_RTCCLK_DIV16

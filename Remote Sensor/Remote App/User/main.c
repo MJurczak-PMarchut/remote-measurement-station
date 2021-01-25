@@ -122,9 +122,9 @@ if (__HAL_PWR_GET_FLAG(PWR_FLAG_SB) == RESET)
 	#if defined(HAS_BLUETOOTH)
 	  BLE_INIT_SPEC();
 	#else
-	  TOGGLE_EVENT_PIN();
+//	  TOGGLE_EVENT_PIN();
 	  InitBLEAndSetItToStandby();
-	  TOGGLE_EVENT_PIN();
+//	  TOGGLE_EVENT_PIN();
 	  HAL_Delay(20);
 	#endif
 	  ClkDependentInit();
@@ -149,7 +149,7 @@ else{
 	__HAL_RCC_PWR_CLK_ENABLE();
 	__HAL_PWR_CLEAR_FLAG(PWR_FLAG_SB);
 }
-
+TOGGLE_EVENT_PIN();
 		while (1) {
 	#if defined(HAS_BLUETOOTH)
 			Process_BLE_Conn();
@@ -165,6 +165,8 @@ else{
 	#endif
 	//        HAL_Delay(10);
 			CycleLPowerStates();
+			TOGGLE_EVENT_PIN();
+			HAL_NVIC_SystemReset();
 	//        __WFI();
 		}
 }
