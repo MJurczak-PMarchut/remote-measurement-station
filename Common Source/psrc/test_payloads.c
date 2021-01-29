@@ -12,83 +12,86 @@
 #define DIV_MUL_TEST
 
 #define TestIterationCount 17
-uint8_t a,b;
+volatile uint8_t a,b;
 extern BufferStruct sBuffer;
 
 #define MEMORY_COPY1() do {\
 	a = b;\
 	b = a;\
 	} while(0);
+#define  ADDITIVE() do{\
+	a = a + b;\
+	b = a - b;\
+	}while(0);
+#define MULTIPLICATIVE() do{\
+	a = a * b;\
+	b = 2;\
+	b = a / b;\
+	}while(0);
+#define BIT_MANIPULATION() do{\
+	a = b >> a;\
+	b = a << b;\
+	}while(0);
 
-#define MEMORY_COPY2() 		MEMORY_COPY1()\
+#define TEST1() 			MEMORY_COPY1()\
+							ADDITIVE()\
+							MULTIPLICATIVE()\
+							BIT_MANIPULATION()\
 							MEMORY_COPY1()\
+							ADDITIVE()\
+							MULTIPLICATIVE()\
+							BIT_MANIPULATION()\
 							MEMORY_COPY1()\
+							ADDITIVE()\
+							MULTIPLICATIVE()\
+							BIT_MANIPULATION()\
 							MEMORY_COPY1()\
-							MEMORY_COPY1()\
-							MEMORY_COPY1()\
-							MEMORY_COPY1()\
-							MEMORY_COPY1()\
-							MEMORY_COPY1()\
-							MEMORY_COPY1()
+							ADDITIVE()\
+							MULTIPLICATIVE()\
+							BIT_MANIPULATION()
 
-#define MEMORY_COPY3() 		MEMORY_COPY2()\
-							MEMORY_COPY2()\
-							MEMORY_COPY2()\
-							MEMORY_COPY2()\
-							MEMORY_COPY2()\
-							MEMORY_COPY2()\
-							MEMORY_COPY2()\
-							MEMORY_COPY2()\
-							MEMORY_COPY2()\
-							MEMORY_COPY2()
 
-#define MEMORY_COPY() 		MEMORY_COPY3()\
-							MEMORY_COPY3()\
-							MEMORY_COPY3()\
-							MEMORY_COPY3()\
-							MEMORY_COPY3()\
-							MEMORY_COPY3()\
-							MEMORY_COPY3()\
-							MEMORY_COPY3()\
-							MEMORY_COPY3()\
-							MEMORY_COPY3()
+#define TEST2() 			TEST1()\
+							TEST1()\
+							TEST1()\
+							TEST1()\
+							TEST1()\
+							TEST1()\
+							TEST1()\
+							TEST1()\
+							TEST1()\
+							TEST1()
+
+#define TEST() 				TEST2()\
+							TEST2()\
+							TEST2()\
+							TEST2()\
+							TEST2()\
+							TEST2()\
+							TEST2()\
+							TEST2()\
+							TEST2()\
+							TEST2()
 void TestPayload(void)
 {
 //	uint32_t start_time, end_Time;
 //	float time;
-	static unsigned char len = 0;
+
+
+#if defined(HAS_BLUETOOTH)
 	char message[200];
-	if (len == 0){
-			len = sprintf(message, "123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n");
-#if defined(HAS_BLUETOOTH)
-			SendToBLESerial((unsigned char *)message, len);
+	static unsigned char len = 0;
+	len = sprintf(message, "123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n");
+	SendToBLESerial((unsigned char *)message, len);
 #endif
-			len = sprintf(message, "123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n");
-#if defined(HAS_BLUETOOTH)
-			SendToBLESerial((unsigned char *)message, len);
-#endif
-	}
-	if(sBuffer.BufferEnd == 0)
-	{
-		len = 0;
-	}
 
-#ifdef MEMORY_COPY_TEST
-//	static uint8_t flag = 0;
-//	start_time = GetTim2Tick();
-//	MemoryCopyTest();
-//	end_Time = GetTim2Tick();
-//	time = ((float)end_Time-(float)start_time)/(TIM2_FREQUENCY_FOR_TIMING/1000);
-//	len = sprintf(message, "Time per test : %.3f ms\n", time);
-//	SendToBLESerial(message, len);
-//	start_time = GetTim2Tick();
-//	time = ((float)start_time-(float)end_Time)/(TIM2_FREQUENCY_FOR_TIMING/1000);
-//	len = sprintf(message, "Time per msg send : %.3f ms\n", time);
-//	SendToBLESerial(message, len);
-//	len = sprintf(message, "Free space in msg buffer %d\n", CheckBufferSize());
-//	SendToBLESerial(message, len);
+	TEST()
 
+#if defined(HAS_BLUETOOTH)
+	len = sprintf(message, "123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n");
+	SendToBLESerial((unsigned char *)message, len);
 #endif
+
 
 }
 
@@ -98,7 +101,6 @@ void MemoryCopyTest(void)
 {
 	/*
 	 * Non-DMA, blocking test
-	 * each iteration is 1000 repeats of a a=b, b=a copy
 	 * after every copy segment there will be a
 	 * ldr, adds, str, ldr, cmp.w, bcc.w
 	 *
@@ -110,7 +112,7 @@ void MemoryCopyTest(void)
 	unsigned int iter = 0;
 	for(iter = 0; iter < TestIterationCount; iter++)
 	{
-		MEMORY_COPY()
+		MEMORY_COPY1()
 	}
 }
 #endif

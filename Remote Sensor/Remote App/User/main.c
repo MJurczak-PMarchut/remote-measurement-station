@@ -55,6 +55,9 @@ void HAL_RTCEx_WakeUpTimerEventCallback(RTC_HandleTypeDef *hrtc);
 void Process_BLE_Conn(void);
 void MX_RTC_Init(void);
 void Error_Handler(void);
+#ifdef FREQUENCY_SWEEP_TEST
+void FreqSweepMain(void);
+#endif
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
@@ -91,10 +94,18 @@ int main(void)
   - Set NVIC Group Priority to 4
   - Global MSP (MCU Support Package) initialization
   */
+#ifdef FREQUENCY_SWEEP_TEST
+	FreqSweepMain();
+#else
+
+uint8_t *BLE_STANDBY = EM_MEM_ADRESS;
 GPIO_InitTypeDef GPIO_InitStructure = {0};
-
+//__HAL_RTC_ALARM_EXTI_CLEAR_FLAG();
 //ENABLE_EVENT_PORT_CLOCK();
-
+if((*BLE_STANDBY != 0) && (*BLE_STANDBY != 1))
+{
+	*BLE_STANDBY = 0;
+}
 GPIO_InitStructure.Pin = __EVT_GPIO_PIN;
 GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
 GPIO_InitStructure.Pull = GPIO_NOPULL;
@@ -105,17 +116,26 @@ HAL_GPIO_WritePin(__EVT_GPIO__, GPIO_PIN_SET);
 HAL_Init();
 HAL_GPIO_Init(__EVT_GPIO_PORT, &GPIO_InitStructure);
 TOGGLE_EVENT_PIN();
-HAL_Delay(10);
+HAL_Delay(5);
 //HAL_GPIO_WritePin(GPIOC, GPIO_PIN_0, GPIO_PIN_SET);
 TOGGLE_EVENT_PIN();
+__HAL_RCC_PWR_CLK_ENABLE();
 if (__HAL_PWR_GET_FLAG(PWR_FLAG_SB) == RESET)
 {
-
+	__HAL_RCC_PWR_CLK_ENABLE();
+	__HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
+//	TOGGLE_EVENT_PIN();
+	HAL_Delay(5);
+	TOGGLE_EVENT_PIN();
+	HAL_Delay(5);
+	TOGGLE_EVENT_PIN();
+	HAL_Delay(5);
 	/* Clear Standby flag */
 	//  InitTargetPlatform(BoardType)
 	  /* Configure the System clock */
 //	  SystemClock_Config();
 	  Prepare_for_LPRun();
+	  TOGGLE_EVENT_PIN();
 	  HAL_PWREx_EnableLowPowerRunMode();
 	//  ClkDependentInit();
 	  /* Initialize the BlueNRG */
@@ -123,9 +143,12 @@ if (__HAL_PWR_GET_FLAG(PWR_FLAG_SB) == RESET)
 	  BLE_INIT_SPEC();
 	#else
 //	  TOGGLE_EVENT_PIN();
-	  InitBLEAndSetItToStandby();
-//	  TOGGLE_EVENT_PIN();
-	  HAL_Delay(20);
+	  if(*BLE_STANDBY == 0){
+		  *BLE_STANDBY = 1;
+		  InitBLEAndSetItToStandby();
+	  }
+	  TOGGLE_EVENT_PIN();
+//	  HAL_Delay(20);
 	#endif
 	  ClkDependentInit();
 	#if defined(HAS_BLUETOOTH)
@@ -143,20 +166,32 @@ if (__HAL_PWR_GET_FLAG(PWR_FLAG_SB) == RESET)
 	#if defined(RTC_WKUP_INTERNAL)
 	  MX_RTC_Init();
 	  SetHrtcPointer(&hrtc);
+	  __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
 	#endif
 }
 else{
 	__HAL_RCC_PWR_CLK_ENABLE();
 	__HAL_PWR_CLEAR_FLAG(PWR_FLAG_SB);
+	MX_RTC_Init();
+	HAL_RTCEx_DeactivateWakeUpTimer(&hrtc);
+	SetHrtcPointer(&hrtc);
+	__HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
+	HAL_NVIC_SetPriority(TIM1_CC_IRQn, 0, 0);
 }
+
 TOGGLE_EVENT_PIN();
 		while (1) {
 	#if defined(HAS_BLUETOOTH)
 			Process_BLE_Conn();
 			CheckBufferAndSend();
 	#endif
-
+			TOGGLE_EVENT_PIN();
+			HAL_Delay(4);
+			TOGGLE_EVENT_PIN();
 			TestPayload(); // Test power consumption
+			TOGGLE_EVENT_PIN();
+			HAL_Delay(4);
+			TOGGLE_EVENT_PIN();
 	#if defined(HAS_BLUETOOTH)
 			if (HCI_ProcessEvent) {
 				HCI_ProcessEvent = 0;
@@ -164,11 +199,12 @@ TOGGLE_EVENT_PIN();
 			}
 	#endif
 	//        HAL_Delay(10);
-			CycleLPowerStates();
+//			CycleLPowerStates();
 			TOGGLE_EVENT_PIN();
-			HAL_NVIC_SystemReset();
-	//        __WFI();
+//			HAL_NVIC_SystemReset();
+
 		}
+#endif
 }
 
 /**
@@ -476,6 +512,82 @@ void MX_RTC_Init(void)
 
 
 }
+
+void SetSysFrequency(void)
+{
+	 RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+	  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+	  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
+
+	  __HAL_RCC_PWR_CLK_ENABLE();
+	  RCC_OscInitStruct.OscillatorType = RCC_RTCCLKSOURCE_NO_CLK;
+	  if(RTC_CLK_SOURCE == RCC_RTCCLKSOURCE_LSE){
+		  RCC_OscInitStruct.LSEState = RCC_LSE_OFF;
+	  }
+	  else if(RTC_CLK_SOURCE == RCC_RTCCLKSOURCE_LSI){
+		  RCC_OscInitStruct.LSIState = RCC_LSI_OFF;
+	  }
+	  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+	  {
+	    while(1);
+	  }
+	  /* Enable MSI Oscillator and activate PLL with MSI as source */
+	  RCC_OscInitStruct.OscillatorType      = RCC_OSCILLATORTYPE_MSI;
+	  RCC_OscInitStruct.MSIState            = RCC_MSI_ON;
+	  RCC_OscInitStruct.HSICalibrationValue = RCC_MSICALIBRATION_DEFAULT;
+	  RCC_OscInitStruct.MSIClockRange       = RCC_MSIRANGE_11;
+	  RCC_OscInitStruct.PLL.PLLState        = RCC_PLL_OFF;
+	  RCC_OscInitStruct.PLL.PLLSource       = RCC_PLLSOURCE_NONE;
+	  RCC_OscInitStruct.PLL.PLLM            = 6;
+	  RCC_OscInitStruct.PLL.PLLN            = 40;
+	  RCC_OscInitStruct.PLL.PLLP            = 7;
+	  RCC_OscInitStruct.PLL.PLLQ            = 4;
+	  RCC_OscInitStruct.PLL.PLLR            = 4;
+	  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+	  {
+	    while(1);
+	  }
+
+	  /* Enable MSI Auto-calibration through LSE */
+//	  HAL_RCCEx_EnableMSIPLLMode();
+
+	  /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2
+	  clocks dividers */
+	  RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
+	  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_MSI;
+	  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+	  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+	  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+	  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
+	  {
+	    while(1);
+	  }
+	  HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1);
+//	  HAL_PWREx_EnableLowPowerRunMode();
+}
+
+void FreqSweepMain(void)
+{
+	SetSysFrequency();
+	GPIO_InitTypeDef GPIO_InitStructure = {0};
+	GPIO_InitStructure.Pin = __EVT_GPIO_PIN;
+	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStructure.Pull = GPIO_NOPULL;
+	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+	InitEvtGpioClock();
+	HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
+	HAL_GPIO_WritePin(__EVT_GPIO__, GPIO_PIN_SET);
+	HAL_Init();
+	InitBLEAndSetItToStandby();
+	while(1)
+	{
+		TOGGLE_EVENT_PIN();
+		TestPayload();
+		TOGGLE_EVENT_PIN();
+		TestPayload();
+	}
+}
+
 
 
 void HAL_RTCEx_WakeUpTimerEventCallback(RTC_HandleTypeDef *hrtc)

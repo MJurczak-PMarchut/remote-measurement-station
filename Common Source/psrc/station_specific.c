@@ -772,16 +772,23 @@ void CycleLPowerStates(void)
     }
     else{
     	ePowerState = PS_LP_SLEEP;
-        HAL_PWR_EnableBkUpAccess();
         HAL_RTCEx_BKUPWrite(&RtcHandle, RTC_BACKUP_POWER_STATE_WRITTEN_REG, RTC_BACKUP_POWER_STATE_WRITTEN);
-        HAL_PWR_DisableBkUpAccess();
     }
     TOGGLE_EVENT_PIN();
     ePowerState = (ePowerState > PS_SHUTDOWN)? PS_LP_SLEEP:ePowerState;
-    HAL_PWR_EnableBkUpAccess();
     HAL_RTCEx_BKUPWrite(&RtcHandle, RTC_BACKUP_POWER_STATE_REG, (uint32_t)ePowerState + 1);
-    HAL_PWR_DisableBkUpAccess();
     EnterLowPoweMode(ePowerState);
 
 }
+
+void CycleFrequencies(void)
+{
+	/*
+	 * Cycle predefined frequencies
+	 * After each cycle cpu will be frozen
+	 * When CPU wil be reset nex frequency range will be set
+	 */
+}
+
+
 #endif

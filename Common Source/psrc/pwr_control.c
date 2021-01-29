@@ -21,7 +21,7 @@ void ResumeFromSleepModes(PowerState ePowerState);
 void DisableLPRun(void);
 void EnableLPRun(void);
 
-static CLK_SPEED egclk = DEFAULT_CLK;
+static CLK_SPEED egclk = NO_PLL_2MHz_CLK;
 
 void DisableGPIOs(void)
 {
@@ -43,18 +43,18 @@ void DisableGPIOs(void)
 //	   GPIO_InitStructure1.Pull = GPIO_NOPULL;
 
 	   // GPIO_B and GPIO_C are disabled
-	   HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
+//	   HAL_GPIO_Init(GPIOA, &GPIO_InitStructure);
 //	   __HAL_RCC_GPIOA_CLK_DISABLE();
 
 	   HAL_GPIO_Init(GPIOB, &GPIO_InitStructure);
 	   __HAL_RCC_GPIOB_CLK_DISABLE();
-	   HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
-	   __HAL_RCC_GPIOC_CLK_DISABLE();
+//	   HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
+//	   __HAL_RCC_GPIOC_CLK_DISABLE();
 	   HAL_GPIO_Init(GPIOG, &GPIO_InitStructure);
 	   __HAL_RCC_GPIOG_CLK_DISABLE();
 	   GPIO_InitStructure.Pin = GPIO_PIN_All;
-	   GPIO_InitStructure.Mode = GPIO_MODE_INPUT;
-	   GPIO_InitStructure.Pull = GPIO_PULLUP;
+	   GPIO_InitStructure.Mode = GPIO_MODE_ANALOG;
+	   GPIO_InitStructure.Pull = GPIO_PULLDOWN;
 	   HAL_GPIO_Init(GPIOH, &GPIO_InitStructure);
 	   __HAL_RCC_GPIOH_CLK_DISABLE();
 
@@ -243,46 +243,97 @@ void SleepAndWaitForWkup(void){
 
 void EnterLowPoweMode(PowerState ePowerState)
 {
+	uint8_t *BLE_STANDBY = EM_MEM_ADRESS;
 	psWkupContext->eWkupReason = NO_WKUP;
-#if defined(RTC_WKUP_INTERNAL)
-	HAL_RTCEx_SetWakeUpTimer_IT(sphrtc, RTC_WKUP_COUNTER, RTC_WKUP_CLK_DIV);
-#endif
+
+//	DisableGPIOs();
+	 __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
+
 	switch(ePowerState)
 	{
 		case PS_LP_SLEEP:
 			EnableLPRun();
 			TOGGLE_EVENT_PIN();
-			HAL_Delay(10);
+			HAL_Delay(5);
+			TOGGLE_EVENT_PIN();
+			HAL_SuspendTick();
+#if defined(RTC_WKUP_INTERNAL)
+			HAL_RTCEx_SetWakeUpTimer_IT(sphrtc, RTC_WKUP_COUNTER, RTC_WKUP_CLK_DIV);
+#endif
 			SleepAndWaitForWkup();
 			break;
-		case PS_RESET:
-			TOGGLE_EVENT_PIN();
-			HAL_Delay(15);
-			HAL_NVIC_SystemReset();
-			break; //only decorative
 		case PS_STOP0:
 			TOGGLE_EVENT_PIN();
-			HAL_Delay(20);
-			HAL_PWREx_EnterSTOP0Mode(PWR_STOPENTRY_WFI);
-			break;
-		case PS_STOP1:
-			EnableLPRun();
+			HAL_Delay(10);
 			TOGGLE_EVENT_PIN();
-			HAL_Delay(25);
+			HAL_PWREx_DisableLowPowerRunMode();
+			HAL_SuspendTick();
+#if defined(RTC_WKUP_INTERNAL)
+			HAL_RTCEx_SetWakeUpTimer_IT(sphrtc, RTC_WKUP_COUNTER, RTC_WKUP_CLK_DIV);
+#endif
+			HAL_PWREx_EnterSTOP0Mode(PWR_STOPENTRY_WFI);
+			break; //only decorative
+		case PS_STOP1:
+			TOGGLE_EVENT_PIN();
+			HAL_Delay(15);
+			TOGGLE_EVENT_PIN();
+			HAL_SuspendTick();
+#if defined(RTC_WKUP_INTERNAL)
+			HAL_RTCEx_SetWakeUpTimer_IT(sphrtc, RTC_WKUP_COUNTER, RTC_WKUP_CLK_DIV);
+#endif
 			HAL_PWREx_EnterSTOP1Mode(PWR_STOPENTRY_WFI);
 			break;
 		case PS_STOP2:
 			EnableLPRun();
 			TOGGLE_EVENT_PIN();
-			HAL_Delay(30);
+			HAL_Delay(20);
+			TOGGLE_EVENT_PIN();
+			HAL_SuspendTick();
+			HAL_PWREx_EnableGPIOPullDown(PWR_GPIO_H, GPIO_PIN_All);
+		    HAL_PWREx_EnablePullUpPullDownConfig();
+#if defined(RTC_WKUP_INTERNAL)
+			HAL_RTCEx_SetWakeUpTimer_IT(sphrtc, RTC_WKUP_COUNTER, RTC_WKUP_CLK_DIV);
+#endif
 			HAL_PWREx_EnterSTOP2Mode(PWR_STOPENTRY_WFI);
+			break;
+		case PS_STANDBY:
+			EnableLPRun();
+			TOGGLE_EVENT_PIN();
+			HAL_PWREx_EnableSRAM2ContentRetention();
+			HAL_Delay(25);
+			TOGGLE_EVENT_PIN();
+			HAL_SuspendTick();
+#if defined(RTC_WKUP_INTERNAL)
+			HAL_RTCEx_SetWakeUpTimer_IT(sphrtc, RTC_WKUP_COUNTER, RTC_WKUP_CLK_DIV);
+#endif
+			HAL_PWR_EnterSTANDBYMode();
+			break;
+		case PS_SHUTDOWN:
+//			EnableLPRun();
+			TOGGLE_EVENT_PIN();
+			HAL_Delay(25);
+			TOGGLE_EVENT_PIN();
+			HAL_PWREx_DisableSRAM2ContentRetention();
+			HAL_SuspendTick();
+			HAL_PWREx_EnableGPIOPullDown(PWR_GPIO_H, GPIO_PIN_All);
+		    HAL_PWREx_EnablePullUpPullDownConfig();
+#if defined(RTC_WKUP_INTERNAL)
+			HAL_RTCEx_SetWakeUpTimer_IT(sphrtc, RTC_WKUP_COUNTER, RTC_WKUP_CLK_DIV);
+#endif
+//			*BLE_STANDBY = 0;
+			HAL_PWREx_EnterSHUTDOWNMode();
 			break;
 		default:
 			break;
+
 	}
 #if defined(RTC_WKUP_INTERNAL)
+//	__HAL_RCC_RTC_ENABLE();
+//	HAL_PWR_EnableBkUpAccess();
 	HAL_RTCEx_DeactivateWakeUpTimer(sphrtc);
+//	HAL_PWR_DisableBkUpAccess();
 #endif
+	HAL_ResumeTick();
 	ResumeFromSleepModes(ePowerState);
 }
 
@@ -313,6 +364,7 @@ void ResumeFromSleepModes(PowerState ePowerState)
 		break;
 	case RTC_IT:
 		//What to do if woken up by rtc
+		__HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
 		TOGGLE_EVENT_PIN();
     	SetClkPreset(egclk);
     	ClkDependentInit();
