@@ -22,4 +22,12 @@
 #error "MAX_NO_OF_DISCOVERABLE_DEVICES is higher than 20,please change it in configuration.h"
 #endif
 
+#if !((VOLTAGE_RANGE == PWR_REGULATOR_VOLTAGE_SCALE1) ||  (VOLTAGE_RANGE == PWR_REGULATOR_VOLTAGE_SCALE2))
+#error "Invalid voltage range. configuration.h"
+#endif
+
+#if !((MSI_CLOCK_RANGE_CONF < 11) &&  (MSI_CLOCK_RANGE_CONF > 0))
+#error "Invalid voltage range. configuration.h"
+#endif
+
 #endif /* INC_SANITYCHECK_H_ */

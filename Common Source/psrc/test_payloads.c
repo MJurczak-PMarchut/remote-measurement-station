@@ -37,18 +37,6 @@ extern BufferStruct sBuffer;
 							ADDITIVE()\
 							MULTIPLICATIVE()\
 							BIT_MANIPULATION()\
-							MEMORY_COPY1()\
-							ADDITIVE()\
-							MULTIPLICATIVE()\
-							BIT_MANIPULATION()\
-							MEMORY_COPY1()\
-							ADDITIVE()\
-							MULTIPLICATIVE()\
-							BIT_MANIPULATION()\
-							MEMORY_COPY1()\
-							ADDITIVE()\
-							MULTIPLICATIVE()\
-							BIT_MANIPULATION()
 
 
 #define TEST2() 			TEST1()\
@@ -85,6 +73,9 @@ void TestPayload(void)
 	SendToBLESerial((unsigned char *)message, len);
 #endif
 
+	TEST()
+	TEST()
+	TEST()
 	TEST()
 
 #if defined(HAS_BLUETOOTH)

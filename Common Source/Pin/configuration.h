@@ -218,11 +218,31 @@
 #endif
 
 /*
+ * Enable LPRun for test
+ */
+//#define ENABLE_LP_RUN
+/*
  * Use ART accelerator
  */
 
 #define USE_ART
 
+/*
+ * Latency
+ */
+#define FlashLatency 2
+
+/*
+ * MSI clock Range
+ */
+
+#define MSI_CLOCK_RANGE_CONF 11
+
+/*
+ * Voltage Range
+ */
+
+#define VOLTAGE_RANGE_CONF 1
 
 /*
  * Define GPIO used for event tracking
@@ -239,7 +259,8 @@
 
 
 #define __EVT_GPIO__ __EVT_GPIO_PORT , __EVT_GPIO_PIN
-#define TOGGLE_EVENT_PIN() HAL_GPIO_TogglePin(__EVT_GPIO__)
+
+#define TOGGLE_EVENT_PIN() __EVT_GPIO_PORT->ODR ^= __EVT_GPIO_PIN
 
 #define EM_MEM_ADRESS 0x10000000
 
@@ -263,6 +284,27 @@
 //#define RCC_MSIRANGE_9_FREQUENCY       24000
 //#define RCC_MSIRANGE_10_FREQUENCY      32000
 //#define RCC_MSIRANGE_11_FREQUENCY      48000
+
+/*
+ * Macro Latency definitions
+ */
+
+#define __LatencySTR FLASH_LATENCY_
+#define FlashLatencyWS __CONCAT(__LatencySTR, FlashLatency)
+
+/*
+ * Macro msi clock definitions
+ */
+
+#define __MSI_RANGE_STR RCC_MSIRANGE_
+#define MSI_CLOCK_RANGE __CONCAT(__MSI_RANGE_STR, MSI_CLOCK_RANGE_CONF)
+
+/*
+ * Macro for voltage scale
+ */
+
+#define __VOLTAGE_RANGE_STR PWR_REGULATOR_VOLTAGE_SCALE
+#define VOLTAGE_RANGE __CONCAT(__VOLTAGE_RANGE_STR, VOLTAGE_RANGE_CONF)
 
 #endif
 

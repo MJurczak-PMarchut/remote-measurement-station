@@ -515,9 +515,9 @@ void MX_RTC_Init(void)
 
 void SetSysFrequency(void)
 {
-	 RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+	  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 	  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-	  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
+//	  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
 
 	  __HAL_RCC_PWR_CLK_ENABLE();
 	  RCC_OscInitStruct.OscillatorType = RCC_RTCCLKSOURCE_NO_CLK;
@@ -535,7 +535,7 @@ void SetSysFrequency(void)
 	  RCC_OscInitStruct.OscillatorType      = RCC_OSCILLATORTYPE_MSI;
 	  RCC_OscInitStruct.MSIState            = RCC_MSI_ON;
 	  RCC_OscInitStruct.HSICalibrationValue = RCC_MSICALIBRATION_DEFAULT;
-	  RCC_OscInitStruct.MSIClockRange       = RCC_MSIRANGE_11;
+	  RCC_OscInitStruct.MSIClockRange       = MSI_CLOCK_RANGE;
 	  RCC_OscInitStruct.PLL.PLLState        = RCC_PLL_OFF;
 	  RCC_OscInitStruct.PLL.PLLSource       = RCC_PLLSOURCE_NONE;
 	  RCC_OscInitStruct.PLL.PLLM            = 6;
@@ -558,12 +558,24 @@ void SetSysFrequency(void)
 	  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
 	  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
 	  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
-	  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
+	  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FlashLatencyWS) != HAL_OK)
 	  {
 	    while(1);
 	  }
-	  HAL_PWREx_ControlVoltageScaling(PWR_REGULATOR_VOLTAGE_SCALE1);
-//	  HAL_PWREx_EnableLowPowerRunMode();
+	  HAL_PWREx_ControlVoltageScaling(VOLTAGE_RANGE);
+#if defined(USE_ART)
+	   __HAL_FLASH_INSTRUCTION_CACHE_ENABLE();
+	   __HAL_FLASH_DATA_CACHE_ENABLE();
+	   __HAL_FLASH_PREFETCH_BUFFER_ENABLE();
+#else
+	   __HAL_FLASH_INSTRUCTION_CACHE_DISABLE();
+	   __HAL_FLASH_DATA_CACHE_DISABLE();
+	   __HAL_FLASH_PREFETCH_BUFFER_DISABLE();
+#endif
+
+#if defined(ENABLE_LP_RUN)
+	  HAL_PWREx_EnableLowPowerRunMode();
+#endif
 }
 
 void FreqSweepMain(void)
