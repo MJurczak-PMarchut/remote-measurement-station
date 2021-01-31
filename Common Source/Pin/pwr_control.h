@@ -22,5 +22,6 @@ void SleepAndWaitForWkup(void);
 void SetWkupContextPointer(WKUP_CONTEXT *psWkupPointer);
 void SetHrtcPointer(RTC_HandleTypeDef *phrtc);
 void EnterLowPoweMode(PowerState ePowerState);
+void SetNextClkPreset(CLK_SPEED eclk);
 #endif
 #endif /* PIN_PWR_CONTROL_H_ */

@@ -81,7 +81,7 @@
 
 /*BLUETOOTH options*/
 
-//#define HAS_BLUETOOTH
+#define HAS_BLUETOOTH
 
 #ifdef HAS_BLUETOOTH
 
@@ -188,7 +188,7 @@
 
 #if defined(USE_RTC)
 
-	#define RTC_WKUP_INTERNAL  //RTC uses EXTI line 20 for wake up
+//	#define RTC_WKUP_INTERNAL  //RTC uses EXTI line 20 for wake up
 
 	/* RTC clock prescaler, should be one of below
 	 * RTC_WAKEUPCLOCK_RTCCLK_DIV16
@@ -196,7 +196,7 @@
 	 * RTC_WAKEUPCLOCK_RTCCLK_DIV4
 	 * RTC_WAKEUPCLOCK_RTCCLK_DIV2
 	 */
-	#define RTC_WKUP_CLK_DIV RTC_WAKEUPCLOCK_RTCCLK_DIV16
+	#define RTC_WKUP_CLK_DIV RTC_WAKEUPCLOCK_RTCCLK_DIV4
 
 /*
  * RTC CLOCK source selection, should be one of the below
@@ -209,11 +209,16 @@
  * RTC counter
  * wake up period is = RTC_WKUP_COUNTER  * (RTC_WKUP_CLK_DIV / RTC_CLK_SOURCE)
  */
-	#define RTC_WKUP_COUNTER 200
+	#define RTC_WKUP_COUNTER 60
 
 	#define RTC_BACKUP_POWER_STATE_REG RTC_BKP_DR0
 	#define RTC_BACKUP_POWER_STATE_WRITTEN_REG RTC_BKP_DR1
 	#define RTC_BACKUP_POWER_STATE_WRITTEN 10
+
+	#define RTC_BACKUP_BLE_STATE_REG RTC_BKP_DR2
+	#define RTC_BACKUP_BLE_CONNECTED 0x1
+	#define RTC_BACKUP_BLE_INITIALIZED 0x2
+
 
 #endif
 
@@ -230,19 +235,19 @@
 /*
  * Latency
  */
-#define FlashLatency 2
+#define FlashLatency 0
 
 /*
  * MSI clock Range
  */
 
-#define MSI_CLOCK_RANGE_CONF 11
+#define MSI_CLOCK_RANGE_CONF 5
 
 /*
  * Voltage Range
  */
 
-#define VOLTAGE_RANGE_CONF 1
+#define VOLTAGE_RANGE_CONF 2
 
 /*
  * Define GPIO used for event tracking
@@ -265,7 +270,7 @@
 #define EM_MEM_ADRESS 0x10000000
 
 
-#define FREQUENCY_SWEEP_TEST
+//#define FREQUENCY_SWEEP_TEST
 
 
 /*

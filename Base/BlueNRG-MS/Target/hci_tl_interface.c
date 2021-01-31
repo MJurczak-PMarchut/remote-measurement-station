@@ -54,6 +54,7 @@ int32_t HCI_TL_SPI_Init(void* pConf)
   HAL_GPIO_Init(HCI_TL_SPI_EXTI_PORT, &GPIO_InitStruct);
    
   /*Configure CS & RESET Line */
+  HAL_GPIO_WritePin(HCI_TL_RST_PORT, HCI_TL_RST_PIN, GPIO_PIN_SET);
   GPIO_InitStruct.Pin =  HCI_TL_RST_PIN ;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;

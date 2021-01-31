@@ -50,7 +50,7 @@
 #include "uuid_ble_service.h"
 
 /* Exported variables ---------------------------------------------------------*/
-int connected = FALSE;
+int __attribute__ ((section(".non_vol"))) connected = FALSE;
 uint8_t set_connectable = TRUE;
 
 /* Imported Variables -------------------------------------------------------------*/

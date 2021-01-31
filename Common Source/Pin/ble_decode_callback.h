@@ -21,7 +21,7 @@
 #ifdef BOARD_SENSORTILE
 	#include "stm32l4xx.h"
 #endif
-
+void BLE_EVNT_CALLBACK(void * pData);
 void BLE_DECODE_GROUP_RESP(evt_att_read_by_group_resp *cc);
 HAL_StatusTypeDef SET_DECODER_STATE(BLE_State eBLE_State);
 BLE_State GET_DECODER_STATE(void);

@@ -143,12 +143,19 @@ SECTIONS
     __bss_end__ = _ebss;
   } >RAM
   
-  .noinit (NOLOAD) :
+  .non_vol :
+  {
+    . = ALIGN(4);
+    *(.non_vol)            
+    . = ALIGN(4);
+  } >SRAM2
+  
+    .noinit (NOLOAD) :
   {
     . = ALIGN(4);
     *(.noinit)            /* .buffram section */
     . = ALIGN(4);
-  } >RAM
+  } >SRAM2
   
   /* collect all uninitialized .bss2 sections */
   .bss2 (NOLOAD) : AT (0x10000000)

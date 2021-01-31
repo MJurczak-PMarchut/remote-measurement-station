@@ -67,10 +67,10 @@ void TestPayload(void)
 
 
 #if defined(HAS_BLUETOOTH)
-	char message[200];
-	static unsigned char len = 0;
-	len = sprintf(message, "123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n");
-	SendToBLESerial((unsigned char *)message, len);
+//	char message[200];
+//	static unsigned char len = 0;
+//	len = sprintf(message, "123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n");
+//	SendToBLESerial((unsigned char *)message, len);
 #endif
 
 	TEST()
@@ -79,8 +79,8 @@ void TestPayload(void)
 	TEST()
 
 #if defined(HAS_BLUETOOTH)
-	len = sprintf(message, "123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n");
-	SendToBLESerial((unsigned char *)message, len);
+//	len = sprintf(message, "123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n123456789\n");
+//	SendToBLESerial((unsigned char *)message, len);
 #endif
 
 

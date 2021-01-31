@@ -21,7 +21,7 @@ void ResumeFromSleepModes(PowerState ePowerState);
 void DisableLPRun(void);
 void EnableLPRun(void);
 
-static CLK_SPEED egclk = NO_PLL_2MHz_CLK;
+static CLK_SPEED __attribute((section(".noinit"))) egclk;
 
 void DisableGPIOs(void)
 {
@@ -147,7 +147,7 @@ void SetClkPreset(CLK_SPEED eclk)
 			  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
 			  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
 			  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
-			  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK)
+			  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
 			  {
 			    while(1);
 			  }
@@ -243,7 +243,7 @@ void SleepAndWaitForWkup(void){
 
 void EnterLowPoweMode(PowerState ePowerState)
 {
-	uint8_t *BLE_STANDBY = EM_MEM_ADRESS;
+	extern uint8_t BLE_STANDBY;
 	psWkupContext->eWkupReason = NO_WKUP;
 
 //	DisableGPIOs();
@@ -253,10 +253,6 @@ void EnterLowPoweMode(PowerState ePowerState)
 	{
 		case PS_LP_SLEEP:
 			EnableLPRun();
-			TOGGLE_EVENT_PIN();
-			HAL_Delay(5);
-			TOGGLE_EVENT_PIN();
-			HAL_SuspendTick();
 #if defined(RTC_WKUP_INTERNAL)
 			HAL_RTCEx_SetWakeUpTimer_IT(sphrtc, RTC_WKUP_COUNTER, RTC_WKUP_CLK_DIV);
 #endif
@@ -298,10 +294,9 @@ void EnterLowPoweMode(PowerState ePowerState)
 			break;
 		case PS_STANDBY:
 			EnableLPRun();
-			TOGGLE_EVENT_PIN();
 			HAL_PWREx_EnableSRAM2ContentRetention();
-			HAL_Delay(25);
-			TOGGLE_EVENT_PIN();
+			HAL_PWREx_EnableGPIOPullUp(PWR_GPIO_H, GPIO_PIN_All);
+		    HAL_PWREx_EnablePullUpPullDownConfig();
 			HAL_SuspendTick();
 #if defined(RTC_WKUP_INTERNAL)
 			HAL_RTCEx_SetWakeUpTimer_IT(sphrtc, RTC_WKUP_COUNTER, RTC_WKUP_CLK_DIV);
@@ -310,17 +305,13 @@ void EnterLowPoweMode(PowerState ePowerState)
 			break;
 		case PS_SHUTDOWN:
 //			EnableLPRun();
-			TOGGLE_EVENT_PIN();
-			HAL_Delay(25);
-			TOGGLE_EVENT_PIN();
-			HAL_PWREx_DisableSRAM2ContentRetention();
+			HAL_PWREx_EnableSRAM2ContentRetention();
 			HAL_SuspendTick();
-			HAL_PWREx_EnableGPIOPullDown(PWR_GPIO_H, GPIO_PIN_All);
+			HAL_PWREx_EnableGPIOPullUp(PWR_GPIO_H, GPIO_PIN_All);
 		    HAL_PWREx_EnablePullUpPullDownConfig();
 #if defined(RTC_WKUP_INTERNAL)
 			HAL_RTCEx_SetWakeUpTimer_IT(sphrtc, RTC_WKUP_COUNTER, RTC_WKUP_CLK_DIV);
 #endif
-//			*BLE_STANDBY = 0;
 			HAL_PWREx_EnterSHUTDOWNMode();
 			break;
 		default:
@@ -379,7 +370,7 @@ void ResumeFromSleepModes(PowerState ePowerState)
 	    {
 	    	psWkupContext->eWkupReason = BLE_IT;
 	    	SetClkPreset(egclk);
-	    	ClkDependentInit();
+//	    	ClkDependentInit();
 	    	//Now we hand off control to the calling function
 	    	return;
 	    }

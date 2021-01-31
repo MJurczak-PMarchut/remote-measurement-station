@@ -85,7 +85,7 @@ uint8_t Service2Discover = 0;
 BLE_DEV_DATA BLEDeviceData[NoOfDevices];
 #endif
 #ifdef BOARD_SENSORTILE
-BLE_DEV_DATA BLEDeviceData;
+BLE_DEV_DATA __attribute__((section(".noinit"))) BLEDeviceData;
 #endif
 void DisconnectionComplete_CB(evt_disconn_complete *evt_data);
 HAL_StatusTypeDef BLE_WAIT_FOR_TX_POOL(void);
@@ -895,6 +895,10 @@ void DISC_CPLT(uint16_t handle)
 #endif
 void DisconnectionComplete_CB(evt_disconn_complete *evt_data)
 {
+#if defined(USE_RTC)
+	RTC_HandleTypeDef RtcHandle;
+	uint32_t BLE_RTC_STATUS = 0;
+#endif
 #ifdef BOARD_N64_F4
 	uint8_t __DevNo_DCCB;
 #endif
@@ -923,6 +927,11 @@ void DisconnectionComplete_CB(evt_disconn_complete *evt_data)
 	connected = 0;
 	BLE_SET_CONNECTABLE();
 	PurgeSerialBuffer();
+#if defined(USE_RTC)
+	RtcHandle.Instance = RTC;
+	BLE_RTC_STATUS = HAL_RTCEx_BKUPRead(&RtcHandle, RTC_BACKUP_BLE_STATE_REG);
+	HAL_RTCEx_BKUPWrite(&RtcHandle, RTC_BACKUP_BLE_STATE_REG, ( BLE_RTC_STATUS & ~RTC_BACKUP_BLE_CONNECTED ));
+#endif
 #endif
 }
 
@@ -943,6 +952,10 @@ HAL_StatusTypeDef BLE_GET_DEV_NO_BY_HANDLE(uint16_t ConnHandle, uint8_t *__DevNo
 
 void ConnectionComplete_CB(uint8_t addr[6], uint16_t handle,uint8_t Status, uint8_t addr_type)
 {
+#if defined(USE_RTC)
+	RTC_HandleTypeDef RtcHandle;
+	uint32_t BLE_RTC_STATUS = 0;
+#endif
 #ifdef BOARD_N64_F4
 	if(Status == 0){
 		if(GET_DECODER_STATE() != BLE_RECONNECTING){
@@ -978,6 +991,11 @@ void ConnectionComplete_CB(uint8_t addr[6], uint16_t handle,uint8_t Status, uint
 #endif
 	CLR_CALLBACK_FUNC();
 	aci_gap_set_non_discoverable();
+#if defined(USE_RTC)
+	RtcHandle.Instance = RTC;
+	BLE_RTC_STATUS = HAL_RTCEx_BKUPRead(&RtcHandle, RTC_BACKUP_BLE_STATE_REG);
+	HAL_RTCEx_BKUPWrite(&RtcHandle, RTC_BACKUP_BLE_STATE_REG, ( BLE_RTC_STATUS | RTC_BACKUP_BLE_CONNECTED ));
+#endif
 //	SET_DECODER_STATE(BLE_IDLE);
 }
 
@@ -1016,8 +1034,10 @@ void BLE_INIT_SPEC(void)
 {
 	uint8_t  hwVersion;
 	uint16_t fwVersion;
-
-
+#if defined(USE_RTC)
+	RTC_HandleTypeDef RtcHandle;
+	uint32_t BLE_RTC_STATUS = 0;
+#endif
 
 #ifdef RAND_BLE_ADDRESS
 	uint8_t bdaddr[BDADDR_SIZE];
@@ -1060,8 +1080,9 @@ void BLE_INIT_SPEC(void)
 
 
 	uint16_t service_handle, dev_name_char_handle, appearance_char_handle;
-
+	memset(&BLEDeviceData, 0, sizeof(BLE_DEV_DATA));
 	hci_init(BLE_EVNT_CALLBACK, NULL);
+	hci_gpio_reset();
 	getBlueNRGVersion(&hwVersion, &fwVersion);
 	hci_reset();
 	HAL_Delay(100);
@@ -1082,7 +1103,7 @@ void BLE_INIT_SPEC(void)
 	BLEDeviceData.BdAddr[4] = bdaddr[4];
 	BLEDeviceData.BdAddr[5] = bdaddr[5];
 #endif
-	HAL_Delay(100);
+//	HAL_Delay(100);
 #ifdef DEBUG_BL_INIT
 	ret =
 #endif
@@ -1132,8 +1153,7 @@ void BLE_INIT_SPEC(void)
 #ifdef DEBUG_BL_INIT
 	ret =
 #endif
-	aci_hal_set_tx_power_level(1,7);
-
+	aci_hal_set_tx_power_level(0,2);
 
 #ifdef BOARD_SENSORTILE
 
@@ -1147,7 +1167,13 @@ void BLE_INIT_SPEC(void)
 #ifdef BOARD_SENSORTILE
 	BLE_SET_CONNECTABLE();
 #endif
-
+#if defined(USE_RTC)
+	RtcHandle.Instance = RTC;
+	BLE_RTC_STATUS = HAL_RTCEx_BKUPRead(&RtcHandle, RTC_BACKUP_BLE_STATE_REG);
+	BLE_RTC_STATUS |=  RTC_BACKUP_BLE_INITIALIZED;
+	BLE_RTC_STATUS &= ~RTC_BACKUP_BLE_CONNECTED;
+	HAL_RTCEx_BKUPWrite(&RtcHandle, RTC_BACKUP_BLE_STATE_REG, BLE_RTC_STATUS);
+#endif
 }
 
 #ifdef BOARD_N64_F4

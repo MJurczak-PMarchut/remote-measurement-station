@@ -584,8 +584,10 @@ void ClkDependentInit(void)
 {
 	  InitTimer2(&htim2);
 #if defined(HAS_BLUETOOTH)
-	  hci_tl_lowlevel_init();
+//	  hci_tl_lowlevel_init();
 //	  hci_gpio_init(NULL);
+	  hci_init(BLE_EVNT_CALLBACK, NULL);
+//	  hci_gpio_reset();
 #endif
 	  /*
 	   * ART Accelerator

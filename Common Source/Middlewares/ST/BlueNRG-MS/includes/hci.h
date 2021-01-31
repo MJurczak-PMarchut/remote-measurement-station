@@ -75,7 +75,7 @@
  * @retval None
  */
 void hci_init(void(* UserEvtRx)(void* pData), void* pConf);
-
+void hci_gpio_reset(void);
 /**
  * @brief  Processing function that must be called after an event is received from
  *         HCI interface. 
