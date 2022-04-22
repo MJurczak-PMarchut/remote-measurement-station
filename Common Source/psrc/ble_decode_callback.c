@@ -31,6 +31,7 @@
 #include "bluenrg_utils.h"
 #include "hci_le.h"
 #include "sm.h"
+#include "pwr_control.h"
 #ifdef HAS_BLUETOOTH
 
 #ifdef BOARD_SENSORTILE
@@ -1404,11 +1405,13 @@ tBleStatus BLE_ADD_SERVICES(void)
 									ATTR_PERMISSION_NONE,
 									0,
 									16, 1, &BLEDeviceData.sCharIDData[BLE_SERIAL_RD_CHAR].CharHandle);
+		BLEDeviceData.sCharIDData[BLE_SERIAL_RD_CHAR].CharValueHandle = BLEDeviceData.sCharIDData[BLE_SERIAL_RD_CHAR].CharHandle + 1;
 		ret =  aci_gatt_add_char(BLEDeviceData.sServiceIDData[BLE_SERIAL_SERVICE].ServiceHandle, UUID_TYPE_128, UUID_CHAR_DATA[BLE_SERIAL_WR_CHAR], 35,
 									CHAR_PROP_WRITE_WITHOUT_RESP|CHAR_PROP_WRITE,
 									ATTR_PERMISSION_NONE,
 									GATT_NOTIFY_ATTRIBUTE_WRITE,
 									16, 1, &BLEDeviceData.sCharIDData[BLE_SERIAL_WR_CHAR].CharHandle);
+		BLEDeviceData.sCharIDData[BLE_SERIAL_WR_CHAR].CharValueHandle = BLEDeviceData.sCharIDData[BLE_SERIAL_WR_CHAR].CharHandle + 1;
 	#ifdef DEBUG_BL_INIT
 		if(ret != 0)
 		{
@@ -1554,6 +1557,48 @@ void BLE_ATTR_MODIFIED_CB(uint16_t attr_handle, uint8_t * att_data, uint8_t data
 	if(attr_handle == BLEDeviceData.sCharIDData[BLE_ACC_CHAR].CharValueHandle)
 	{
 		BLEDeviceData.sCharIDData[BLE_ACC_CHAR].CharProperties = att_data[0] | (att_data[1] << 8);
+	}
+	else if(attr_handle == BLEDeviceData.sCharIDData[BLE_SERIAL_WR_CHAR].CharValueHandle)
+	{
+		switch(att_data[0])
+		{
+			case '0':
+				SetNextClkPreset(NO_PLL_100kHz_CLK);
+				break;
+			case '1':
+				SetNextClkPreset(NO_PLL_200kHz_CLK);
+				break;
+			case '2':
+				SetNextClkPreset(NO_PLL_400kHz_CLK);
+				break;
+			case '3':
+				SetNextClkPreset(NO_PLL_800kHz_CLK);
+				break;
+			case '4':
+				SetNextClkPreset(NO_PLL_1MHz_CLK);
+				break;
+			case '5':
+				SetNextClkPreset(NO_PLL_2MHz_CLK);
+				break;
+			case '6':
+				SetNextClkPreset(NO_PLL_4MHz_CLK);
+				break;
+			case '7':
+				SetNextClkPreset(NO_PLL_8MHz_CLK);
+				break;
+			case '8':
+				SetNextClkPreset(NO_PLL_16MHz_CLK);
+				break;
+			case '9':
+				SetNextClkPreset(NO_PLL_24MHz_CLK);
+				break;
+			case 'A':
+				SetNextClkPreset(NO_PLL_32MHz_CLK);
+				break;
+			case 'B':
+				SetNextClkPreset(NO_PLL_48MHz_CLK);
+				break;
+		}
 	}
 }
 #endif

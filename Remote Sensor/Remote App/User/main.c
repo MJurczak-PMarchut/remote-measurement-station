@@ -101,6 +101,8 @@ int main(void)
 	FreqSweepMain();
 #else
 uint32_t temp;
+uint8_t link_status[8];
+uint16_t conn_handle[8];
 
 GPIO_InitTypeDef GPIO_InitStructure = {0};
 if((BLE_STANDBY != 0) && (BLE_STANDBY != 1))
@@ -125,7 +127,6 @@ if (__HAL_PWR_GET_FLAG(PWR_FLAG_SB) == RESET)
  	  __HAL_RCC_PWR_CLK_ENABLE();
 	  __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
 //	  MX_RTC_Init();
-	  SetNextClkPreset(NO_PLL_2MHz_CLK);
 	  HAL_RTCEx_BKUPWrite(&hrtc, RTC_BACKUP_BLE_STATE_REG, 0);
 	  /* Configure the System clock */
 //	  Prepare_for_LPRun();
@@ -137,6 +138,7 @@ if (__HAL_PWR_GET_FLAG(PWR_FLAG_SB) == RESET)
 	  {
 		  BLE_INIT_SPEC();
 	  }
+	  SetNextClkPreset(NO_PLL_800kHz_CLK);
 	#else
 //	  TOGGLE_EVENT_PIN();
 	  if(BLE_STANDBY == 0){
@@ -174,20 +176,19 @@ else{
 	HAL_RTCEx_DeactivateWakeUpTimer(&hrtc);
 	SetHrtcPointer(&hrtc);
 	HAL_NVIC_SetPriority(TIM1_CC_IRQn, 0, 0);
+	ConfigureSetClock();
 	ClkDependentInit();
 	if(IsDataAvailable())
 	{
 		hci_tl_lowlevel_isr();
 	}
 }
-
 HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN5_HIGH);
 
 //TOGGLE_EVENT_PIN();
 		while (1) {
 //			TOGGLE_EVENT_PIN();
 	#if defined(HAS_BLUETOOTH)
-//			connected = (HAL_RTCEx_BKUPRead(&hrtc, RTC_BACKUP_BLE_STATE_REG) && RTC_BACKUP_BLE_CONNECTED)?1:0;
 			Process_BLE_Conn();
 //			CheckBufferAndSend();
 	#endif
@@ -199,10 +200,8 @@ HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN5_HIGH);
 			}
 	#endif
 //			CycleLPowerStates();
-//			TOGGLE_EVENT_PIN();
-//			TOGGLE_EVENT_PIN();
+			TOGGLE_EVENT_PIN();
 			EnterLowPoweMode(PS_STANDBY);
-//			ClkDependentInit();
 //			HAL_NVIC_SystemReset();
 
 		}
@@ -306,13 +305,13 @@ void Process_BLE_Conn(void)
 		  if(connected == 0x10){
 			  connected = 1;
 			  SET_DECODER_STATE(BLE_IDLE);
-			  	StartTime = HAL_GetTick();
-			  	while(HAL_GetTick()-StartTime < 3000){
+//			  	StartTime = HAL_GetTick();
+//			  	while(HAL_GetTick()-StartTime < 3000){
 			          if(HCI_ProcessEvent){
 			        	  StartTime = HAL_GetTick();
 			    		  HCI_ProcessEvent=0;
 			    		  hci_user_evt_proc();
-			          }
+//			          }
 			  	}
 		  }
       }

@@ -104,74 +104,142 @@ void SetSysclk2MHz(void)
 
 void SetClkPreset(CLK_SPEED eclk)
 {
+	RCC_ClkInitTypeDef RCC_ClkInitStruct = { 0 };
+	RCC_OscInitTypeDef RCC_OscInitStruct = { 0 };
+	uint32_t latency, MSI_Range, VoltageScaling;
+	uint8_t LP_run_enabled = 0;
+
 	switch(eclk)
-	{
-		case DEFAULT_CLK:
 		{
-			DisableLPRun();
-//			Default_CLK();
-			  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
-			  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-			  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
-			  __HAL_RCC_PWR_CLK_ENABLE();
-				RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK
-							| RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
-			RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_MSI;
-			RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-			RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
-			RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
-			if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK) {
-				while (1);
-			}
-			  RCC_OscInitStruct.OscillatorType      = RCC_OSCILLATORTYPE_MSI;
-			  RCC_OscInitStruct.MSIState            = RCC_MSI_ON;
-			  RCC_OscInitStruct.HSICalibrationValue = RCC_MSICALIBRATION_DEFAULT;
-			  RCC_OscInitStruct.MSIClockRange       = RCC_MSIRANGE_11;
-			  RCC_OscInitStruct.PLL.PLLState        = RCC_PLL_ON;
-			  RCC_OscInitStruct.PLL.PLLSource       = RCC_PLLSOURCE_MSI;
-			  RCC_OscInitStruct.PLL.PLLM            = 6;
-			  RCC_OscInitStruct.PLL.PLLN            = 40;
-			  RCC_OscInitStruct.PLL.PLLP            = 7;
-			  RCC_OscInitStruct.PLL.PLLQ            = 4;
-			  RCC_OscInitStruct.PLL.PLLR            = 4;
-			  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-			  {
-			    while(1);
-			  }
-			  HAL_RCCEx_EnableMSIPLLMode();
-			  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_USB;
-			  PeriphClkInitStruct.UsbClockSelection = RCC_USBCLKSOURCE_MSI;
-			  HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);
-			  RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
-			  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-			  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-			  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
-			  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
-			  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
-			  {
-			    while(1);
-			  }
-			break;
+			case DEFAULT_CLK:
+				latency = FLASH_LATENCY_2;
+				MSI_Range = RCC_MSIRANGE_11;
+				VoltageScaling = PWR_REGULATOR_VOLTAGE_SCALE1;
+				DisableLPRun();
+				LP_run_enabled = 0;
+				break;
+			case NO_PLL_48MHz_CLK:
+				latency = FLASH_LATENCY_2;
+				MSI_Range = RCC_MSIRANGE_11;
+				VoltageScaling = PWR_REGULATOR_VOLTAGE_SCALE1;
+				DisableLPRun();
+				LP_run_enabled = 0;
+				break;
+			case NO_PLL_32MHz_CLK:
+				latency = FLASH_LATENCY_1;
+				MSI_Range = RCC_MSIRANGE_10;
+				VoltageScaling = PWR_REGULATOR_VOLTAGE_SCALE1;
+				DisableLPRun();
+				LP_run_enabled = 0;
+				break;
+			case NO_PLL_24MHz_CLK:
+				latency = FLASH_LATENCY_3;
+				MSI_Range = RCC_MSIRANGE_9;
+				VoltageScaling = PWR_REGULATOR_VOLTAGE_SCALE2;
+				DisableLPRun();
+				LP_run_enabled = 0;
+				break;
+			case NO_PLL_16MHz_CLK:
+				latency = FLASH_LATENCY_2;
+				MSI_Range = RCC_MSIRANGE_8;
+				VoltageScaling = PWR_REGULATOR_VOLTAGE_SCALE2;
+				DisableLPRun();
+				LP_run_enabled = 0;
+				break;
+			case NO_PLL_8MHz_CLK:
+				latency = FLASH_LATENCY_1;
+				MSI_Range = RCC_MSIRANGE_7;
+				VoltageScaling = PWR_REGULATOR_VOLTAGE_SCALE2;
+				DisableLPRun();
+				LP_run_enabled = 0;
+				break;
+			case NO_PLL_4MHz_CLK:
+				latency = FLASH_LATENCY_0;
+				MSI_Range = RCC_MSIRANGE_6;
+				VoltageScaling = PWR_REGULATOR_VOLTAGE_SCALE2;
+				LP_run_enabled = 0;
+				DisableLPRun();
+				break;
+			case NO_PLL_2MHz_CLK:
+				latency = FLASH_LATENCY_0;
+				MSI_Range = RCC_MSIRANGE_5;
+				EnableLPRun();
+				LP_run_enabled = 1;
+				break;
+			case NO_PLL_1MHz_CLK:
+				latency = FLASH_LATENCY_0;
+				MSI_Range = RCC_MSIRANGE_4;
+				EnableLPRun();
+				LP_run_enabled = 1;
+				break;
+			case NO_PLL_800kHz_CLK:
+				latency = FLASH_LATENCY_0;
+				MSI_Range = RCC_MSIRANGE_3;
+				EnableLPRun();
+				LP_run_enabled = 1;
+				break;
+			case NO_PLL_400kHz_CLK:
+				latency = FLASH_LATENCY_0;
+				MSI_Range = RCC_MSIRANGE_2;
+				EnableLPRun();
+				LP_run_enabled = 1;
+				break;
+			case NO_PLL_200kHz_CLK:
+				latency = FLASH_LATENCY_0;
+				MSI_Range = RCC_MSIRANGE_1;
+				EnableLPRun();
+				LP_run_enabled = 1;
+				break;
+			case NO_PLL_100kHz_CLK:
+				latency = FLASH_LATENCY_0;
+				MSI_Range = RCC_MSIRANGE_0;
+				EnableLPRun();
+				LP_run_enabled = 1;
+				break;
+
 		}
-		case NO_PLL_2MHz_CLK:
-		{
-			EnableLPRun();
-			No_PLL_2MHz();
-			break;
-		}
-		case NO_PLL_1MHz_CLK:
-		{
-			EnableLPRun();
-			No_PLL_1MHz();
-			break;
-		}
-		case NO_PLL_400kHz_CLK:
-		{
-			EnableLPRun();
-			No_PLL_400kHz();
-			break;
-		}
-	}
+
+	  __HAL_RCC_PWR_CLK_ENABLE();
+	  RCC_OscInitStruct.OscillatorType = RCC_RTCCLKSOURCE_NO_CLK;
+	  if(RTC_CLK_SOURCE == RCC_RTCCLKSOURCE_LSE){
+		  RCC_OscInitStruct.LSEState = RCC_LSE_OFF;
+	  }
+	  else if(RTC_CLK_SOURCE == RCC_RTCCLKSOURCE_LSI){
+		  RCC_OscInitStruct.LSIState = RCC_LSI_OFF;
+	  }
+	  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+	  {
+		while(1);
+	  }
+	  RCC_OscInitStruct.OscillatorType      = RCC_OSCILLATORTYPE_MSI;
+	  RCC_OscInitStruct.MSIState            = RCC_MSI_ON;
+	  RCC_OscInitStruct.HSICalibrationValue = RCC_MSICALIBRATION_DEFAULT;
+	  RCC_OscInitStruct.MSIClockRange       = MSI_Range;
+	  RCC_OscInitStruct.PLL.PLLState        = RCC_PLL_OFF;
+	  RCC_OscInitStruct.PLL.PLLSource       = RCC_PLLSOURCE_NONE;
+	  RCC_OscInitStruct.PLL.PLLM            = 6;
+	  RCC_OscInitStruct.PLL.PLLN            = 40;
+	  RCC_OscInitStruct.PLL.PLLP            = 7;
+	  RCC_OscInitStruct.PLL.PLLQ            = 4;
+	  RCC_OscInitStruct.PLL.PLLR            = 4;
+	  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
+	  {
+		while(1);
+	  }
+
+	  RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
+	  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_MSI;
+	  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+	  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+	  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+	  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, latency) != HAL_OK)
+	  {
+		while(1);
+	  }
+	  if(LP_run_enabled == 0){
+		  HAL_PWREx_ControlVoltageScaling(VoltageScaling);
+	  }
+
 }
 
 
@@ -328,7 +396,10 @@ void EnterLowPoweMode(PowerState ePowerState)
 	ResumeFromSleepModes(ePowerState);
 }
 
-
+void ConfigureSetClock(void)
+{
+	SetClkPreset(egclk);
+}
 
 void ResumeFromSleepModes(PowerState ePowerState)
 {
