@@ -665,8 +665,8 @@ void BLE_EVNT_CALLBACK(void * pData)
 	    	  //TODO check if there is a better way to do this, maybe update link ?
 	    	  evt_gatt_procedure_timeout *cc = (void*)blue_evt->data;
 	    	  aci_gap_terminate(cc->conn_handle, ERR_CONNECTION_TIMEOUT);
-	    	  break;
 	    	  handled_evt = 1;
+	    	  break;
 	      }
 	      case EVT_BLUE_ATT_READ_BY_GROUP_TYPE_RESP:
 	       {
