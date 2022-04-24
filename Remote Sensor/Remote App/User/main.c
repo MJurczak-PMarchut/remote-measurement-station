@@ -28,9 +28,11 @@ extern int connected;
 BLE_DEV_DATA *DevData;
 #endif
 extern TIM_HandleTypeDef TimHandle;
+extern volatile uint32_t HCI_ProcessEvent;
 extern void CDC_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim);
 
 /* Exported Variables -------------------------------------------------------------*/
+
 
 uint32_t ConnectionBleStatus  =0;
 
@@ -89,123 +91,79 @@ uint8_t everstarted_flag;
 uint8_t __attribute__((section(".noinit"))) BLE_STANDBY;
 int main(void)
 {
-//	static volatile uint8_t sFlag_2;
-  /* STM32L4xx HAL library initialization:
-  - Configure the Flash prefetch, instruction and Data caches
-  - Configure the Systick to generate an interrupt each 1 msec
-  - Set NVIC Group Priority to 4
-  - Global MSP (MCU Support Package) initialization
-  */
-
-#ifdef FREQUENCY_SWEEP_TEST
-	FreqSweepMain();
-#else
-uint32_t temp;
-uint8_t link_status[8];
-uint16_t conn_handle[8];
-
-GPIO_InitTypeDef GPIO_InitStructure = {0};
-if((BLE_STANDBY != 0) && (BLE_STANDBY != 1))
-{
-	BLE_STANDBY = 0;
-}
-GPIO_InitStructure.Pin = __EVT_GPIO_PIN;
-GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
-GPIO_InitStructure.Pull = GPIO_NOPULL;
-GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-//InitEvtGpioClock();
-//HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
-
-HAL_Init();
-InitEvtGpioClock();
-HAL_GPIO_Init(__EVT_GPIO_PORT, &GPIO_InitStructure);
-HAL_GPIO_WritePin(__EVT_GPIO__, GPIO_PIN_SET);
-MX_RTC_Init();
-__HAL_RCC_PWR_CLK_ENABLE();
-if (__HAL_PWR_GET_FLAG(PWR_FLAG_SB) == RESET)
-{
- 	  __HAL_RCC_PWR_CLK_ENABLE();
-	  __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
-//	  MX_RTC_Init();
-	  HAL_RTCEx_BKUPWrite(&hrtc, RTC_BACKUP_BLE_STATE_REG, 0);
-	  /* Configure the System clock */
-//	  Prepare_for_LPRun();
-//	  HAL_PWREx_EnableLowPowerRunMode();
-	  /* Initialize the BlueNRG */
-	#if defined(HAS_BLUETOOTH)
-	  temp = (HAL_RTCEx_BKUPRead(&hrtc, RTC_BACKUP_BLE_STATE_REG) && RTC_BACKUP_BLE_INITIALIZED);
-	  if (!(HAL_RTCEx_BKUPRead(&hrtc, RTC_BACKUP_BLE_STATE_REG) && RTC_BACKUP_BLE_INITIALIZED))
-	  {
-		  BLE_INIT_SPEC();
-	  }
-	  SetNextClkPreset(NO_PLL_800kHz_CLK);
-	#else
-//	  TOGGLE_EVENT_PIN();
-	  if(BLE_STANDBY == 0){
-		  BLE_STANDBY = 1;
-		  InitBLEAndSetItToStandby();
-	  }
-	  TOGGLE_EVENT_PIN();
-//	  HAL_Delay(20);
-	#endif
-
-	#if defined(HAS_BLUETOOTH)
-	  BLE_ADD_SERVICES();
-	  ClkDependentInit();
-	//  setHCI_Event_var(&HCI_ProcessEvent);
-	#endif
-	  /* initialize timers */
-	  InitTimers();
-	  StartTime = HAL_GetTick();
-	  HAL_NVIC_SetPriority(TIM1_CC_IRQn, 0, 0);
-	  InitTimer2(&htim2);
-	  /* Infinite loop */
-	  SetWkupContextPointer(&sWkupContext);
-	#if defined(RTC_WKUP_INTERNAL)
-	  SetHrtcPointer(&hrtc);
-	  __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
-	#endif
-}
-else{
-	__HAL_RCC_PWR_CLK_ENABLE();
-//	__HAL_RCC_RTC_ENABLE();
-    HAL_PWR_EnableBkUpAccess();
-	__HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
-	__HAL_PWR_CLEAR_FLAG(PWR_FLAG_WUFI);
-	__HAL_PWR_CLEAR_FLAG(PWR_FLAG_SB);
-	HAL_RTCEx_DeactivateWakeUpTimer(&hrtc);
-	SetHrtcPointer(&hrtc);
-	HAL_NVIC_SetPriority(TIM1_CC_IRQn, 0, 0);
-	ConfigureSetClock();
-	ClkDependentInit();
-	if(IsDataAvailable())
+	//	static volatile uint8_t sFlag_2;
+	/* STM32L4xx HAL library initialization:
+	  - Configure the Flash prefetch, instruction and Data caches
+	  - Configure the Systick to generate an interrupt each 1 msec
+	  - Set NVIC Group Priority to 4
+	  - Global MSP (MCU Support Package) initialization
+	 */
+	GPIO_InitTypeDef GPIO_InitStructure = {0};
+	uint32_t start_time;
+	if((BLE_STANDBY != 0) && (BLE_STANDBY != 1))
 	{
-		hci_tl_lowlevel_isr();
+		BLE_STANDBY = 0;
 	}
-}
-HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN5_HIGH);
+	connected = 0;
+	GPIO_InitStructure.Pin = __EVT_GPIO_PIN;
+	GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStructure.Pull = GPIO_NOPULL;
+	GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+	//InitEvtGpioClock();
+	//HAL_GPIO_Init(GPIOC, &GPIO_InitStructure);
 
-//TOGGLE_EVENT_PIN();
-		while (1) {
-//			TOGGLE_EVENT_PIN();
-	#if defined(HAS_BLUETOOTH)
-			Process_BLE_Conn();
-//			CheckBufferAndSend();
-	#endif
-//			TestPayload(); // Test power consumption
-	#if defined(HAS_BLUETOOTH)
-			if (HCI_ProcessEvent) {
-				HCI_ProcessEvent = 0;
-				hci_user_evt_proc();
+	HAL_Init();
+	InitEvtGpioClock();
+	HAL_GPIO_Init(__EVT_GPIO_PORT, &GPIO_InitStructure);
+	HAL_GPIO_WritePin(__EVT_GPIO__, GPIO_PIN_SET);
+	InitBoard();
+	__HAL_RCC_PWR_CLK_ENABLE();
+	__HAL_RCC_PWR_CLK_ENABLE();
+	__HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
+	BSP_LED_Init(LED1);
+//	ClkDependentInit();
+	BLE_INIT_SPEC();
+	BLE_ADD_SERVICES();
+	/* initialize timers */
+	InitTimers();
+	StartTime = HAL_GetTick();
+	HAL_NVIC_SetPriority(TIM1_CC_IRQn, 0, 0);
+	InitTimer2(&htim2);
+	/* Infinite loop */
+	SetWkupContextPointer(&sWkupContext);
+	HAL_PWR_EnableWakeUpPin(PWR_WAKEUP_PIN5_HIGH);
+	//TOGGLE_EVENT_PIN();
+	start_time = HAL_GetTick();
+	while (1) {
+		if(connected ==1){
+			if(CheckConnStatus() == HAL_ERROR)
+			{
+				BLE_INIT_SPEC();
+				BLE_ADD_SERVICES();
+				connected = 0;
 			}
-	#endif
-//			CycleLPowerStates();
-			TOGGLE_EVENT_PIN();
-			EnterLowPoweMode(PS_STANDBY);
-//			HAL_NVIC_SystemReset();
-
+		}
+		//TOGGLE_EVENT_PIN();
+#if defined(HAS_BLUETOOTH)
+		Process_BLE_Conn();
+		CheckBufferAndSend();
+#endif
+		//TestPayload(); // Test power consumption
+#if defined(HAS_BLUETOOTH)
+		if (HCI_ProcessEvent) {
+			HCI_ProcessEvent = 0;
+			hci_user_evt_proc();
+		}
+		if((HAL_GetTick() - start_time) > 200)
+		{
+			if(GET_DECODER_STATE() == BLE_IDLE){
+				UpdateCharacteristics();
+				start_time = HAL_GetTick();
+			}
 		}
 #endif
+		TOGGLE_EVENT_PIN();
+	}
 }
 
 /**
@@ -304,14 +262,11 @@ void Process_BLE_Conn(void)
 		  hci_user_evt_proc();
 		  if(connected == 0x10){
 			  connected = 1;
-			  SET_DECODER_STATE(BLE_IDLE);
-//			  	StartTime = HAL_GetTick();
-//			  	while(HAL_GetTick()-StartTime < 3000){
-			          if(HCI_ProcessEvent){
-			        	  StartTime = HAL_GetTick();
-			    		  HCI_ProcessEvent=0;
-			    		  hci_user_evt_proc();
-//			          }
+//			  SET_DECODER_STATE(BLE_IDLE);
+			  if(HCI_ProcessEvent){
+				  StartTime = HAL_GetTick();
+				  HCI_ProcessEvent=0;
+				  hci_user_evt_proc();
 			  	}
 		  }
       }
@@ -340,6 +295,7 @@ void SystemClock_Config(void)
   
   __HAL_RCC_PWR_CLK_ENABLE();
   
+#ifdef USE_RTC
   /* Enable the LSE Oscilator */
   RCC_OscInitStruct.OscillatorType = RTC_CLK_SOURCE;
   if(RTC_CLK_SOURCE == RCC_RTCCLKSOURCE_LSE){
@@ -348,6 +304,7 @@ void SystemClock_Config(void)
   else if(RTC_CLK_SOURCE == RCC_RTCCLKSOURCE_LSI){
 	  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   }
+#endif
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     while(1);
@@ -481,6 +438,7 @@ void MX_RTC_Init(void)
 	  __HAL_RCC_PWR_CLK_ENABLE();
 
 //	  HAL_PWR_EnableBkUpAccess();
+#ifdef USE_RTC
 	  if(RTC_CLK_SOURCE == RCC_RTCCLKSOURCE_LSE){
 		  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSE;
 		  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
@@ -489,12 +447,15 @@ void MX_RTC_Init(void)
 		  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI;
 		  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
 	  }
+#endif
 	  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
 	  {
 	    while(1);
 	  }
 	  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_RTC;
+#ifdef USE_RTC
 	  PeriphClkInit.RTCClockSelection = RTC_CLK_SOURCE;
+#endif
 	  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
 	  {
 	    Error_Handler();
@@ -527,12 +488,14 @@ void SetSysFrequency(void)
 
 	  __HAL_RCC_PWR_CLK_ENABLE();
 	  RCC_OscInitStruct.OscillatorType = RCC_RTCCLKSOURCE_NO_CLK;
+#ifdef USE_RTC
 	  if(RTC_CLK_SOURCE == RCC_RTCCLKSOURCE_LSE){
 		  RCC_OscInitStruct.LSEState = RCC_LSE_OFF;
 	  }
 	  else if(RTC_CLK_SOURCE == RCC_RTCCLKSOURCE_LSI){
 		  RCC_OscInitStruct.LSIState = RCC_LSI_OFF;
 	  }
+#endif
 	  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
 	  {
 	    while(1);

@@ -201,12 +201,14 @@ void SetClkPreset(CLK_SPEED eclk)
 
 	  __HAL_RCC_PWR_CLK_ENABLE();
 	  RCC_OscInitStruct.OscillatorType = RCC_RTCCLKSOURCE_NO_CLK;
+#ifdef USE_RTC
 	  if(RTC_CLK_SOURCE == RCC_RTCCLKSOURCE_LSE){
 		  RCC_OscInitStruct.LSEState = RCC_LSE_OFF;
 	  }
 	  else if(RTC_CLK_SOURCE == RCC_RTCCLKSOURCE_LSI){
 		  RCC_OscInitStruct.LSIState = RCC_LSI_OFF;
 	  }
+#endif
 	  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
 	  {
 		while(1);

@@ -180,7 +180,7 @@ void hci_init(void(* UserEvtRx)(void* pData), void* pConf)
 void hci_gpio_init(void* pconf)
 {
 	  if (hciContext.io.Init)  hciContext.io.Init(pconf);
-//	  if (hciContext.io.Reset) hciContext.io.Reset();
+	  if (hciContext.io.Reset) hciContext.io.Reset();
 }
 void hci_gpio_reset(void)
 {

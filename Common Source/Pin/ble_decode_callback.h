@@ -54,6 +54,10 @@ void BLE_INIT_SPEC(void);
 tBleStatus BLE_ADD_SERVICES(void);
 HAL_StatusTypeDef BLE_WAIT_FOR_TX_POOL(void);
 
+HAL_StatusTypeDef CheckConnStatus(void);
+void UpdateConnectionStatus(void);
+
+
 #endif
 void InitBLEAndSetItToStandby(void);
 #endif /* ST_BLUENRG_MS_INCLUDES_BLE_DECODE_CALLBACK_H_ */

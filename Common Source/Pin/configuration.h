@@ -177,14 +177,13 @@
 		/*which characteristics should be visible for data transfer*/
 		#define GYRO_CHAR
 		#define ACCEL_CHAR
-		#define BL_PIN_CODE 854124
 	#endif
 #endif
 #if defined(BOARD_SENSORTILE)
 /*
  * RTC settings
  */
-#define USE_RTC
+//#define USE_RTC
 
 #if defined(USE_RTC)
 

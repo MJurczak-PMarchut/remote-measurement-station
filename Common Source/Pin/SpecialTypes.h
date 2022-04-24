@@ -81,12 +81,12 @@ typedef struct {
 
 }BLE_UUID_MATCH_DATA_STRUCT;
 
-
 typedef struct {
 
 	uint16_t CharHandle ;
 	uint8_t  CharProperties ;
 	uint16_t CharValueHandle ;
+
 
 } CharIDData;
 

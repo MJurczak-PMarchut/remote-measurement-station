@@ -13,6 +13,7 @@
 
 #include "hci.h"
 
+
 uint8_t TxBuffer[TX_BUFFER_SIZE];
 void* BLESendBuffer(void);
 
@@ -537,10 +538,10 @@ void UpdateCharacteristics(void)
 
 
 	BLE_GET_DEV_DATA(&DevData);
-
-	len = sprintf((char *)Message,"Akcelerometr x: %d y: %d z: %d\n", rptr->acc.x, rptr->acc.y, rptr->acc.z);
+	BLE_UPDATE_CHAR(&DevData->sServiceIDData[BLE_SENS_SERVICE], &DevData->sCharIDData[BLE_ACC_CHAR], 3*4, (uint8_t *)&rptr->acc, NULL);
+//	len = sprintf((char *)Message,"Akcelerometr x: %d y: %d z: %d\n", rptr->acc.x, rptr->acc.y, rptr->acc.z);
 //	len = 4;
-	SendToBLESerial(Message, len);
+//	SendToBLESerial(Message, len);
 
 	}
 }
@@ -550,14 +551,14 @@ void UpdateCharacteristics(void)
 //uint32_t *pHCI_ProcessEvent;
 
 extern volatile uint32_t HCI_ProcessEvent;
-//void setHCI_Event_var(uint32_t* puin)
+//void setHCI_Event_var(volatile uint32_t* puin)
 //{
 //	pHCI_ProcessEvent = puin;
 //}
 
 void SendToBLESerial(unsigned char *string, unsigned char len)
 {
-//static uint32_t past, present;
+static uint32_t time;
 
 //TODO it will probably be better to send max 15 characters each time, as notification has a data limit of around 20
 //	while(GET_DECODER_STATE() != BLE_IDLE){
@@ -569,12 +570,17 @@ void SendToBLESerial(unsigned char *string, unsigned char len)
 //	}
 //	present = htim2.Instance->CNT;
 #if defined(HAS_BLUETOOTH)
+	time = HAL_GetTick();
 	while(PutDataToBuffer((char *)string, len) == 1){ //TODO Check if ok
 		if(HCI_ProcessEvent)
 			{
 			  HCI_ProcessEvent=0;
 			  hci_user_evt_proc();
 			}
+		if((HAL_GetTick() - time) > 1000)
+		{
+			//Timeout
+		}
 	}
 #endif
 //	past  = htim2.Instance->CNT;
@@ -584,10 +590,10 @@ void ClkDependentInit(void)
 {
 	  InitTimer2(&htim2);
 #if defined(HAS_BLUETOOTH)
-//	  hci_tl_lowlevel_init();
-//	  hci_gpio_init(NULL);
+	  hci_tl_lowlevel_init();
+	  hci_gpio_init(NULL);
 	  hci_init(BLE_EVNT_CALLBACK, NULL);
-//	  hci_gpio_reset();
+	  hci_gpio_reset();
 #endif
 	  /*
 	   * ART Accelerator
@@ -598,7 +604,7 @@ void ClkDependentInit(void)
    __HAL_FLASH_PREFETCH_BUFFER_ENABLE();
 #endif
 
-//	  InitBoard();
+	  InitBoard();
 
 }
 
@@ -768,6 +774,7 @@ void CycleLPowerStates(void)
     RTC_HandleTypeDef RtcHandle;
 	PowerState ePowerState = PS_LP_SLEEP;
 	TOGGLE_EVENT_PIN();
+#ifdef USE_RTC
     RtcHandle.Instance = RTC;
     if(HAL_RTCEx_BKUPRead(&RtcHandle, RTC_BACKUP_POWER_STATE_WRITTEN_REG) == RTC_BACKUP_POWER_STATE_WRITTEN){
     	ePowerState = (PowerState)HAL_RTCEx_BKUPRead(&RtcHandle, RTC_BACKUP_POWER_STATE_REG);
@@ -776,10 +783,12 @@ void CycleLPowerStates(void)
     	ePowerState = PS_LP_SLEEP;
         HAL_RTCEx_BKUPWrite(&RtcHandle, RTC_BACKUP_POWER_STATE_WRITTEN_REG, RTC_BACKUP_POWER_STATE_WRITTEN);
     }
+
     TOGGLE_EVENT_PIN();
     ePowerState = (ePowerState > PS_SHUTDOWN)? PS_LP_SLEEP:ePowerState;
     HAL_RTCEx_BKUPWrite(&RtcHandle, RTC_BACKUP_POWER_STATE_REG, (uint32_t)ePowerState + 1);
     EnterLowPoweMode(ePowerState);
+#endif
 
 }
 

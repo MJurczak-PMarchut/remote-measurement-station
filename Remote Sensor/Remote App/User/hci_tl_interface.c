@@ -51,7 +51,7 @@
 #define TIMEOUT_DURATION  15U
 
 EXTI_HandleTypeDef hexti5;
-volatile uint32_t HCI_ProcessEvent;
+extern volatile uint32_t HCI_ProcessEvent;
 
 /******************** IO Operation and BUS services ***************************/
 
@@ -310,12 +310,18 @@ void hci_tl_lowlevel_isr(void)
 {
   /* Call hci_notify_asynch_evt() */
 #ifdef HCI_TL
+  uint32_t time = 0;
   while(IsDataAvailable())
   {        
     if(hci_notify_asynch_evt(NULL)) {
       return;
 	}
     HCI_ProcessEvent=1;
+    time++;
+    if(time > 10)
+    {
+    	break;
+    }
   }
 #endif /* HCI_TL */
 

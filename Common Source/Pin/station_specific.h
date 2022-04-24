@@ -45,7 +45,7 @@ void PurgeSerialBuffer(void);
 	void UpdateCharacteristics(void);
 	void ClkDependentInit(void);
 	void SendToBLESerial(unsigned char *string, unsigned char len);
-	void setHCI_Event_var(uint32_t* puin);
+	void setHCI_Event_var(volatile uint32_t* puin);
 	void InitEvtGpioClock(void);
 	void CycleLPowerStates(void);
 
